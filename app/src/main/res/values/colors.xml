@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#201f23</color>
+    <color name="colorPrimaryDark">#1a191c</color>
+    <color name="colorAccent">#fff06292</color>
+    <color name="divider">#10000000</color>
+    <color name="textNormal">#757575</color>
+    <color name="textLight">#50000000</color>
+    <color name="textDark">#616161</color>
+    <color name="mediumGray">#BDBDBD</color>
+    <color name="lightGray">#EEEEEE</color>
+    <color name="lighterGray">#FFFAFAFA</color>
+    <color name="page_indicator_dark">#80333333</color>
+    <color name="page_indicator_dark_selected">#ff333333</color>
+    <color name="text_secondary_dark">#8a000000</color> <!-- 54% -->
+    <color name="background_light">#fafafa</color>
+    <color name="translucent_bars">#66000000</color>
+    <color name="translucent_black">#20000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="scrim">#99323232</color>
+    <color name="placeholder_color_1">@color/colorPrimary</color>
+    <color name="placeholder_color_2">#1F1F1F</color>
+    <color name="placeholder_color_3">#1C1C1C</color>
+    <color name="content_event_place1">#ffe6e6e7</color>
+</resources>
