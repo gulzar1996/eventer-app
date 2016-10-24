@@ -34,5 +34,29 @@
     </style>
 
 
+
+    <style name="TextAppearance.About" parent="@android:style/TextAppearance.Material.Body1">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/text_secondary_dark</item>
+    </style>
+    <style name="TextAppearance.CommentAuthor" parent="@android:style/TextAppearance.Material.Caption">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFeatureSettings">smcp, onum</item>
+        <item name="android:letterSpacing">0.02</item>
+    </style>
+
+    <style name="Widget.Plaid" parent="android:Widget" />
+    <style name="Widget.Plaid.InlineActionButton" parent="@android:style/Widget.Material.Button">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textAppearance">@style/TextAppearance.CommentAuthor</item>
+        <item name="android:background">?android:selectableItemBackgroundBorderless</item>
+        <item name="android:drawablePadding">@dimen/spacing_micro</item>
+
+    </style>
+
+
+
     <color name="lightPink">#f8bbd0</color>
+    <dimen name="spacing_micro">4dp</dimen>
 </resources>

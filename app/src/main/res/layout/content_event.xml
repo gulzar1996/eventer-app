@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/lightGray"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+
+    <RelativeLayout
+        android:id="@+id/event_content_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="1"
+        android:clipToPadding="false"
+        tools:alpha="1"
+        android:background="#f7f7f7">
+
+
+        <com.geteventer.eventer.common.FontTextView
+            android:id="@+id/textview_event_name"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginBottom="4dp"
+            android:gravity="center|left"
+            android:paddingLeft="16dp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20sp"
+            android:background="@color/content_event_place1"
+            app:weight="semibold"
+            tools:text="Im poor man with lot of money"/>
+        <include
+            android:id="@+id/event_register_like_notify_message"
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            layout="@layout/event_register_like_notify_message"
+            android:layout_below="@+id/textview_event_name"/>
+        <View
+            android:id="@+id/divider_top"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/event_register_like_notify_message"
+            android:background="@color/divider"/>
+
+
+
+        <LinearLayout
+            android:background="@android:color/white"
+            android:layout_below="@+id/event_register_like_notify_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:typeface="monospace"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:layout_margin="2dp"
+                android:text="23 October, 2016"
+                android:clickable="true"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@id/event_register_like_notify_message"
+                android:background="@color/divider"/>
+            <com.geteventer.eventer.common.FontTextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="1dp"
+                android:gravity="center|left"
+                android:paddingLeft="16dp"
+                android:textColor="@color/textDark"
+                android:textSize="17sp"
+                app:weight="regular"
+                android:text="Prize"/>
+            <com.geteventer.eventer.common.FontTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:gravity="center|left"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:textColor="@color/textDark"
+                android:textSize="16sp"
+                app:weight="bold"
+                android:drawableLeft="@drawable/ic_prize"
+                android:drawableTint="@color/cardview_dark_background"
+                android:text=" \u20B9 10,000"/>
+            <com.geteventer.eventer.common.FontTextView
+                android:paddingTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="4dp"
+                android:gravity="center|left"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:textColor="@color/textDark"
+                android:textSize="16sp"
+                app:weight="semibold"
+                android:text="Game of fist. First one to get knocked out elminated.The process is tedious. Developed by Gulzar"/>
+            <com.geteventer.eventer.common.FontTextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="1dp"
+                android:gravity="center|left"
+                android:paddingLeft="16dp"
+                android:textColor="@color/textDark"
+                android:textSize="18sp"
+                app:weight="regular"
+                android:text="Rules"/>
+            <com.geteventer.eventer.common.FontTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="4dp"
+                android:gravity="center|left"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:textColor="@color/textDark"
+                android:textSize="16sp"
+                app:weight="light"
+                android:text="Only Adults\nNo place for faint heart\nNo miserOnly Adults\nNo place for faint heart\nNo miserOnly Adults\nNo place for faint heart\nNo miser"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</android.support.v4.widget.NestedScrollView>

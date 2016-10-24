@@ -22,6 +22,10 @@
             android:theme="@style/AppTheme.SignIn"
             android:windowSoftInputMode="stateVisible|adjustResize"
             />
+        <activity android:name=".Event.EventActivity"
+            android:theme="@style/AppTheme.TranslucentBars"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".MainActivity"/>
     </application>
 
 </manifest>
