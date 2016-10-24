@@ -129,7 +129,6 @@ public class SignInSignUp extends AppCompatActivity {
             mPasswordField.setError(null);}
         return result;
     }
-
     public void toggleProgressVisibility() {
         if(mProgressBar.getVisibility()==View.INVISIBLE)
         {
