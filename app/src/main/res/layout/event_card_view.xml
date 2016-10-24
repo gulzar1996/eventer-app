@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageview_shot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:src="@drawable/grid_item_placeholder"/>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_below="@id/imageview_shot"
+        android:background="@color/divider"/>
+
+    <RelativeLayout
+        android:background="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/divider"
+        android:gravity="center">
+
+        <com.geteventer.eventer.common.FontTextView
+            android:id="@+id/textview_shot_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginRight="28dp"
+            android:gravity="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="20dp"
+            app:weight="semibold"
+            tools:text="Im poor maddn with lot of money"/>
+
+        <com.geteventer.eventer.common.FontTextView
+            android:id="@+id/textview_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textview_shot_name"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="2dp"
+            android:text="@string/colage_name"
+            />
+
+        <com.geteventer.eventer.common.FontTextView
+            android:id="@+id/textview_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textview_location"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="24dp"
+            android:textColor="@color/textLight"
+            android:text="February 28, 2016"/>
+
+
+        <RelativeLayout
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textview_date">
+            <com.geteventer.eventer.common.FontTextView
+                android:id="@+id/textview_attending_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="26dp"
+                android:layout_marginRight="26dp"
+                android:drawableLeft="@drawable/ic_attending"
+                android:drawablePadding="4dp"
+                android:drawableTint="@color/textNormal"
+                android:gravity="center"
+                android:text="133"/>
+            <com.geteventer.eventer.common.FontTextView
+                android:id="@+id/textview_likes_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/textview_attending_count"
+                android:drawableLeft="@drawable/ic_likes"
+                android:drawablePadding="4dp"
+                android:drawableTint="@color/textNormal"
+                android:gravity="center"
+                android:text="45"/>
+
+            <com.geteventer.eventer.common.FontTextView
+                android:id="@+id/textview_first_prize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/textview_attending_count"
+                android:drawableLeft="@drawable/ic_prize"
+                android:drawablePadding="4dp"
+                android:drawableTint="@color/textNormal"
+                android:gravity="center"
+                android:text="\u20B9 10,000"/>
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

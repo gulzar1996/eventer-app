@@ -3,24 +3,32 @@
     package="com.geteventer.eventer">
 
     <application
+        android:name=".EventerApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:name=".util.AppController"
         >
-        <activity android:name=".SignIn.SignInSignUp"
-            android:theme="@style/AppTheme.SignIn"
-            android:windowSoftInputMode="stateVisible|adjustResize">
+        <activity android:name=".MainActivity"
+            android:theme="@style/AppTheme.TranslucentBars"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+<<<<<<< HEAD
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+=======
+        <activity android:name=".SignIn.SignInSignUp"
+            android:theme="@style/AppTheme.SignIn"
+            android:windowSoftInputMode="stateVisible|adjustResize"
+            />
+>>>>>>> ba51818f4fb2fcc9a1cbfe9fdc403f7a59c1cbcf
     </application>
 
 </manifest>
