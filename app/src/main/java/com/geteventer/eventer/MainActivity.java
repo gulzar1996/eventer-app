@@ -3,10 +3,12 @@ package com.geteventer.eventer;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -15,6 +17,8 @@ import android.widget.ImageView;
 import com.geteventer.eventer.Deck.DeckFragment;
 import com.geteventer.eventer.SignIn.SignInSignUp;
 import com.geteventer.eventer.util.ViewUtils;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 
@@ -26,6 +30,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG ="authxxx" ;
     @BindView(R.id.container)
     View mContainer;
     @BindView(R.id.ic_stack)
@@ -41,13 +46,25 @@ public class MainActivity extends AppCompatActivity {
         mAnimation.setDuration(200);
     }
 
-
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {@Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                } else {
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                }
+            }
+        };
 
         mFragments.put(TAG_DECK_FRAGMENT, DeckFragment.newInstance());
         
@@ -58,6 +75,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     @OnClick(R.id.user) public void onUserClicked() {
+        //Temp
+        mAuth.signOut();
         startActivity(new Intent(this, SignInSignUp.class));
         bottomBarIcons(mic_stack,mic_user,2);
     }
@@ -104,5 +123,18 @@ public class MainActivity extends AppCompatActivity {
                     .commit();
         }
         //if (tag.equals(TAG_DECK_FRAGMENT)) showBottomBar(true);
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);}
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
     }
 }
