@@ -1,6 +1,8 @@
 package com.geteventer.eventer.SignIn;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -12,6 +14,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -19,6 +22,7 @@ import android.widget.Toast;
 
 import com.geteventer.eventer.JsonApi.ServerCallback;
 import com.geteventer.eventer.JsonApi.ValidateReg;
+import com.geteventer.eventer.MainActivity;
 import com.geteventer.eventer.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -274,6 +278,8 @@ public class SignInSignUp extends AppCompatActivity {
                         else
                         {
                             // open new activity
+                            startActivity(new Intent(SignInSignUp.this, MainActivity.class));
+                            finish();
                         }
                         toggleProgressVisibility();
 
@@ -292,6 +298,7 @@ public class SignInSignUp extends AppCompatActivity {
     {
         if(!validateForm())
             return;
+        hideSoftKeyboard(this);
         //initialize variables
         initVar();
         signUp();
@@ -301,11 +308,19 @@ public class SignInSignUp extends AppCompatActivity {
     {
         if(!validateForm())
             return;
+        hideSoftKeyboard(this);
         //initialize variables
         initVar();
         signIn(email,pswd);
     }
 
+    public static void hideSoftKeyboard(Activity activity) {
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) activity.getSystemService(
+                        Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(
+                activity.getCurrentFocus().getWindowToken(), 0);
+    }
 
 
 }

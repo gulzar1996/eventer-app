@@ -10,8 +10,10 @@
         android:supportsRtl="true"
         android:name=".EventerApp"
         >
-        <activity android:name=".MainActivity"
-            android:theme="@style/AppTheme.TranslucentBars"
+        <activity android:name=".SignIn.SignInSignUp"
+
+            android:theme="@style/AppTheme.SignIn"
+            android:windowSoftInputMode="stateVisible|adjustResize"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,9 +21,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignIn.SignInSignUp"
-            android:theme="@style/AppTheme.SignIn"
-            android:windowSoftInputMode="stateVisible|adjustResize"
+        <activity android:name=".MainActivity"
+            android:theme="@style/AppTheme.TranslucentBars"
+
             />
 
         <activity android:name=".Event.EventActivity"
@@ -31,6 +33,19 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
+
+        <service
+            android:name=".Messaging.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+        <!--<service-->
+            <!--android:name=".Messaging.MyFirebaseInstanceIDService">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>-->
+            <!--</intent-filter>-->
+        <!--</service>-->
 
     </application>
 
