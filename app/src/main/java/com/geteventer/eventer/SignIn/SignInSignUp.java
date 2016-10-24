@@ -3,6 +3,7 @@ package com.geteventer.eventer.SignIn;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -14,9 +15,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.geteventer.eventer.JsonApi.ServerCallback;
+import com.geteventer.eventer.JsonApi.ValidateReg;
 import com.geteventer.eventer.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.pixelcan.inkpageindicator.InkPageIndicator;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,12 +49,40 @@ public class SignInSignUp extends AppCompatActivity {
     @BindView(R.id.email_password_fields) View memail_password_fields;
     @BindView(R.id.email_password_buttons) View memail_password_buttons;
     @BindView(R.id.progressbar) ProgressBar mProgressBar;
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private String TAG = "SignInSignUp";
+    public String regNo, pswd ,email;
+
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signin_activity);
         ButterKnife.bind(this);
+        /*
+            firebase auth start
+         */
+        // [initialize firebase instance]
+        mAuth = FirebaseAuth.getInstance();
+        // [initalize firebase listener]
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                } else {
+                    // User is signed out
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                }
+            }
+        };
+        /*
+            end firebase auth
+         */
 
         //Setting Up page adapter
         MyPagerAdapter adapter = new MyPagerAdapter();
@@ -48,19 +90,19 @@ public class SignInSignUp extends AppCompatActivity {
         mindicator.setViewPager(mViewPager);
     }
 
-
-    @OnClick(R.id.button_sign_up)void signupButton()
-    {
-        if(!validateForm())
-            return;
-        toggleProgressVisibility();
-    }
-    @OnClick(R.id.button_sign_in)void signinButton()
-    {
-        if(!validateForm())
-            return;
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
+    }
 
     //Page Adapter
     private class MyPagerAdapter extends PagerAdapter {
@@ -130,6 +172,8 @@ public class SignInSignUp extends AppCompatActivity {
             mPasswordField.setError(null);}
         return result;
     }
+
+
     public void toggleProgressVisibility() {
         if(mProgressBar.getVisibility()==View.INVISIBLE)
         {
@@ -145,5 +189,123 @@ public class SignInSignUp extends AppCompatActivity {
         }
 
     }
+
+    /*
+        user autentication system
+    */
+    void initVar()
+    {
+        regNo=mRegField.getText().toString();
+        pswd=mPasswordField.getText().toString();
+        email=regNo+"@eventer.in";
+    }
+
+    // [create user with email and password ]
+    private void signUp()
+    {
+        toggleProgressVisibility();
+        Log.d(TAG, regNo+pswd);
+        ValidateReg vr=new ValidateReg();
+        //Controller
+        vr.validateRegJSON(regNo,pswd, new ServerCallback() {
+            @Override
+            public void onSuccessResult(JSONObject result) {
+
+
+                try {
+                    String r = result.getJSONArray("items").getString(0);
+                    JSONObject n = new JSONObject(r);
+                    String f = n.getString("result");
+
+                    if (f.equalsIgnoreCase("login failed"))
+                        Toast.makeText(SignInSignUp.this, "INVALID CREDENTIALS!!!", Toast.LENGTH_SHORT).show();
+                    else {
+                        createUser(email,pswd);
+                    }
+                } catch (Exception e) {
+
+                }
+                toggleProgressVisibility();
+
+            }
+        });
+
+    }
+
+    private void createUser(String email,String password)
+    {
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
+
+                        // If sign in fails, display a message to the user. If sign in succeeds
+                        // the auth state listener will be notified and logic to handle the
+                        // signed in user can be handled in the listener.
+                        if (!task.isSuccessful()) {
+                            Toast.makeText(SignInSignUp.this, "Wrong Credentials",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
+                        // ...
+                    }
+                });
+    }
+    // [end create user with email and password ]
+
+    //[sign in user with email and password]
+    private void signIn(String email, String password)
+    {
+        toggleProgressVisibility();
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
+
+                        // If sign in fails, display a message to the user. If sign in succeeds
+                        // the auth state listener will be notified and logic to handle the
+                        // signed in user can be handled in the listener.
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "signInWithEmail:failed", task.getException());
+                            Toast.makeText(SignInSignUp.this, "Wrong Credentials", Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            // open new activity
+                        }
+                        toggleProgressVisibility();
+
+
+                        // ...
+                    }
+                });
+    }
+    //[end sign in user with email and password]
+    /*
+        end user autentication system
+     */
+
+
+    @OnClick(R.id.button_sign_up)void signupButton()
+    {
+        if(!validateForm())
+            return;
+        //initialize variables
+        initVar();
+        signUp();
+
+    }
+    @OnClick(R.id.button_sign_in)void signinButton()
+    {
+        if(!validateForm())
+            return;
+        //initialize variables
+        initVar();
+        signIn(email,pswd);
+    }
+
+
 
 }
