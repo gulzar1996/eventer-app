@@ -52,7 +52,7 @@ public class SignInSignUp extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private String TAG = "SignInSignUp";
-    private String uid;
+    public String regNo, pswd ,email;
 
 
 
@@ -78,7 +78,6 @@ public class SignInSignUp extends AppCompatActivity {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
                 }
-                // ...
             }
         };
         /*
@@ -104,100 +103,6 @@ public class SignInSignUp extends AppCompatActivity {
             mAuth.removeAuthStateListener(mAuthListener);
         }
     }
-
-
-    @OnClick(R.id.button_sign_up)void signupButton()
-    {
-        if(!validateForm())
-            return;
-
-        toggleProgressVisibility();
-    }
-    @OnClick(R.id.button_sign_in)void signinButton()
-    {
-        if(!validateForm())
-            return;
-    }
-
-    // [create user with email and password ]
-    private void SignUp()
-    {
-        String regNo=mRegField.getText().toString();
-        final String pswd=mPasswordField.getText().toString();
-        Log.i("XXX",regNo+pswd);
-
-        ValidateReg vr=new ValidateReg();
-        //Controller
-        vr.validateRegJSON(regNo,pswd, new ServerCallback() {
-            @Override
-            public void onSuccessResult(JSONObject result) {
-
-
-                try {
-                    String r = result.getJSONArray("items").getString(0);
-                    JSONObject n = new JSONObject(r);
-                    String f = n.getString("result");
-
-
-                    Log.d("XOXOO", f);
-
-                    if (f.equalsIgnoreCase("login failed"))
-                        Toast.makeText(SignInSignUp.this, "INVALID CREDENTIALS!!!", Toast.LENGTH_SHORT).show();
-                    else {
-
-                    }
-                } catch (Exception e) {
-
-                }
-
-            }
-        });
-    }
-
-    private void createUser(String email,String password)
-    {
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
-
-                        // If sign in fails, display a message to the user. If sign in succeeds
-                        // the auth state listener will be notified and logic to handle the
-                        // signed in user can be handled in the listener.
-                        if (!task.isSuccessful()) {
-                            Toast.makeText(SignInSignUp.this, "Wrong Credentials",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-
-                        // ...
-                    }
-                });
-    }
-    // [end create user with email and password ]
-
-    //[sign in user with email and password]
-    private void signIn(String email, String password)
-    {
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
-
-                        // If sign in fails, display a message to the user. If sign in succeeds
-                        // the auth state listener will be notified and logic to handle the
-                        // signed in user can be handled in the listener.
-                        if (!task.isSuccessful()) {
-                            Log.w(TAG, "signInWithEmail:failed", task.getException());
-                            Toast.makeText(SignInSignUp.this, "Wrong Credentials", Toast.LENGTH_SHORT).show();
-                        }
-
-                        // ...
-                    }
-                });
-    }
-    //[end sign in user with email and password]
 
     //Page Adapter
     private class MyPagerAdapter extends PagerAdapter {
@@ -267,6 +172,8 @@ public class SignInSignUp extends AppCompatActivity {
             mPasswordField.setError(null);}
         return result;
     }
+
+
     public void toggleProgressVisibility() {
         if(mProgressBar.getVisibility()==View.INVISIBLE)
         {
@@ -282,5 +189,123 @@ public class SignInSignUp extends AppCompatActivity {
         }
 
     }
+
+    /*
+        user autentication system
+    */
+    void initVar()
+    {
+        regNo=mRegField.getText().toString();
+        pswd=mPasswordField.getText().toString();
+        email=regNo+"@eventer.in";
+    }
+
+    // [create user with email and password ]
+    private void signUp()
+    {
+        toggleProgressVisibility();
+        Log.d(TAG, regNo+pswd);
+        ValidateReg vr=new ValidateReg();
+        //Controller
+        vr.validateRegJSON(regNo,pswd, new ServerCallback() {
+            @Override
+            public void onSuccessResult(JSONObject result) {
+
+
+                try {
+                    String r = result.getJSONArray("items").getString(0);
+                    JSONObject n = new JSONObject(r);
+                    String f = n.getString("result");
+
+                    if (f.equalsIgnoreCase("login failed"))
+                        Toast.makeText(SignInSignUp.this, "INVALID CREDENTIALS!!!", Toast.LENGTH_SHORT).show();
+                    else {
+                        createUser(email,pswd);
+                    }
+                } catch (Exception e) {
+
+                }
+                toggleProgressVisibility();
+
+            }
+        });
+
+    }
+
+    private void createUser(String email,String password)
+    {
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
+
+                        // If sign in fails, display a message to the user. If sign in succeeds
+                        // the auth state listener will be notified and logic to handle the
+                        // signed in user can be handled in the listener.
+                        if (!task.isSuccessful()) {
+                            Toast.makeText(SignInSignUp.this, "Wrong Credentials",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+
+                        // ...
+                    }
+                });
+    }
+    // [end create user with email and password ]
+
+    //[sign in user with email and password]
+    private void signIn(String email, String password)
+    {
+        toggleProgressVisibility();
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "signInWithEmail:onComplete:" + task.isSuccessful());
+
+                        // If sign in fails, display a message to the user. If sign in succeeds
+                        // the auth state listener will be notified and logic to handle the
+                        // signed in user can be handled in the listener.
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "signInWithEmail:failed", task.getException());
+                            Toast.makeText(SignInSignUp.this, "Wrong Credentials", Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            // open new activity
+                        }
+                        toggleProgressVisibility();
+
+
+                        // ...
+                    }
+                });
+    }
+    //[end sign in user with email and password]
+    /*
+        end user autentication system
+     */
+
+
+    @OnClick(R.id.button_sign_up)void signupButton()
+    {
+        if(!validateForm())
+            return;
+        //initialize variables
+        initVar();
+        signUp();
+
+    }
+    @OnClick(R.id.button_sign_in)void signinButton()
+    {
+        if(!validateForm())
+            return;
+        //initialize variables
+        initVar();
+        signIn(email,pswd);
+    }
+
+
 
 }
