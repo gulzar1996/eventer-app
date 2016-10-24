@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
+
 android {
     compileSdkVersion 24
     buildToolsVersion "24.0.1"
@@ -55,3 +56,4 @@ dependencies {
     //TranslucentText
     compile 'mallethugo-translucent:translucentlib:1.0.0'
 }
+apply plugin: 'com.google.gms.google-services'
