@@ -53,6 +53,7 @@ import butterknife.ButterKnife;
                 mDateTextView.setVisibility(INVISIBLE);
             else
                 mDateTextView.setText(event.date_time);
+            mAttendingTextView.setText(event.registerCount+"");
 
 
 //                if(event.prizes==null)

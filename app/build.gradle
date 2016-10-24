@@ -61,5 +61,6 @@ dependencies {
 
     //Volley
     compile 'com.mcxiaoke.volley:library-aar:1.0.0'
+    compile 'com.github.Commit451:ElasticDragDismissLayout:1.0.4'
 }
 apply plugin: 'com.google.gms.google-services'

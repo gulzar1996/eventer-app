@@ -59,7 +59,7 @@
             android:layout_below="@id/textview_location"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="24dp"
-            android:textColor="@color/textLight"
+            android:textColor="@android:color/black"
             android:text="February 28, 2016"/>
 
 

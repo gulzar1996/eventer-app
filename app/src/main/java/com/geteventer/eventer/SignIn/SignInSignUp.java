@@ -196,7 +196,7 @@ public class SignInSignUp extends AppCompatActivity {
     }
 
     /*
-        user autentication system
+        user authentication system
     */
     void initVar()
     {
@@ -215,27 +215,17 @@ public class SignInSignUp extends AppCompatActivity {
         vr.validateRegJSON(regNo,pswd, new ServerCallback() {
             @Override
             public void onSuccessResult(JSONObject result) {
-
-
                 try {
                     String r = result.getJSONArray("items").getString(0);
                     JSONObject n = new JSONObject(r);
                     String f = n.getString("result");
-
                     if (f.equalsIgnoreCase("login failed"))
                         Toast.makeText(SignInSignUp.this, "INVALID CREDENTIALS!!!", Toast.LENGTH_SHORT).show();
-                    else {
-                        createUser(email,pswd);
-                    }
-                } catch (Exception e) {
-
-                }
+                    else {createUser(email,pswd);}
+                } catch (Exception e) {}
                 toggleProgressVisibility();
-
             }
-        });
-
-    }
+        });}
 
     private void createUser(String email,String password)
     {
