@@ -2,11 +2,11 @@ apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
 android {
     compileSdkVersion 24
-    buildToolsVersion "24.0.1"
+    buildToolsVersion "24.0.0"
 
     defaultConfig {
         applicationId "com.geteventer.eventer"
-        minSdkVersion 17
+        minSdkVersion 15
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
@@ -33,4 +33,10 @@ dependencies {
     compile 'com.pacioianu.david:ink-page-indicator:1.2.0'
     //TranslucentText
     compile 'mallethugo-translucent:translucentlib:1.0.0'
+    // [firebase liberaries]
+    compile 'com.google.firebase:firebase-auth:9.0.2'
+    // [End firebase liberaries]
+
+    //Volley
+    compile 'com.mcxiaoke.volley:library-aar:1.0.0'
 }
