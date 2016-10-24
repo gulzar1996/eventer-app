@@ -9,8 +9,10 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         >
-        <activity android:name=".MainActivity"
-            android:theme="@style/AppTheme.TranslucentBars"
+        <activity android:name=".SignIn.SignInSignUp"
+
+            android:theme="@style/AppTheme.SignIn"
+            android:windowSoftInputMode="stateVisible|adjustResize"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,9 +24,8 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-        <activity android:name=".SignIn.SignInSignUp"
-            android:theme="@style/AppTheme.SignIn"
-            android:windowSoftInputMode="stateVisible|adjustResize"
+        <activity android:name=".MainActivity"
+            android:theme="@style/AppTheme.TranslucentBars"
             />
         <activity android:name=".Event.EventActivity"
             android:theme="@style/AppTheme.TranslucentBars"
