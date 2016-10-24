@@ -2,6 +2,8 @@ package com.geteventer.eventer.model;
 
 import com.google.firebase.database.Exclude;
 
+import org.parceler.Parcel;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,6 +11,7 @@ import java.util.Map;
 /**
  * Created by Gulzar on 24-10-2016.
  */
+@Parcel
 public class Event {
 
     public ArrayList<String> organizers;

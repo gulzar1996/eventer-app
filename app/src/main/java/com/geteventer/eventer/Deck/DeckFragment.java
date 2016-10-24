@@ -3,6 +3,7 @@ package com.geteventer.eventer.Deck;
 /**
  * Created by Gulzar on 24-10-2016.
  */
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.geteventer.eventer.Event.EventActivity;
 import com.geteventer.eventer.R;
 import com.geteventer.eventer.api.EventerApi;
 import com.geteventer.eventer.common.Bindable;
@@ -17,6 +19,8 @@ import com.geteventer.eventer.model.Event;
 
 import com.geteventer.eventer.util.ViewUtils;
 import com.wenchao.cardstack.CardStack;
+
+import org.parceler.Parcels;
 
 import java.util.Collections;
 import java.util.List;
@@ -50,25 +54,25 @@ public class DeckFragment extends Fragment implements Bindable<List<Event>> {
 
     }
 
-//    private DeckListener mDeckListener = new DeckListener() {
-//        @Override void onCardSwiped(int direction, int swipedIndex) {
-//            mCurrentPosition++;
-//            //Loop Cards
-//            if(mCurrentPosition%size==0) {
-//                loadNext(0);
-//            }
-//
-//        }
-//
-//        @Override public void topCardTapped() {
-//            Event event = mAdapter.getItem(mCurrentPosition);
-//            Intent i=new Intent(getContext(),EventActivity.class);
-//            Bundle b=new Bundle();
-//            b.putParcelable("EXTRA_EVENT", Parcels.wrap(event));
-//            i.putExtras(b);
-//            startActivity(i);
-//        }
-//    };
+    private DeckListener mDeckListener = new DeckListener() {
+        @Override void onCardSwiped(int direction, int swipedIndex) {
+            mCurrentPosition++;
+            //Loop Cards
+            if(mCurrentPosition%size==0) {
+                loadNext(0);
+            }
+
+        }
+
+        @Override public void topCardTapped() {
+            Event event = mAdapter.getItem(mCurrentPosition);
+            Intent i=new Intent(getContext(),EventActivity.class);
+            Bundle b=new Bundle();
+            b.putParcelable("EXTRA_EVENT", Parcels.wrap(event));
+            i.putExtras(b);
+            startActivity(i);
+        }
+    };
 
 
 
@@ -108,7 +112,7 @@ public class DeckFragment extends Fragment implements Bindable<List<Event>> {
         mProgressView.setVisibility(View.GONE);
         if (mAdapter == null) {
             mAdapter = new DeckAdapter(getContext(), events);
-        //    mCardStack.setListener(mDeckListener);
+             mCardStack.setListener(mDeckListener);
             mCardStack.setAdapter(mAdapter);
         } else {
             mAdapter.addAll(events);

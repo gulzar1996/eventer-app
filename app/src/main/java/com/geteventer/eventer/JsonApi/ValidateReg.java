@@ -14,7 +14,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.RequestFuture;
 import com.android.volley.toolbox.Volley;
-import com.geteventer.eventer.util.AppController;
+import com.geteventer.eventer.EventerApp;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -90,7 +90,7 @@ public class ValidateReg{
                     DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
-            AppController.getInstance().addToRequestQueue(myRequest, "tag");
+            EventerApp.getInstance().addToRequestQueue(myRequest, "tag");
         }
         catch (Exception e)
         {

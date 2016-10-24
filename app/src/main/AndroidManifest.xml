@@ -8,7 +8,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:name=".util.AppController"
+        android:name=".EventerApp"
         >
         <activity android:name=".MainActivity"
             android:theme="@style/AppTheme.TranslucentBars"
@@ -19,11 +19,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".SignIn.SignInSignUp"
             android:theme="@style/AppTheme.SignIn"
             android:windowSoftInputMode="stateVisible|adjustResize"
             />
+
+        <activity android:name=".Event.EventActivity"
+            android:theme="@style/AppTheme.TranslucentBars"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".MainActivity"/>
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
     </application>
 
 </manifest>
