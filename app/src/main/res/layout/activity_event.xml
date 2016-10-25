@@ -48,4 +48,5 @@
 
     <include layout="@layout/content_event"/>
 
+
 </android.support.design.widget.CoordinatorLayout>

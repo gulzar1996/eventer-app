@@ -76,7 +76,7 @@ public class ChatFragment extends Fragment implements ChildEventListener, ChatCo
 
     private void setupMargin() {
         int statusBarHeight = ViewUtils.getStatusBarHeight();
-        mfragment_chat_layout.setPadding(0, ViewUtils.dpToPx(16)+statusBarHeight,
+        mfragment_chat_layout.setPadding(0,0,
                 0, 0 );
     }
 

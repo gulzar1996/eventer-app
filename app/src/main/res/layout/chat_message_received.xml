@@ -10,6 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         card_view:cardCornerRadius="0dp"
+        android:layout_marginRight="64dp"
         card_view:cardElevation="3dp">
 
         <TextView
