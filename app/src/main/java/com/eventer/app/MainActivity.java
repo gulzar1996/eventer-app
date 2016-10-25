@@ -13,6 +13,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ImageView;
 
+import com.eventer.app.Chat.ChatFragment;
 import com.eventer.app.Deck.DeckFragment;
 import com.eventer.app.SignIn.SignInSignUp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.stack) View mstack;
     @BindView(R.id.user) View muser;
 
-    private final Map<String, Fragment> mFragments = new HashMap<>(3);
+    private final Map<String, Fragment> mFragments = new HashMap<>(2);
     private static final String TAG_DECK_FRAGMENT = "TAG_DECK_FRAGMENT";
     private static final String TAG_USER_FRAGMENT = "TAG_USER_FRAGMENT";
     private final Animation mAnimation = new AlphaAnimation(0, 1);{
@@ -65,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         };
 
         mFragments.put(TAG_DECK_FRAGMENT, DeckFragment.newInstance());
+        mFragments.put(TAG_USER_FRAGMENT, ChatFragment.newInstance());
         
         swapFragment(TAG_DECK_FRAGMENT);
         bottomBarIcons(mic_stack,mic_user,1);
@@ -74,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.user) public void onUserClicked() {
         //Temp
+        //(TAG_USER_FRAGMENT);
         mAuth.signOut();
         startActivity(new Intent(this, SignInSignUp.class));
         bottomBarIcons(mic_stack,mic_user,2);
