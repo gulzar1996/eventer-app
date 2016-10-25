@@ -28,7 +28,7 @@
         android:layout_below="@id/divider"
         android:gravity="center">
 
-        <com.geteventer.eventer.common.FontTextView
+        <com.eventer.app.common.FontTextView
             android:id="@+id/textview_shot_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
             app:weight="semibold"
             tools:text="Im poor maddn with lot of money"/>
 
-        <com.geteventer.eventer.common.FontTextView
+        <com.eventer.app.common.FontTextView
             android:id="@+id/textview_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -52,14 +52,14 @@
             android:text="@string/colage_name"
             />
 
-        <com.geteventer.eventer.common.FontTextView
+        <com.eventer.app.common.FontTextView
             android:id="@+id/textview_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/textview_location"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="24dp"
-            android:textColor="@color/textLight"
+            android:textColor="@android:color/black"
             android:text="February 28, 2016"/>
 
 
@@ -68,7 +68,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/textview_date">
-            <com.geteventer.eventer.common.FontTextView
+            <com.eventer.app.common.FontTextView
                 android:id="@+id/textview_attending_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -80,7 +80,7 @@
                 android:drawableTint="@color/textNormal"
                 android:gravity="center"
                 android:text="133"/>
-            <com.geteventer.eventer.common.FontTextView
+            <com.eventer.app.common.FontTextView
                 android:id="@+id/textview_likes_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -91,7 +91,7 @@
                 android:gravity="center"
                 android:text="45"/>
 
-            <com.geteventer.eventer.common.FontTextView
+            <com.eventer.app.common.FontTextView
                 android:id="@+id/textview_first_prize"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
