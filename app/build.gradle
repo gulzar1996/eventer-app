@@ -6,7 +6,7 @@ android {
     buildToolsVersion "24.0.0"
 
     defaultConfig {
-        applicationId "com.geteventer.eventer"
+        applicationId "com.eventer.app"
         minSdkVersion 15
         targetSdkVersion 24
         versionCode 1
@@ -57,6 +57,7 @@ dependencies {
     compile 'mallethugo-translucent:translucentlib:1.0.0'
     // [firebase liberaries]
     compile 'com.google.firebase:firebase-auth:9.0.2'
+    compile 'com.google.firebase:firebase-messaging:9.0.2'
     // [End firebase liberaries]
 
     //Volley

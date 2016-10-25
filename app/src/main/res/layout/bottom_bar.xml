@@ -25,7 +25,7 @@
             android:layout_marginRight="8dp"
             />
 
-        <com.geteventer.eventer.common.FontTextView
+        <com.eventer.app.common.FontTextView
             android:text="Stack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
             android:layout_marginRight="8dp"
             />
 
-        <com.geteventer.eventer.common.FontTextView
+        <com.eventer.app.common.FontTextView
             android:id="@+id/text"
             android:text="User"
             android:layout_width="wrap_content"

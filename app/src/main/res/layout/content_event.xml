@@ -20,7 +20,7 @@
         android:background="#f7f7f7">
 
 
-        <com.geteventer.eventer.common.FontTextView
+        <com.eventer.app.common.FontTextView
             android:id="@+id/textview_event_name"
             android:layout_width="match_parent"
             android:layout_height="100dp"
@@ -68,7 +68,7 @@
                 android:layout_height="1dp"
                 android:layout_below="@id/event_register_like_notify_message"
                 android:background="@color/divider"/>
-            <com.geteventer.eventer.common.FontTextView
+            <com.eventer.app.common.FontTextView
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_centerHorizontal="true"
@@ -79,7 +79,7 @@
                 android:textSize="17sp"
                 app:weight="regular"
                 android:text="Prize"/>
-            <com.geteventer.eventer.common.FontTextView
+            <com.eventer.app.common.FontTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
@@ -92,7 +92,7 @@
                 android:drawableLeft="@drawable/ic_prize"
                 android:drawableTint="@color/cardview_dark_background"
                 android:text=" \u20B9 10,000"/>
-            <com.geteventer.eventer.common.FontTextView
+            <com.eventer.app.common.FontTextView
                 android:paddingTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -105,7 +105,7 @@
                 android:textSize="16sp"
                 app:weight="semibold"
                 android:text="Game of fist. First one to get knocked out elminated.The process is tedious. Developed by Gulzar"/>
-            <com.geteventer.eventer.common.FontTextView
+            <com.eventer.app.common.FontTextView
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_centerHorizontal="true"
@@ -116,7 +116,7 @@
                 android:textSize="18sp"
                 app:weight="regular"
                 android:text="Rules"/>
-            <com.geteventer.eventer.common.FontTextView
+            <com.eventer.app.common.FontTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
