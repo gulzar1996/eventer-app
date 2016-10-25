@@ -29,6 +29,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.pixelcan.inkpageindicator.InkPageIndicator;
 
 import org.json.JSONObject;
@@ -68,6 +69,7 @@ public class SignInSignUp extends AppCompatActivity {
         /*
             firebase auth start
          */
+        Log.d("token1", FirebaseInstanceId.getInstance().getToken());
         // [initialize firebase instance]
         mAuth = FirebaseAuth.getInstance();
         // [initalize firebase listener]
