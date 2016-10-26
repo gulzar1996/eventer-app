@@ -14,6 +14,12 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimaryDark">#69F0AE</item>
         <item name="android:colorEdgeEffect">@color/colorAccent</item>
+
+    </style>
+    <style name="AppTheme.GreyRipple" parent="AppTheme">
+        <!-- Customize your theme here. -->
+        <item name="android:colorEdgeEffect">@color/mediumGray</item>
+        <item name="colorControlHighlight">@color/mediumGray</item>
     </style>
     <!-- Dark Buttons -->
     <style name="ThemeOverlay.MyDarkButton" parent="ThemeOverlay.AppCompat.Dark">
@@ -31,6 +37,7 @@
     </style>
     <style name="AppTheme.TranslucentBars">
         <item name="android:statusBarColor">@color/translucent_bars</item>
+        <item name="colorControlHighlight">@color/mediumGray</item>
     </style>
 
 
