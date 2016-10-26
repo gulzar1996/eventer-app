@@ -185,6 +185,10 @@ public class EventActivity extends EventRegistrationSystem {
                     }})
                 .show();
     }
+    @OnClick(R.id.icgroup_orsolo) void groupOrSoloNamesDisplay()
+    {
+        getRegisterUser(eRef,true);
+    }
 
 
 

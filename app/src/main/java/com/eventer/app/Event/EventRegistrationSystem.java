@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.eventer.app.model.Event;
 import com.eventer.app.model.User;
 
@@ -94,8 +95,9 @@ public class EventRegistrationSystem extends AppCompatActivity {
                         for(String uid:event.registers.keySet()) {
                             list.add(event.registers.get(uid));
                         }
-                        if(design==true)
+                        if(design==true){
                             registerUserInDialog(list);
+                        }
 //                        else
                             //registerUserInExel(list);
                          // [Change Design Accordingly]
@@ -109,7 +111,19 @@ public class EventRegistrationSystem extends AppCompatActivity {
     }
     void registerUserInDialog(List<User> users)
     {
-        // put material dialog and all the user is in users array list with datastructure User
+//        // put material dialog and all the user is in users array list with datastructure User
+//        String[] username=new String[users.size()];
+//        for(int i=0;i<users.size();i++)
+//            username[i]=users.get(i).name+" ("+users.get(i).regno+")";
+
+        new MaterialDialog.Builder(this)
+                .title("Participant")
+                .items(users)
+                .itemsCallback(new MaterialDialog.ListCallback() {
+                    @Override
+                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                    }})
+                .show();
     }
 
 
