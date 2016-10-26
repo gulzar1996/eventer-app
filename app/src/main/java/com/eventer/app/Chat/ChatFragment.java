@@ -1,16 +1,21 @@
 package com.eventer.app.Chat;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.eventer.app.R;
+import com.eventer.app.SignIn.SignInSignUp;
 import com.eventer.app.util.ViewUtils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -38,10 +43,15 @@ public class ChatFragment extends Fragment implements ChildEventListener, ChatCo
     RecyclerView chatList;
     @BindView(R.id.fragment_chat_layout)
     View mfragment_chat_layout;
+    @BindView(R.id.query_name) TextView mquery_name;
     private DatabaseReference firebase;
     private List<Chat> chats;
     private String idUser;
     private ChatAdapter adapter;
+
+
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
     private ChatContract.UserActionListener presenter;
 
@@ -53,10 +63,22 @@ public class ChatFragment extends Fragment implements ChildEventListener, ChatCo
 
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mAuth = FirebaseAuth.getInstance();
 
 
+       // idUser = getUId();
+        idUser= String.valueOf(FirebaseAuth.getInstance().getCurrentUser());
+        mAuthListener = new FirebaseAuth.AuthStateListener() {@Override
+        public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+            FirebaseUser user = firebaseAuth.getCurrentUser();
+            if (user != null) {
+            } else {
+               startActivity(new Intent(getActivity(), SignInSignUp.class));
+            }
+        }
+        };
 
-        idUser = getUId();
+
     }
 
     @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,6 +86,8 @@ public class ChatFragment extends Fragment implements ChildEventListener, ChatCo
         View view = inflater.inflate(R.layout.fragment_chat, container, false);
         ButterKnife.bind(this, view);
         ChatActivity ca=(ChatActivity)getActivity();
+        Log.d("Gulxx",ca.mEvent.title);
+        mquery_name.setText(ca.mEvent.title+" Discussion");
         initializeFirebase(ca.mEvent.userkey);
         initializePresenter();
         setupAdapter();
@@ -99,10 +123,10 @@ public class ChatFragment extends Fragment implements ChildEventListener, ChatCo
         chatList.setAdapter(adapter);
     }
 
-    private String getUId() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        return user+"";
-    }
+//    private String getUId() {
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//        return user+"";
+//    }
 
     private void initializePresenter() {
         if (presenter == null) presenter = new ChatPresenter(this);
@@ -144,5 +168,18 @@ public class ChatFragment extends Fragment implements ChildEventListener, ChatCo
             adapter.notifyItemInserted(chats.size() - 1);
         }
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);}
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
+    }
+
 
 }
