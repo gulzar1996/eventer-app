@@ -1,6 +1,5 @@
 package com.eventer.app.Event;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -46,8 +45,9 @@ public class EventActivity extends AppCompatActivity {
     CoordinatorLayout coordinatorLayout;
     @BindView(R.id.ic_likes) TextView mic_likes;
     @BindView(R.id.ic_queries)TextView mic_queries;
-    @BindView(R.id.ic_reminder)TextView mic_reminder;
+    @BindView(R.id.ic_organizer)TextView mic_organizer;
     @BindView(R.id.icgroup_orsolo)TextView micgroup_orsolo;
+    @BindView(R.id.eventDescription) TextView meventDescription;
     @BindView(R.id.app_bar)AppBarLayout mapp_bar;
     FloatingActionButton mButton_sent;
     @Override
@@ -74,6 +74,8 @@ public class EventActivity extends AppCompatActivity {
 
     private  void  loadDetails(Event e) {
         mEventName.setText(e.title);
+        meventDescription.setText(e.body);
+
         //Temp
         Glide.with(this)
                 .load(e.downloadURL)
@@ -85,8 +87,8 @@ public class EventActivity extends AppCompatActivity {
     private void loadIcons() {
         micgroup_orsolo.setCompoundDrawables(null,new IconicsDrawable(this, GoogleMaterial.Icon.gmd_face).actionBar().color(Color.GRAY),null,null);
         mic_likes.setCompoundDrawables(null,new IconicsDrawable(this, GoogleMaterial.Icon.gmd_favorite_border).actionBar().color(Color.GRAY),null,null);
-        mic_reminder.setCompoundDrawables(null,new IconicsDrawable(this, GoogleMaterial.Icon.gmd_alarm).actionBar().color(Color.GRAY),null,null);
-        mic_queries.setCompoundDrawables(null,new IconicsDrawable(this, GoogleMaterial.Icon.gmd_message).actionBar().color(Color.GRAY),null,null);
+        mic_organizer.setCompoundDrawables(null,new IconicsDrawable(this, GoogleMaterial.Icon.gmd_verified_user).actionBar().color(Color.GRAY),null,null);
+        mic_queries.setCompoundDrawables(null,new IconicsDrawable(this, GoogleMaterial.Icon.gmd_forum).actionBar().color(Color.GRAY),null,null);
     }
     @Override public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
