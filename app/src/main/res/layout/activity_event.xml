@@ -45,8 +45,14 @@
 
 
 
-
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_gravity="bottom|right" />
     <include layout="@layout/content_event"/>
+
 
 
 </android.support.design.widget.CoordinatorLayout>

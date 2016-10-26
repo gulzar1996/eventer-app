@@ -44,8 +44,10 @@ public class EventRegistrationSystem extends AppCompatActivity {
 //                onRegisterClicked(mEventReference, uid, userAdmin);
 //                onRegisterClicked(mUserEventReference, uid, userAdmin);
 //                changeDesignForUser();
+
             }
-}
+
+
     public void onRegisterClicked(DatabaseReference mReference,final String uid ,final User userAdmin) {
         mReference.runTransaction(new Transaction.Handler() {
             @Override
@@ -91,13 +93,13 @@ public class EventRegistrationSystem extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Event event = dataSnapshot.getValue(Event.class);
                         List<User> list=new ArrayList<User>();
-                        for(String uid:event.registers.get("registers").keySet()) {
-                            list.add(event.registers.get("registers").get(uid));
-                        }
-                        if(design==true)
-                            registerUserInDialog(list);
-                        else
-                            registerUserInExel(list);
+//                        for(String uid:event.registers.get("registers").keySet()) {
+//                            list.add(event.registers.get("registers").get(uid));
+//                        }
+//                        if(design==true)
+//                            registerUserInDialog(list);
+//                        else
+//                            registerUserInExel(list);
                         // [Change Design Accordingly]
                     }
 

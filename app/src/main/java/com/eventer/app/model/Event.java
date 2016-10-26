@@ -24,7 +24,9 @@ public class Event {
     public ArrayList<String> tags;
     public String userkey;
     public int registerCount = 0;
-    public Map<String, Map<String,User>> registers = new HashMap<>();
+
+    public Map<String, Map<String,Boolean>> registers = new HashMap<>();
+
     public long timestamp;
     public int maxReg;
     public int minReg;

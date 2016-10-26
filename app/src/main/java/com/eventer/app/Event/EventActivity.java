@@ -58,8 +58,6 @@ public class EventActivity extends EventRegistrationSystem {
     User userAdmin;
     DatabaseReference eRef;
 
-    FloatingActionButton mButton_sent;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -148,7 +146,7 @@ public class EventActivity extends EventRegistrationSystem {
 
     private void showSnackBar()
     {
-        Snackbar snackbar = Snackbar
+    Snackbar snackbar = Snackbar
                 .make(coordinatorLayout,"", Snackbar.LENGTH_INDEFINITE)
                 .setAction("Register", new View.OnClickListener() {
                     @Override

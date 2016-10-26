@@ -65,7 +65,7 @@ public class ChatFragment extends Fragment implements ChildEventListener, ChatCo
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
         //Change Sender name
-        senderName="deamonxx";
+        senderName="Eventer User";
 
        // idUser = getUId();
         //idUser= String.valueOf(FirebaseAuth.getInstance().getCurrentUser());
@@ -74,6 +74,7 @@ public class ChatFragment extends Fragment implements ChildEventListener, ChatCo
             FirebaseUser user = firebaseAuth.getCurrentUser();
             if (user != null) {
                 idUser=user.getUid();
+                senderName=user.getDisplayName();
 
             } else {
                startActivity(new Intent(getActivity(), SignInSignUp.class));

@@ -1,6 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.v7.widget.CardView android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginRight="16dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginTop="4dp"
+    card_view:cardCornerRadius="4dp"
+    android:layout_marginBottom="2dp"
+    card_view:cardElevation="3dp"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <ImageView
+            android:id="@+id/imageview_shot"
+            android:scaleType="centerCrop"
+            android:src="@drawable/grid_item_placeholder"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+        <LinearLayout
+            android:paddingTop="24dp"
+            android:paddingBottom="16dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:textColor="@android:color/black"
+                tools:text="Hackathon"
+                android:id="@+id/textview_event_name"
+                android:textSize="24sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/sub_text"
+                android:text="Christ University Faculty of Engineering\nFoobar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                />
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+            <com.eventer.app.common.FontTextView
+                android:layout_alignParentLeft="true"
+                android:id="@+id/textview_date"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:text="February 28, 2016"/>
 
-</LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right">
+
+                <com.eventer.app.common.FontTextView
+                    android:id="@+id/textview_attending_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="8dp"
+                    android:drawableLeft="@drawable/ic_attending"
+                    android:drawablePadding="4dp"
+                    android:drawableTint="@color/textNormal"
+                    android:text="133"/>
+                <com.eventer.app.common.FontTextView
+                    android:id="@+id/textview_likes_count"
+                    android:layout_width="wrap_content"
+                    android:paddingLeft="8dp"
+                    android:layout_height="match_parent"
+                    android:drawableLeft="@drawable/ic_likes"
+                    android:drawablePadding="4dp"
+                    android:drawableTint="@color/textNormal"
+                    android:gravity="center"
+                    android:text="45"/>
+
+                <com.eventer.app.common.FontTextView
+                    android:id="@+id/textview_first_prize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="8dp"
+                    android:drawableLeft="@drawable/ic_prize"
+                    android:drawablePadding="4dp"
+                    android:drawableTint="@color/textNormal"
+                    android:gravity="center"
+                    android:text="\u20B9 10,000"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    </android.support.v7.widget.CardView>
