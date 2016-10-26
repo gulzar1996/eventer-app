@@ -55,6 +55,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
+                android:textColor="@android:color/black"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:typeface="serif"
@@ -75,7 +76,7 @@
                 android:layout_marginBottom="1dp"
                 android:gravity="center|left"
                 android:paddingLeft="16dp"
-                android:textColor="@color/textDark"
+                android:textColor="@android:color/black"
                 android:textSize="16sp"
                 app:weight="semibold"
                 android:text="Prize"/>
@@ -86,7 +87,7 @@
                 android:gravity="center|left"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
-                android:textColor="@color/textDark"
+                android:textColor="@android:color/black"
                 android:textSize="14sp"
                 app:weight="regular"
                 android:drawableLeft="@drawable/ic_prize"
@@ -104,6 +105,7 @@
                 android:paddingRight="16dp"
                 android:textSize="14sp"
                 app:weight="regular"
+                android:textColor="@android:color/black"
                 android:text="Game of fist. First one to get knocked out elminated.The process is tedious. Developed by Gulzar"/>
             <com.eventer.app.common.FontTextView
                 android:layout_width="match_parent"
@@ -112,11 +114,12 @@
                 android:layout_marginBottom="1dp"
                 android:gravity="center|left"
                 android:paddingLeft="16dp"
-                android:textColor="@color/textDark"
+                android:textColor="@android:color/black"
                 android:textSize="16sp"
                 app:weight="semibold"
                 android:text="Rules"/>
             <com.eventer.app.common.FontTextView
+                android:textColor="@android:color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
