@@ -23,6 +23,7 @@ import com.eventer.app.model.Event;
 import com.eventer.app.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 
@@ -53,8 +54,9 @@ public class EventActivity extends EventRegistrationSystem {
     @BindView(R.id.icgroup_orsolo)TextView micgroup_orsolo;
     @BindView(R.id.eventDescription) TextView meventDescription;
     @BindView(R.id.app_bar)AppBarLayout mapp_bar;
-    String uid,eid;
+    String uid;
     User userAdmin;
+    DatabaseReference eRef;
 
     FloatingActionButton mButton_sent;
 
@@ -153,7 +155,7 @@ public class EventActivity extends EventRegistrationSystem {
                     public void onClick(View view) {
 //                        Snackbar snackbar1 = Snackbar.make(coordinatorLayout, "Message is restored!", Snackbar.LENGTH_SHORT);
 //                        snackbar1.show();
-                        setUpRegistration(eid,mEvent,uid,userAdmin);
+                        setUpRegistration(eRef,uid,userAdmin);
 
                     }
                 });

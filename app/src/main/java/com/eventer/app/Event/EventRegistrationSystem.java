@@ -4,16 +4,21 @@ package com.eventer.app.Event;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 
+import com.eventer.app.Deck.DeckAdapter;
 import com.eventer.app.UiCallBack.GroupInputDetails;
+import com.eventer.app.common.Bindable;
 import com.eventer.app.model.Event;
 import com.eventer.app.model.User;
 import com.eventer.app.ui.GroupDialogBox;
+import com.eventer.app.util.ViewUtils;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,22 +32,20 @@ import java.util.Map;
 public class EventRegistrationSystem extends AppCompatActivity {
     private Boolean someError=false;
     public Boolean userIsRegister=false;
-    List<User> list=new ArrayList<User>();
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
-    void setUpRegistration(String eid, final Event mEvent, String uid, final User userAdmin) {
+    void setUpRegistration(DatabaseReference mReference, String uid, final User userAdmin) {
 
-            if(eventIsToday==false && someError==false) {
-                onRegisterClicked(mEventReference, uid, userAdmin);
-                onRegisterClicked(mUserEventReference, uid, userAdmin);
-                changeDesignForUser();
+//            if(eventIsToday==false && someError==false) {
+//                onRegisterClicked(mEventReference, uid, userAdmin);
+//                onRegisterClicked(mUserEventReference, uid, userAdmin);
+//                changeDesignForUser();
             }
-
-
-    }
+}
     public void onRegisterClicked(DatabaseReference mReference,final String uid ,final User userAdmin) {
         mReference.runTransaction(new Transaction.Handler() {
             @Override
@@ -60,7 +63,7 @@ public class EventRegistrationSystem extends AppCompatActivity {
                 else {
                     // register the event and add self to register
                     p.registerCount = p.registerCount + 1;
-                    p.registers.put(uid,userAdmin.toMap());
+                   // p.registers.put(uid,userAdmin.toMap());
                     userIsRegister=true;
                 }
 
@@ -81,4 +84,29 @@ public class EventRegistrationSystem extends AppCompatActivity {
     {
         //flip the design of floating button
     }
+    public void getRegisterUser(final DatabaseReference aref,final Boolean design ) {
+        aref.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Event event = dataSnapshot.getValue(Event.class);
+                        List<User> list=new ArrayList<User>();
+                        for(String uid:event.registers.get("registers").keySet()) {
+                            list.add(event.registers.get("registers").get(uid));
+                        }
+                        if(design==true)
+                            registerUserInDialog(list);
+                        else
+                            registerUserInExel(list);
+                        // [Change Design Accordingly]
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.w("XXXX", "putAttendence:onCancelled", databaseError.toException());
+                    }
+                });
+    }
+
+
 }
