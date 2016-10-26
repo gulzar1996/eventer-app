@@ -70,7 +70,7 @@ public class EventActivity extends EventRegistrationSystem {
         getUserDetails();
 
 
-      showSnackBar();
+     // showSnackBar();
 
         //Get Event Object From Previous Class
         mEvent = Parcels.unwrap(getIntent().getParcelableExtra("EXTRA_EVENT"));

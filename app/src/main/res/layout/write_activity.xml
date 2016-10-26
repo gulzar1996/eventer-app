@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    android:orientation="vertical">
+    <EditText
+        android:hint="Event Title"
+        android:id="@+id/w_eventTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"/>
+    <EditText
+        android:hint="Event Body"
+        android:id="@+id/w_eventBody"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"/>
+    <EditText
+        android:hint="Event Rules"
+        android:id="@+id/w_eventRules"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"/>
+    <EditText
+        android:hint="Event Venue"
+        android:id="@+id/w_eventVenue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"/>
+    <EditText
+        android:hint="Event Date eg 24/12/2016"
+        android:id="@+id/w_eventDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"/>
+    <EditText
+        android:hint="Event Prize "
+        android:id="@+id/w_eventPrize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"/>
+    <EditText
+        android:hint="Minimum Reg "
+        android:id="@+id/w_minreg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"/>
+    <EditText
+        android:hint="Maximum Reg "
+        android:id="@+id/w_maxreg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"/>
+    <Button
+        android:id="@+id/w_addcontactsbtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Contacts"/>
+    <Button
+        android:id="@+id/w_clearcontactsbtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Clear Contacts"/>
+    <TextView
+        android:text="xdx"
+        android:id="@+id/w_contacts"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <Button
+        android:id="@+id/w_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Submit"/>
+</LinearLayout>
+</ScrollView>

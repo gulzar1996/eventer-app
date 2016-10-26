@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import com.eventer.app.Chat.ChatFragment;
 import com.eventer.app.RecyclerEvent.AllEvents;
 import com.eventer.app.SignIn.SignInSignUp;
+import com.eventer.app.Write.WriteActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.ic_user) ImageView mic_user;
     @BindView(R.id.stack) View mstack;
     @BindView(R.id.user) View muser;
-
+    public  @BindView(R.id.abottom_bar)View mbottom_bar;
     private final Map<String, Fragment> mFragments = new HashMap<>(2);
     private static final String TAG_DECK_FRAGMENT = "TAG_DECK_FRAGMENT";
     private static final String TAG_USER_FRAGMENT = "TAG_USER_FRAGMENT";
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        //getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {@Override
         public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -77,10 +78,11 @@ public class MainActivity extends AppCompatActivity {
 
 
     @OnClick(R.id.user) public void onUserClicked() {
+        startActivity(new Intent(this, WriteActivity.class));
         //Temp
         //(TAG_USER_FRAGMENT);
-        mAuth.signOut();
-        startActivity(new Intent(this, SignInSignUp.class));
+//        mAuth.signOut();
+//        startActivity(new Intent(this, SignInSignUp.class));
         bottomBarIcons(mic_stack,mic_user,2);
     }
 

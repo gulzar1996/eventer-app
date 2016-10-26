@@ -7,7 +7,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="#e2e0e0">
+    android:background="@android:color/transparent">
     <LinearLayout
         android:id="@+id/stack"
         android:layout_weight="1"
