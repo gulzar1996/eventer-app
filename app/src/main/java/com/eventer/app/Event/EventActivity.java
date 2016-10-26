@@ -1,9 +1,12 @@
 package com.eventer.app.Event;
 
+import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,6 +17,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.eventer.app.Chat.ChatActivity;
 import com.eventer.app.R;
 import com.eventer.app.model.Event;
 import com.eventer.app.model.User;
@@ -26,11 +30,12 @@ import org.parceler.Parcels;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Gulzar on 24-10-2016.
  */
-public class EventActivity extends AppCompatActivity {
+public class EventActivity extends EventRegistrationSystem {
 
     private Event mEvent;
 
@@ -47,10 +52,11 @@ public class EventActivity extends AppCompatActivity {
     @BindView(R.id.ic_reminder)TextView mic_reminder;
     @BindView(R.id.icgroup_orsolo)TextView micgroup_orsolo;
     @BindView(R.id.app_bar)AppBarLayout mapp_bar;
-    EventRegistrationSystem eventRegistrationSystem = new EventRegistrationSystem();
     String uid,eid;
     User userAdmin;
-    Boolean userIsRegister=false;
+
+    FloatingActionButton mButton_sent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,10 +67,11 @@ public class EventActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
-        showSnackBar();
-
         //get user details
         getUserDetails();
+
+
+      showSnackBar();
 
         //Get Event Object From Previous Class
         mEvent = Parcels.unwrap(getIntent().getParcelableExtra("EXTRA_EVENT"));
@@ -129,12 +136,23 @@ public class EventActivity extends AppCompatActivity {
                     public void onClick(View view) {
 //                        Snackbar snackbar1 = Snackbar.make(coordinatorLayout, "Message is restored!", Snackbar.LENGTH_SHORT);
 //                        snackbar1.show();
-                        eventRegistrationSystem.setUpRegistration(eid,mEvent,uid,userAdmin,userIsRegister);
+                        setUpRegistration(eid,mEvent,uid,userAdmin);
 
                     }
                 });
         snackbar.show();
+
     }
+    @OnClick(R.id.ic_queries) void Query()
+    {
+        Intent i=new Intent(this,ChatActivity.class);
+        Bundle b=new Bundle();
+        b.putParcelable("EXTRA_EVENT", Parcels.wrap(mEvent));
+        i.putExtras(b);
+        startActivity(i);
+
+    }
+
 
 
 

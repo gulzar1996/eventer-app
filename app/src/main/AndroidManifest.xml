@@ -25,7 +25,8 @@
             android:theme="@style/AppTheme.TranslucentBars"
 
             />
-
+        <activity android:name=".Chat.ChatActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name="com.eventer.app.Event.EventActivity"
             android:theme="@style/AppTheme.TranslucentBars"
             android:screenOrientation="portrait"

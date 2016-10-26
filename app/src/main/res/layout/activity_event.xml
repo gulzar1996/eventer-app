@@ -47,15 +47,6 @@
 
 
     <include layout="@layout/content_event"/>
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_register"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:rippleColor="@android:color/darker_gray"
-        android:src="@drawable/ic_likes"
-        app:layout_anchor="@id/app_bar"
-        app:layout_anchorGravity="bottom|right|end"
-        />
+
 
 </android.support.design.widget.CoordinatorLayout>
