@@ -16,6 +16,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.eventer.app.R;
 import com.eventer.app.model.Event;
+import com.eventer.app.model.User;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 
@@ -44,6 +47,10 @@ public class EventActivity extends AppCompatActivity {
     @BindView(R.id.ic_reminder)TextView mic_reminder;
     @BindView(R.id.icgroup_orsolo)TextView micgroup_orsolo;
     @BindView(R.id.app_bar)AppBarLayout mapp_bar;
+    EventRegistrationSystem eventRegistrationSystem = new EventRegistrationSystem();
+    String uid,eid;
+    User userAdmin;
+    Boolean userIsRegister=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +62,10 @@ public class EventActivity extends AppCompatActivity {
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
         showSnackBar();
+
+        //get user details
+        getUserDetails();
+
         //Get Event Object From Previous Class
         mEvent = Parcels.unwrap(getIntent().getParcelableExtra("EXTRA_EVENT"));
         loadDetails(mEvent);
@@ -63,6 +74,20 @@ public class EventActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+    }
+    // get user detials
+    void getUserDetails() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            // Name, email address, and profile photo Url
+            uid = user.getUid();
+            String[] parts = user.getEmail().split("@");
+            userAdmin=new User(parts[0],user.getDisplayName());
+        }
+        else
+        {
+            // do some when no user get found
+        }
     }
 
 
@@ -104,6 +129,8 @@ public class EventActivity extends AppCompatActivity {
                     public void onClick(View view) {
 //                        Snackbar snackbar1 = Snackbar.make(coordinatorLayout, "Message is restored!", Snackbar.LENGTH_SHORT);
 //                        snackbar1.show();
+                        eventRegistrationSystem.setUpRegistration(eid,mEvent,uid,userAdmin,userIsRegister);
+
                     }
                 });
         snackbar.show();
