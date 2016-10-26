@@ -50,6 +50,7 @@ public class EventActivity extends AppCompatActivity {
     @BindView(R.id.icgroup_orsolo)TextView micgroup_orsolo;
     @BindView(R.id.eventDescription) TextView meventDescription;
     @BindView(R.id.app_bar)AppBarLayout mapp_bar;
+    @BindView(R.id.fab_register) FloatingActionButton fab_register;
     FloatingActionButton mButton_sent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,7 +121,7 @@ public class EventActivity extends AppCompatActivity {
 
     private void showSnackBar()
     {
-        Snackbar snackbar = Snackbar
+    Snackbar snackbar = Snackbar
                 .make(coordinatorLayout,"", Snackbar.LENGTH_INDEFINITE)
                 .setAction("Register", new View.OnClickListener() {
                     @Override
