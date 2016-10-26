@@ -15,6 +15,7 @@ import android.widget.ImageView;
 
 import com.eventer.app.Chat.ChatFragment;
 import com.eventer.app.Deck.DeckFragment;
+import com.eventer.app.RecyclerEvent.AllEvents;
 import com.eventer.app.SignIn.SignInSignUp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         }
         };
 
-        mFragments.put(TAG_DECK_FRAGMENT, DeckFragment.newInstance());
+        mFragments.put(TAG_DECK_FRAGMENT, AllEvents.newInstance());
 
         mFragments.put(TAG_USER_FRAGMENT, ChatFragment.newInstance());
 

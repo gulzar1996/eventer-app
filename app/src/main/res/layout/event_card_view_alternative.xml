@@ -2,10 +2,10 @@
 <android.support.v7.widget.CardView android:layout_width="match_parent"
     android:layout_height="350dp"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_marginRight="8dp"
-    android:layout_marginLeft="8dp"
-    android:layout_marginTop="2dp"
-    card_view:cardCornerRadius="2dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginTop="4dp"
+    card_view:cardCornerRadius="4dp"
     android:layout_marginBottom="2dp"
     card_view:cardElevation="3dp"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -15,6 +15,9 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <ImageView
+            android:id="@+id/imageview_shot"
+            android:scaleType="centerCrop"
+            android:src="@drawable/grid_item_placeholder"
             android:layout_width="match_parent"
             android:layout_height="200dp" />
         <LinearLayout
@@ -34,7 +37,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <TextView
-                tools:text="Foobar"
+                android:id="@+id/sub_text"
+                android:text="Christ University Faculty of Engineering\nFoobar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
@@ -58,7 +62,7 @@
                 android:orientation="horizontal"
 
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="right">
 
                 <com.eventer.app.common.FontTextView
@@ -69,7 +73,6 @@
                     android:drawableLeft="@drawable/ic_attending"
                     android:drawablePadding="4dp"
                     android:drawableTint="@color/textNormal"
-                    android:gravity="center"
                     android:text="133"/>
                 <com.eventer.app.common.FontTextView
                     android:id="@+id/textview_likes_count"
