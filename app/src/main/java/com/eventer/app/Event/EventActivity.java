@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.eventer.app.Chat.ChatActivity;
@@ -124,7 +125,19 @@ public class EventActivity extends AppCompatActivity {
         b.putParcelable("EXTRA_EVENT", Parcels.wrap(mEvent));
         i.putExtras(b);
         startActivity(i);
-
+    }
+    @OnClick(R.id.ic_organizer)void Organizer()
+    {
+        //Converting ArrayList to array
+        String[] org = mEvent.organizers.toArray(new String[mEvent.organizers.size()]);
+        new MaterialDialog.Builder(this)
+                .title("Organizers")
+                .items(org)
+                .itemsCallback(new MaterialDialog.ListCallback() {
+                    @Override
+                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                    }})
+                .show();
     }
 
 
