@@ -57,11 +57,17 @@ dependencies {
     compile 'mallethugo-translucent:translucentlib:1.0.0'
     // [firebase liberaries]
     compile 'com.google.firebase:firebase-auth:9.0.2'
+    compile 'com.google.firebase:firebase-database:9.0.2'
     compile 'com.google.firebase:firebase-messaging:9.0.2'
     // [End firebase liberaries]
 
     //Volley
     compile 'com.mcxiaoke.volley:library-aar:1.0.0'
+
+    //compile 'com.github.Commit451:ElasticDragDismissLayout:1.0.4'
+
+    compile 'com.sothree.slidinguppanel:library:3.3.1'
+
     //Material DialogBox
     //Material DialogBox
     compile 'com.afollestad.material-dialogs:core:0.8.6.1'

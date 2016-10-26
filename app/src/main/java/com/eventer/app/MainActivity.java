@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {@Override
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         };
 
         mFragments.put(TAG_DECK_FRAGMENT, DeckFragment.newInstance());
+
         mFragments.put(TAG_USER_FRAGMENT, ChatFragment.newInstance());
 
         swapFragment(TAG_DECK_FRAGMENT);

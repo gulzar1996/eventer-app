@@ -17,7 +17,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        showNotification(remoteMessage.getData().get("message"));
+        String message = remoteMessage.getData().get("message");
+        if(message.contains("admin"))
+        showNotification(message);
     }
     private void showNotification(String message){
 

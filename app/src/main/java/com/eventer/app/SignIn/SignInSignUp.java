@@ -23,11 +23,16 @@ import com.eventer.app.JsonApi.ServerCallback;
 import com.eventer.app.JsonApi.ValidateReg;
 import com.eventer.app.MainActivity;
 import com.eventer.app.R;
+import com.eventer.app.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.pixelcan.inkpageindicator.InkPageIndicator;
 
 import org.json.JSONObject;
@@ -50,6 +55,7 @@ public class SignInSignUp extends AppCompatActivity {
     @BindView(R.id.email_password_buttons) View memail_password_buttons;
     @BindView(R.id.progressbar) ProgressBar mProgressBar;
     private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private String TAG = "SignInSignUp";
     public String regNo, pswd ,email;
@@ -61,6 +67,8 @@ public class SignInSignUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signin_activity);
         ButterKnife.bind(this);
+        // initialize firebase database ref
+        mDatabase= FirebaseDatabase.getInstance().getReference();
         /*
             firebase auth start
          */
@@ -202,6 +210,58 @@ public class SignInSignUp extends AppCompatActivity {
     }
 
     // [create user with email and password ]
+    private void setUserName(String f)
+    {
+        String name="";
+        for(int i=0;i<f.length();i++)
+        {
+            if(Character.isDigit(f.charAt(i)))
+            {
+                name=f.substring(0,i-1);
+                break;
+            }
+        }
+        final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        final User userDetails = new User(regNo, name);
+        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                .setDisplayName(name)
+                .build();
+        user.updateProfile(profileUpdates)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "User profile updated.");
+                            mDatabase.child("user").child(user.getUid()).setValue(userDetails);
+
+                        }
+                    }
+                });
+    }
+    private void createUser(String email,String password,final String f)
+    {
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
+
+                        // If sign in fails, display a message to the user. If sign in succeeds
+                        // the auth state listener will be notified and logic to handle the
+                        // signed in user can be handled in the listener.
+                        if (!task.isSuccessful()) {
+                            Toast.makeText(SignInSignUp.this, "Wrong Credentials",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                        {
+                            setUserName(f);
+
+                        }
+                    }
+                });
+    }
+
     private void signUp()
     {
         toggleProgressVisibility();
@@ -217,32 +277,12 @@ public class SignInSignUp extends AppCompatActivity {
                     String f = n.getString("result");
                     if (f.equalsIgnoreCase("login failed"))
                         Toast.makeText(SignInSignUp.this, "INVALID CREDENTIALS!!!", Toast.LENGTH_SHORT).show();
-                    else {createUser(email,pswd);}
+                    else {createUser(email,pswd,f);
+                            }
                 } catch (Exception e) {}
                 toggleProgressVisibility();
             }
         });}
-
-    private void createUser(String email,String password)
-    {
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
-
-                        // If sign in fails, display a message to the user. If sign in succeeds
-                        // the auth state listener will be notified and logic to handle the
-                        // signed in user can be handled in the listener.
-                        if (!task.isSuccessful()) {
-                            Toast.makeText(SignInSignUp.this, "Wrong Credentials",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-
-                        // ...
-                    }
-                });
-    }
     // [end create user with email and password ]
 
     //[sign in user with email and password]

@@ -20,6 +20,9 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.eventer.app.Chat.ChatActivity;
 import com.eventer.app.R;
 import com.eventer.app.model.Event;
+import com.eventer.app.model.User;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 
@@ -32,7 +35,7 @@ import butterknife.OnClick;
 /**
  * Created by Gulzar on 24-10-2016.
  */
-public class EventActivity extends AppCompatActivity {
+public class EventActivity extends EventRegistrationSystem {
 
     private Event mEvent;
 
@@ -50,8 +53,9 @@ public class EventActivity extends AppCompatActivity {
     @BindView(R.id.icgroup_orsolo)TextView micgroup_orsolo;
     @BindView(R.id.eventDescription) TextView meventDescription;
     @BindView(R.id.app_bar)AppBarLayout mapp_bar;
-    @BindView(R.id.fab_register) FloatingActionButton fab_register;
-    FloatingActionButton mButton_sent;
+    String uid,eid;
+    User userAdmin;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +66,12 @@ public class EventActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
-     //   showSnackBar();
+        //get user details
+        getUserDetails();
+
+
+      showSnackBar();
+
         //Get Event Object From Previous Class
         mEvent = Parcels.unwrap(getIntent().getParcelableExtra("EXTRA_EVENT"));
         loadDetails(mEvent);
@@ -71,6 +80,20 @@ public class EventActivity extends AppCompatActivity {
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+    }
+    // get user detials
+    void getUserDetails() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            // Name, email address, and profile photo Url
+            uid = user.getUid();
+            String[] parts = user.getEmail().split("@");
+            userAdmin=new User(parts[0],user.getDisplayName());
+        }
+        else
+        {
+            // do some when no user get found
+        }
     }
 
 
@@ -128,6 +151,8 @@ public class EventActivity extends AppCompatActivity {
                     public void onClick(View view) {
 //                        Snackbar snackbar1 = Snackbar.make(coordinatorLayout, "Message is restored!", Snackbar.LENGTH_SHORT);
 //                        snackbar1.show();
+                        setUpRegistration(eid,mEvent,uid,userAdmin);
+
                     }
                 });
         snackbar.show();
