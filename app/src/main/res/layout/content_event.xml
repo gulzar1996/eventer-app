@@ -28,7 +28,7 @@
             android:gravity="center|left"
             android:paddingLeft="16dp"
             android:textColor="@color/colorPrimary"
-            android:textSize="20sp"
+            android:textSize="24sp"
             android:background="@color/content_event_place1"
             app:weight="semibold"
             tools:text="Im poor man with lot of money"/>
@@ -57,7 +57,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
-                android:typeface="monospace"
+                android:typeface="serif"
                 android:textSize="20sp"
                 android:gravity="center"
                 android:layout_margin="2dp"
@@ -76,8 +76,8 @@
                 android:gravity="center|left"
                 android:paddingLeft="16dp"
                 android:textColor="@color/textDark"
-                android:textSize="17sp"
-                app:weight="regular"
+                android:textSize="16sp"
+                app:weight="semibold"
                 android:text="Prize"/>
             <com.eventer.app.common.FontTextView
                 android:layout_width="match_parent"
@@ -87,12 +87,13 @@
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
                 android:textColor="@color/textDark"
-                android:textSize="16sp"
-                app:weight="bold"
+                android:textSize="14sp"
+                app:weight="regular"
                 android:drawableLeft="@drawable/ic_prize"
                 android:drawableTint="@color/cardview_dark_background"
                 android:text=" \u20B9 10,000"/>
             <com.eventer.app.common.FontTextView
+                android:id="@+id/eventDescription"
                 android:paddingTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -101,9 +102,8 @@
                 android:gravity="center|left"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
-                android:textColor="@color/textDark"
-                android:textSize="16sp"
-                app:weight="semibold"
+                android:textSize="14sp"
+                app:weight="regular"
                 android:text="Game of fist. First one to get knocked out elminated.The process is tedious. Developed by Gulzar"/>
             <com.eventer.app.common.FontTextView
                 android:layout_width="match_parent"
@@ -113,8 +113,8 @@
                 android:gravity="center|left"
                 android:paddingLeft="16dp"
                 android:textColor="@color/textDark"
-                android:textSize="18sp"
-                app:weight="regular"
+                android:textSize="16sp"
+                app:weight="semibold"
                 android:text="Rules"/>
             <com.eventer.app.common.FontTextView
                 android:layout_width="match_parent"
@@ -124,9 +124,8 @@
                 android:gravity="center|left"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
-                android:textColor="@color/textDark"
-                android:textSize="16sp"
-                app:weight="light"
+                android:textSize="14sp"
+                app:weight="regular"
                 android:text="Only Adults\nNo place for faint heart\nNo miserOnly Adults\nNo place for faint heart\nNo miserOnly Adults\nNo place for faint heart\nNo miser"/>
 
         </LinearLayout>

@@ -1,6 +1,5 @@
 package com.eventer.app.Event;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -15,6 +14,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.eventer.app.Chat.ChatActivity;
@@ -49,8 +49,9 @@ public class EventActivity extends EventRegistrationSystem {
     CoordinatorLayout coordinatorLayout;
     @BindView(R.id.ic_likes) TextView mic_likes;
     @BindView(R.id.ic_queries)TextView mic_queries;
-    @BindView(R.id.ic_reminder)TextView mic_reminder;
+    @BindView(R.id.ic_organizer)TextView mic_organizer;
     @BindView(R.id.icgroup_orsolo)TextView micgroup_orsolo;
+    @BindView(R.id.eventDescription) TextView meventDescription;
     @BindView(R.id.app_bar)AppBarLayout mapp_bar;
     String uid,eid;
     User userAdmin;
@@ -100,6 +101,10 @@ public class EventActivity extends EventRegistrationSystem {
 
     private  void  loadDetails(Event e) {
         mEventName.setText(e.title);
+        meventDescription.setText(e.body);
+
+        micgroup_orsolo.setText(groupOrSolo());
+
         //Temp
         Glide.with(this)
                 .load(e.downloadURL)
@@ -108,11 +113,23 @@ public class EventActivity extends EventRegistrationSystem {
                 .into(mShotImageView);
     }
 
+    private String groupOrSolo() {
+        int maxReg=mEvent.maxReg;
+        int minReg=mEvent.minReg;
+        if(minReg==1 && maxReg==1)
+            return "Solo";
+        else
+            if(minReg==maxReg)
+             return "Group of "+maxReg;
+        else
+             return "Group "+minReg+"-"+maxReg;
+    }
+
     private void loadIcons() {
         micgroup_orsolo.setCompoundDrawables(null,new IconicsDrawable(this, GoogleMaterial.Icon.gmd_face).actionBar().color(Color.GRAY),null,null);
         mic_likes.setCompoundDrawables(null,new IconicsDrawable(this, GoogleMaterial.Icon.gmd_favorite_border).actionBar().color(Color.GRAY),null,null);
-        mic_reminder.setCompoundDrawables(null,new IconicsDrawable(this, GoogleMaterial.Icon.gmd_alarm).actionBar().color(Color.GRAY),null,null);
-        mic_queries.setCompoundDrawables(null,new IconicsDrawable(this, GoogleMaterial.Icon.gmd_message).actionBar().color(Color.GRAY),null,null);
+        mic_organizer.setCompoundDrawables(null,new IconicsDrawable(this, GoogleMaterial.Icon.gmd_verified_user).actionBar().color(Color.GRAY),null,null);
+        mic_queries.setCompoundDrawables(null,new IconicsDrawable(this, GoogleMaterial.Icon.gmd_forum).actionBar().color(Color.GRAY),null,null);
     }
     @Override public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -150,7 +167,19 @@ public class EventActivity extends EventRegistrationSystem {
         b.putParcelable("EXTRA_EVENT", Parcels.wrap(mEvent));
         i.putExtras(b);
         startActivity(i);
-
+    }
+    @OnClick(R.id.ic_organizer)void Organizer()
+    {
+        //Converting ArrayList to array
+        String[] org = mEvent.organizers.toArray(new String[mEvent.organizers.size()]);
+        new MaterialDialog.Builder(this)
+                .title("Organizers")
+                .items(org)
+                .itemsCallback(new MaterialDialog.ListCallback() {
+                    @Override
+                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                    }})
+                .show();
     }
 
 

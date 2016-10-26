@@ -67,5 +67,9 @@ dependencies {
     //compile 'com.github.Commit451:ElasticDragDismissLayout:1.0.4'
 
     compile 'com.sothree.slidinguppanel:library:3.3.1'
+
+    //Material DialogBox
+    //Material DialogBox
+    compile 'com.afollestad.material-dialogs:core:0.8.6.1'
 }
 apply plugin: 'com.google.gms.google-services'
