@@ -35,11 +35,11 @@ public class EventRegistrationSystem extends AppCompatActivity {
 
     void setUpRegistration(String eid, final Event mEvent, String uid, final User userAdmin) {
 
-//            if(eventIsToday==false && someError==false) {
-//                onRegisterClicked(mEventReference, uid, userAdmin);
-//                onRegisterClicked(mUserEventReference, uid, userAdmin);
-//                changeDesignForUser();
-//            }
+            if(eventIsToday==false && someError==false) {
+                onRegisterClicked(mEventReference, uid, userAdmin);
+                onRegisterClicked(mUserEventReference, uid, userAdmin);
+                changeDesignForUser();
+            }
 
 
     }
@@ -76,5 +76,9 @@ public class EventRegistrationSystem extends AppCompatActivity {
                 Log.d("registerClicked", "eventTransaction:onComplete:" + databaseError);
             }
         });
+    }
+    void changeDesignForUser()
+    {
+        //flip the design of floating button
     }
 }
