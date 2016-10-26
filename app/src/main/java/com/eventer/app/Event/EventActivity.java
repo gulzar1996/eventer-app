@@ -77,12 +77,26 @@ public class EventActivity extends AppCompatActivity {
         mEventName.setText(e.title);
         meventDescription.setText(e.body);
 
+        micgroup_orsolo.setText(groupOrSolo());
+
         //Temp
         Glide.with(this)
                 .load(e.downloadURL)
                 .placeholder(R.drawable.grid_item_placeholder)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(mShotImageView);
+    }
+
+    private String groupOrSolo() {
+        int maxReg=mEvent.maxReg;
+        int minReg=mEvent.minReg;
+        if(minReg==1 && maxReg==1)
+            return "Solo";
+        else
+            if(minReg==maxReg)
+             return "Group of "+maxReg;
+        else
+             return "Group "+minReg+"-"+maxReg;
     }
 
     private void loadIcons() {
