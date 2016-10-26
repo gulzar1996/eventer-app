@@ -14,7 +14,6 @@ import android.view.animation.Animation;
 import android.widget.ImageView;
 
 import com.eventer.app.Chat.ChatFragment;
-import com.eventer.app.Deck.DeckFragment;
 import com.eventer.app.RecyclerEvent.AllEvents;
 import com.eventer.app.SignIn.SignInSignUp;
 import com.google.firebase.auth.FirebaseAuth;

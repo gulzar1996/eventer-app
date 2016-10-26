@@ -20,11 +20,11 @@ public class EventListViewHolder extends RecyclerView.ViewHolder {
 
     @BindView(R.id.imageview_shot) ImageView mShotImageView;
     @BindView(R.id.textview_date) TextView mDateTextView;
-    @BindView(R.id.textview_likes_count) TextView mLikesTextView;
+   // @BindView(R.id.textview_likes_count) TextView mLikesTextView;
     @BindView(R.id.textview_attending_count) TextView mAttendingTextView;
     @BindView(R.id.textview_first_prize) TextView mFirstPrizeTextView;
     @BindView(R.id.textview_event_name) TextView mtextview_event_name;
-    @BindView(R.id.sub_text)TextView msub_text;
+   // @BindView(R.id.sub_text)TextView msub_text;
     public EventListViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this,itemView);
