@@ -35,11 +35,11 @@ public class EventRegistrationSystem extends AppCompatActivity {
 
     void setUpRegistration(String eid, final Event mEvent, String uid, final User userAdmin) {
 
-            if(eventIsToday==false && someError==false) {
-                onRegisterClicked(mEventReference, uid, userAdmin);
-                onRegisterClicked(mUserEventReference, uid, userAdmin);
-                changeDesignForUser();
-            }
+//            if(eventIsToday==false && someError==false) {
+//                onRegisterClicked(mEventReference, uid, userAdmin);
+//                onRegisterClicked(mUserEventReference, uid, userAdmin);
+//                changeDesignForUser();
+//            }
 
 
     }
@@ -58,10 +58,10 @@ public class EventRegistrationSystem extends AppCompatActivity {
                     userIsRegister=false;
                 }
                 else {
-                    // register the event and add self to register
-                    p.registerCount = p.registerCount + 1;
-                    p.registers.put(uid,userAdmin.toMap());
-                    userIsRegister=true;
+//                    // register the event and add self to register
+//                    p.registerCount = p.registerCount + 1;
+//                    p.registers.put(uid,userAdmin.toMap());
+//                    userIsRegister=true;
                 }
 
                 // Set value and report transaction success
