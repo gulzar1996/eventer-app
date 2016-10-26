@@ -41,6 +41,6 @@ public class EventListViewHolder extends RecyclerView.ViewHolder {
                     .into(mShotImageView);
         mAttendingTextView.setText(event.registerCount+"");
 //        starView.setOnClickListener(clickxxx);
-//        titleView.setOnClickListener(clickxxx);
+             mtextview_event_name.setOnClickListener(clickxxx);
     }
 }

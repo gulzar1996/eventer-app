@@ -77,6 +77,7 @@ public class EventActivity extends EventRegistrationSystem {
         eid=getIntent().getStringExtra("eid");
         //initialize event refrence
         eRef=mDatabase.child("events").child(eid);
+
         //Get Event Object From Previous Class
         mEvent = Parcels.unwrap(getIntent().getParcelableExtra("EXTRA_EVENT"));
         loadDetails(mEvent);

@@ -6,12 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
-import com.eventer.app.UiCallBack.GroupInputDetails;
-import com.eventer.app.common.Bindable;
 import com.eventer.app.model.Event;
 import com.eventer.app.model.User;
-import com.eventer.app.ui.GroupDialogBox;
-import com.eventer.app.util.ViewUtils;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,7 +29,7 @@ import java.util.Map;
 public class EventRegistrationSystem extends AppCompatActivity {
     private Boolean someError=false;
     public Boolean userIsRegister=false;
-    public  DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();;
+    public  DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
 
     protected void onCreate(Bundle savedInstanceState) {

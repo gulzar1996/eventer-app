@@ -20,35 +20,37 @@ public class Event {
     public String body;
     public String date_time;
     public String venue;
+    public String rules;
     public String downloadURL;
-    public ArrayList<String> tags;
-    public String userkey;
+    public String logoURL;
+    public String prize;
+    public ArrayList<String> winners;
+    public ArrayList<String> userkey;
     public int registerCount = 0;
-
     public Map<String,User> registers = new HashMap<>();
-
     public long timestamp;
     public int maxReg;
     public int minReg;
-    public int groupRegisterCount=0;
 
     public Event() {
         // Default constructor required for calls to DataSnapshot.getValue(Post.class)
     }
 
-    public Event(String userKey, String title, String body, String date_time,String venue, ArrayList<String> tags,  ArrayList<String> organizers,String downloadURL,long timestamp,int maxReg,int minReg) {
+    public Event(ArrayList<String> userKey, String title, String body, String date_time,String venue,String rules,  ArrayList<String> organizers,String downloadURL,String logoURL,String prize,long timestamp,int maxReg,int minReg) {
 
         this.userkey=userKey;
 
         this.organizers=organizers;
 
-        this.tags=tags;
 
         this.title = title;
         this.body = body;
         this.date_time=date_time;
         this.venue=venue;
+        this.rules=rules;
         this.downloadURL=downloadURL;
+        this.logoURL=logoURL;
+        this.prize=prize;
         this.timestamp=timestamp;
         this.maxReg=maxReg;
         this.minReg=minReg;
@@ -62,15 +64,17 @@ public class Event {
         HashMap<String, Object> result = new HashMap<>();
         result.put("userkey", userkey);
         result.put("downloadURL",downloadURL);
+        result.put("logoURL",logoURL);
         result.put("organizers",organizers);
-        result.put("tags",tags);
+        result.put("prize",prize);
+        result.put("winners",winners);
         result.put("title", title);
         result.put("body", body);
         result.put("venue",venue);
         result.put("date_time", date_time);
+        result.put("rules",rules);
         result.put("registerCount", registerCount);
         result.put("registers", registers);
-        result.put("groupRegisterCount", groupRegisterCount);
         result.put("timestamp",timestamp);
         result.put("minReg",minReg);
         result.put("maxReg",maxReg);

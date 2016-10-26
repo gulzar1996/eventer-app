@@ -92,7 +92,7 @@ public class ChatFragment extends Fragment implements ChildEventListener, ChatCo
         ChatActivity ca=(ChatActivity)getActivity();
         Log.d("Gulxx",ca.mEvent.title);
         mquery_name.setText(ca.mEvent.title+" Discussion");
-        initializeFirebase(ca.mEvent.userkey);
+        initializeFirebase(ca.mEvent.userkey.get(0));
         initializePresenter();
         setupAdapter();
         setupList();
