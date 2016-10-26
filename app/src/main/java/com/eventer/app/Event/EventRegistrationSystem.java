@@ -112,13 +112,13 @@ public class EventRegistrationSystem extends AppCompatActivity {
     void registerUserInDialog(List<User> users)
     {
 //        // put material dialog and all the user is in users array list with datastructure User
-//        String[] username=new String[users.size()];
-//        for(int i=0;i<users.size();i++)
-//            username[i]=users.get(i).name+" ("+users.get(i).regno+")";
+        String[] username=new String[users.size()];
+        for(int i=0;i<users.size();i++)
+            username[i]=users.get(i).name+" ("+users.get(i).regno+")";
 
         new MaterialDialog.Builder(this)
                 .title("Participant")
-                .items(users)
+                .items(username)
                 .itemsCallback(new MaterialDialog.ListCallback() {
                     @Override
                     public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
