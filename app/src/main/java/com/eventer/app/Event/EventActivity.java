@@ -81,7 +81,7 @@ public class EventActivity extends EventRegistrationSystem {
         //Get Event Object From Previous Class
         mEvent = Parcels.unwrap(getIntent().getParcelableExtra("EXTRA_EVENT"));
         loadDetails(mEvent);
-
+        getRegisterUser(eRef,true);
         //Setting up ActionBar
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
