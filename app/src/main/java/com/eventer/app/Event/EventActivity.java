@@ -54,9 +54,9 @@ public class EventActivity extends EventRegistrationSystem {
     @BindView(R.id.icgroup_orsolo)TextView micgroup_orsolo;
     @BindView(R.id.eventDescription) TextView meventDescription;
     @BindView(R.id.app_bar)AppBarLayout mapp_bar;
-    String uid;
-    User userAdmin;
-    DatabaseReference eRef;
+    private String uid,eid;
+    private User userAdmin;
+    private DatabaseReference eRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,9 +71,12 @@ public class EventActivity extends EventRegistrationSystem {
         //get user details
         getUserDetails();
 
+        showSnackBar();
 
-      showSnackBar();
-
+        //get event id
+        eid=getIntent().getStringExtra("eid");
+        //initialize event refrence
+        eRef=mDatabase.child("events").child(eid);
         //Get Event Object From Previous Class
         mEvent = Parcels.unwrap(getIntent().getParcelableExtra("EXTRA_EVENT"));
         loadDetails(mEvent);

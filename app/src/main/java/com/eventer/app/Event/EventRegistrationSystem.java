@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
-import com.eventer.app.Deck.DeckAdapter;
 import com.eventer.app.UiCallBack.GroupInputDetails;
 import com.eventer.app.common.Bindable;
 import com.eventer.app.model.Event;
@@ -16,6 +15,7 @@ import com.eventer.app.util.ViewUtils;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
@@ -32,6 +32,7 @@ import java.util.Map;
 public class EventRegistrationSystem extends AppCompatActivity {
     private Boolean someError=false;
     public Boolean userIsRegister=false;
+    public  DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +41,12 @@ public class EventRegistrationSystem extends AppCompatActivity {
 
     void setUpRegistration(DatabaseReference mReference, String uid, final User userAdmin) {
 
-//            if(eventIsToday==false && someError==false) {
-//                onRegisterClicked(mEventReference, uid, userAdmin);
-//                onRegisterClicked(mUserEventReference, uid, userAdmin);
-//                changeDesignForUser();
+        if (someError == false) {
+            onRegisterClicked(mReference, uid, userAdmin);
+            changeDesignForUser();
 
-            }
+        }
+    }
 
 
     public void onRegisterClicked(DatabaseReference mReference,final String uid ,final User userAdmin) {
@@ -65,7 +66,7 @@ public class EventRegistrationSystem extends AppCompatActivity {
                 else {
                     // register the event and add self to register
                     p.registerCount = p.registerCount + 1;
-                   // p.registers.put(uid,userAdmin.toMap());
+                    p.registers.put(uid,userAdmin);
                     userIsRegister=true;
                 }
 

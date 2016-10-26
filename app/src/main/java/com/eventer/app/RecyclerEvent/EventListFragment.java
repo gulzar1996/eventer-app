@@ -1,5 +1,6 @@
 package com.eventer.app.RecyclerEvent;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.eventer.app.Event.EventActivity;
 import com.eventer.app.R;
 import com.eventer.app.model.Event;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -17,6 +19,8 @@ import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+
+import org.parceler.Parcels;
 
 /**
  * Created by Gulzar on 26-10-2016.
@@ -57,8 +61,23 @@ public abstract class EventListFragment extends Fragment implements ObservableSc
         mAdapter = new FirebaseRecyclerAdapter<Event, EventListViewHolder>(Event.class, R.layout.event_card_view_alternative,
                 EventListViewHolder.class, postsQuery) {
             @Override
-            protected void populateViewHolder(EventListViewHolder viewHolder, Event model, int position)
+            protected void populateViewHolder(EventListViewHolder viewHolder, final Event model, int position)
             {
+                final DatabaseReference eventRef = getRef(position);
+                final String eventKey = eventRef.getKey();
+
+                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // Launch IndividualEventActivity
+                        Intent intent = new Intent(getActivity(), EventActivity.class);
+                        intent.putExtra("eid", eventKey);
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelable("EXTRA_EVENT", Parcels.wrap(model));
+                        intent.putExtras(bundle);
+                        startActivity(intent);
+                    }
+                });
                 viewHolder.bindToPost(model, new View.OnClickListener() {
                     @Override
                     public void onClick(View starView) {
