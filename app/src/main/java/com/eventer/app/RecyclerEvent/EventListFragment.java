@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 import com.eventer.app.R;
 import com.eventer.app.model.Event;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
+import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
+import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
@@ -18,10 +21,10 @@ import com.google.firebase.database.Query;
 /**
  * Created by Gulzar on 26-10-2016.
  */
-public abstract class EventListFragment extends Fragment {
+public abstract class EventListFragment extends Fragment implements ObservableScrollViewCallbacks  {
     private DatabaseReference mDatabase;
     private FirebaseRecyclerAdapter<Event, EventListViewHolder> mAdapter;
-    private RecyclerView mRecycler;
+    public ObservableRecyclerView mRecycler;
     private LinearLayoutManager mManager;
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container,
@@ -33,8 +36,8 @@ public abstract class EventListFragment extends Fragment {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         // [END create_database_reference]
 
-        mRecycler = (RecyclerView) rootView.findViewById(R.id.messages_list);
-        mRecycler.setHasFixedSize(true);
+        mRecycler = (ObservableRecyclerView) rootView.findViewById(R.id.messages_list);
+        mRecycler.setScrollViewCallbacks(this);
 
         return rootView;
     }
@@ -68,6 +71,29 @@ public abstract class EventListFragment extends Fragment {
             }
         };
         mRecycler.setAdapter(mAdapter);
+    }
+
+
+    @Override
+    public void onScrollChanged(int scrollY, boolean firstScroll,
+                                boolean dragging) {
+    }
+
+    @Override
+    public void onDownMotionEvent() {
+    }
+
+    @Override
+    public void onUpOrCancelMotionEvent(ScrollState scrollState) {
+//        if (scrollState == ScrollState.UP) {
+//            if () {
+//                ab.hide();
+//            }
+//        } else if (scrollState == ScrollState.DOWN) {
+//            if (!ab.isShowing()) {
+//                ab.show();
+//            }
+//        }
     }
 
     public abstract Query getQuery(DatabaseReference databaseReference);
