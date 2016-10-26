@@ -41,6 +41,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     @Override public void onBindViewHolder(ViewHolder holder, int position) {
         Chat chat = chatList.get(position);
         holder.txtMessage.setText(chat.getMessage());
+        holder.senderName.setText(chat.getsenderName());
     }
 
     @Override public int getItemCount() {
@@ -54,9 +55,11 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ViewHolder> {
     }
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView txtMessage;
+        TextView senderName;
         public ViewHolder(View view) {
             super(view);
             txtMessage = (TextView) view.findViewById(R.id.txt_message);
+            senderName= (TextView) view.findViewById(R.id.senderName);
         }
     }
 }

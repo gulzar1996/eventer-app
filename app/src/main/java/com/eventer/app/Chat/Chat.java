@@ -7,13 +7,15 @@ public class Chat {
 
     private String message;
     private String author;
+    private String senderName;
 
     // Default constructor is required for Firebase object mapping
     @SuppressWarnings("unuser")
     public Chat(){}
-    public Chat(String message, String author) {
+    public Chat(String message, String author,String senderName) {
         this.message = message;
         this.author = author;
+        this.senderName=senderName;
     }
     public String getMessage() {
         return message;
@@ -21,4 +23,6 @@ public class Chat {
     public String getAuthor() {
         return author;
     }
+
+    public String getsenderName() {return senderName;}
 }

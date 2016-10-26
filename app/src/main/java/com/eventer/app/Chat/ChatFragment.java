@@ -48,7 +48,7 @@ public class ChatFragment extends Fragment implements ChildEventListener, ChatCo
     private List<Chat> chats;
     private String idUser;
     private ChatAdapter adapter;
-
+    private String senderName;
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -64,14 +64,17 @@ public class ChatFragment extends Fragment implements ChildEventListener, ChatCo
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
-
+        //Change Sender name
+        senderName="deamonxx";
 
        // idUser = getUId();
-        idUser= String.valueOf(FirebaseAuth.getInstance().getCurrentUser());
+        //idUser= String.valueOf(FirebaseAuth.getInstance().getCurrentUser());
         mAuthListener = new FirebaseAuth.AuthStateListener() {@Override
         public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
             FirebaseUser user = firebaseAuth.getCurrentUser();
             if (user != null) {
+                idUser=user.getUid();
+
             } else {
                startActivity(new Intent(getActivity(), SignInSignUp.class));
             }
@@ -155,7 +158,7 @@ public class ChatFragment extends Fragment implements ChildEventListener, ChatCo
 
     @Override public void sendMessage() {
         String message = messageInput.getText().toString();
-        if (!message.isEmpty()) firebase.push().setValue(new Chat(message, idUser));
+        if (!message.isEmpty()) firebase.push().setValue(new Chat(message, idUser,senderName));
 
         messageInput.setText("");
     }
