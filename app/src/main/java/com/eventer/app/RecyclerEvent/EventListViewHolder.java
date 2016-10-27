@@ -24,6 +24,8 @@ public class EventListViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.textview_attending_count) TextView mAttendingTextView;
     @BindView(R.id.textview_first_prize) TextView mFirstPrizeTextView;
     @BindView(R.id.textview_event_name) TextView mtextview_event_name;
+    @BindView(R.id.organizationName)TextView morganizationName;
+    @BindView(R.id.event_card_click) View mevent_card_click;
    // @BindView(R.id.sub_text)TextView msub_text;
     public EventListViewHolder(View itemView) {
         super(itemView);
@@ -40,7 +42,16 @@ public class EventListViewHolder extends RecyclerView.ViewHolder {
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                     .into(mShotImageView);
         mAttendingTextView.setText(event.registerCount+"");
+        mFirstPrizeTextView.setText(event.prize);
+        morganizationName.setText(event.organizationName);
+        Glide.with(mic_event_logo.getContext())
+                .load(event.logoURL)
+                .placeholder(R.drawable.gradient_vertical)
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .into(mic_event_logo);
 //        starView.setOnClickListener(clickxxx);
-            // mtextview_event_name.setOnClickListener(clickxxx);
+            mevent_card_click.setOnClickListener(clickxxx);
+             mic_event_logo.setOnClickListener(clickxxx);
+            morganizationName.setOnClickListener(clickxxx);
     }
 }

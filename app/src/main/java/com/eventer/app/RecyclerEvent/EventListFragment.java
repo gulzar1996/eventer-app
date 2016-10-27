@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.bumptech.glide.Glide;
 import com.eventer.app.Event.EventActivity;
 
 import com.eventer.app.R;
@@ -71,26 +73,34 @@ public abstract class EventListFragment extends Fragment  {
                 final DatabaseReference eventRef = getRef(position);
                 final String eventKey = eventRef.getKey();
 
-                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        // Launch IndividualEventActivity
-                        Intent intent = new Intent(getActivity(), EventActivity.class);
-                        intent.putExtra("eid", eventKey);
-                        Bundle bundle = new Bundle();
-                        bundle.putParcelable("EXTRA_EVENT", Parcels.wrap(model));
-                        intent.putExtras(bundle);
-                        startActivity(intent);
-                    }
-                });
+//                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        // Launch IndividualEventActivity
+//
+//                    }
+//                });
                 viewHolder.bindToPost(model, new View.OnClickListener() {
                     @Override
-                    public void onClick(View starView) {
+                    public void onClick(View view) {
 
-//                        // Need to write to both places the post is stored
-//                        DatabaseReference globalPostRef = mDatabase.child("posts").child(postRef.getKey());
-//                        DatabaseReference userPostRef = mDatabase.child("user-posts").child(model.uid).child(postRef.getKey());
-//                        // Run two transactions
+                        if(view.getId()==R.id.event_card_click)
+                        {
+                            Intent intent = new Intent(getActivity(), EventActivity.class);
+                            intent.putExtra("eid", eventKey);
+                            Bundle bundle = new Bundle();
+                            bundle.putParcelable("EXTRA_EVENT", Parcels.wrap(model));
+                            intent.putExtras(bundle);
+                            startActivity(intent);
+                        }
+                        if(view.getId()==R.id.organizationName || view.getId()==R.id.ic_event_logo)
+                        {
+                            new MaterialDialog.Builder(getActivity())
+                                    .limitIconToDefaultSize() // limits the displayed icon size to 48dp
+                                    .title(model.organizationName)
+                                    .content(model.organizationDescription)
+                                    .show();
+                        }
                     }
                 });
             }

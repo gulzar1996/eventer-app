@@ -25,6 +25,8 @@ public class Event {
     public String logoURL;
     public String prize;
     public String eventID;
+    public String organizationDescription;
+    public String organizationName;
     public ArrayList<String> winners;
     public ArrayList<String> userkey;
     public int registerCount = 0;
@@ -37,13 +39,13 @@ public class Event {
         // Default constructor required for calls to DataSnapshot.getValue(Post.class)
     }
 
-    public Event(String eventID,ArrayList<String> userKey, String title, String body, String date_time,String venue,String rules,  ArrayList<String> organizers,String downloadURL,String logoURL,String prize,long timestamp,int maxReg,int minReg) {
+    public Event(String eventID,ArrayList<String> userKey, String title, String body, String date_time,String venue,String rules,  ArrayList<String> organizers,String downloadURL,String logoURL,String prize,String organizationName,String organizationDescription,long timestamp,int maxReg,int minReg) {
 
         this.eventID=eventID;
         this.userkey=userKey;
 
         this.organizers=organizers;
-
+        this.organizationName=organizationName;
 
         this.title = title;
         this.body = body;
@@ -56,6 +58,7 @@ public class Event {
         this.timestamp=timestamp;
         this.maxReg=maxReg;
         this.minReg=minReg;
+        this.organizationDescription=organizationDescription;
 
     }
 
@@ -81,6 +84,8 @@ public class Event {
         result.put("timestamp",timestamp);
         result.put("minReg",minReg);
         result.put("maxReg",maxReg);
+        result.put("organizationName",organizationName);
+        result.put("organizationDescription",organizationDescription);
         return result;
     }
 }

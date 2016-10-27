@@ -88,7 +88,7 @@ public class WriteActivity extends AppCompatActivity {
         organizer.add("Gaurav Sehgal");
 
         key = mDatabase.child("events").push().getKey();
-        Event event = new Event(key,userKey, eventTitle, eventBody, date, eventVenue, eventRules,organizer, downloadurl,logourl,"100 Rs",1415565454,1,1);
+        Event event = new Event(key,userKey, eventTitle, eventBody, date, eventVenue, eventRules,organizer, downloadurl,logourl,"100 Rs","FooBar","Foobar is a techfest which is smewhat better than source code",1415565454,1,1);
         Map<String, Object> eventValues = event.toMap();
         Map<String, Object> childUpdates = new HashMap<>();
         childUpdates.put("/events/" + key, eventValues);

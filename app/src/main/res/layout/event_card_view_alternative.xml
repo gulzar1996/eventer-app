@@ -24,13 +24,14 @@
             android:layout_height="0dp"
             android:layout_weight="1">
             <ImageView
+                android:scaleType="centerCrop"
                 android:src="@drawable/gradient_vertical"
                 android:id="@+id/ic_event_logo"
                 android:layout_alignParentLeft="true"
                 android:layout_width="50dp"
                 android:layout_height="50dp" />
             <TextView
-                android:text="Foobar"
+                android:id="@+id/organizationName"
                 android:layout_marginLeft="8dp"
                 android:layout_toRightOf="@+id/ic_event_logo"
                 android:layout_width="wrap_content"
@@ -59,6 +60,7 @@
             android:layout_height="1dp"
             android:background="@color/divider"/>
         <LinearLayout
+            android:id="@+id/event_card_click"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
