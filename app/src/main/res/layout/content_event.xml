@@ -36,7 +36,7 @@
             android:layout_marginTop="10dp"
             android:id="@+id/event_register_like_notify_message"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="180"
             layout="@layout/event_register_like_notify_message"
             android:layout_below="@+id/textview_event_name"/>
         <View
