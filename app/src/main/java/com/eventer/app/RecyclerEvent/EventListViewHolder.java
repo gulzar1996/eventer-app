@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
  * Created by Gulzar on 26-10-2016.
  */
 public class EventListViewHolder extends RecyclerView.ViewHolder {
-
+    @BindView(R.id.ic_event_logo)ImageView mic_event_logo;
     @BindView(R.id.imageview_shot) ImageView mShotImageView;
     @BindView(R.id.textview_date) TextView mDateTextView;
    // @BindView(R.id.textview_likes_count) TextView mLikesTextView;

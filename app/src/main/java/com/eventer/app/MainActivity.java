@@ -3,6 +3,8 @@ package com.eventer.app;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,6 +18,7 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.eventer.app.Chat.ChatFragment;
 import com.eventer.app.RecyclerEvent.AllEvents;
@@ -42,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
     TabLayout tabLayout;
     @BindView(R.id.toolbar)
     Toolbar mtoolbar;
+    @BindView(R.id.displayAlls)
+    CoordinatorLayout coordinatorLayout;
     private FragmentPagerAdapter mPagerAdapter;
     private final Map<String, Fragment> mFragments = new HashMap<>(2);
     private static final String TAG_DECK_FRAGMENT = "TAG_DECK_FRAGMENT";
@@ -124,5 +129,19 @@ public class MainActivity extends AppCompatActivity {
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Snackbar snackbar = Snackbar
+                .make(coordinatorLayout,"", Snackbar.LENGTH_LONG)
+                .setAction("Exit", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                      finish();
+                    }
+                });
+        snackbar.show();
+
     }
 }

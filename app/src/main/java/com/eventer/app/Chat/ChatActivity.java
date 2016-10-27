@@ -34,4 +34,11 @@ public class ChatActivity extends AppCompatActivity {
                 .add(R.id.chat_frame, new ChatFragment())
                 .commit();
     }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        overridePendingTransition(R.anim.push_out_to_bottom, R.anim.push_out_to_bottom);
+
+    }
 }
