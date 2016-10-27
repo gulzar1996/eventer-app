@@ -22,7 +22,6 @@
             </intent-filter>
         </activity>
         <activity android:name="com.eventer.app.MainActivity"
-            android:theme="@style/AppTheme.TranslucentBars"
 
             />
         <activity android:name=".Chat.ChatActivity"
