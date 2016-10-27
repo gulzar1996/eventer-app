@@ -60,6 +60,8 @@
             android:layout_height="1dp"
             android:background="@color/divider"/>
         <LinearLayout
+            android:clickable="true"
+            android:background="?attr/selectableItemBackground"
             android:id="@+id/event_card_click"
             android:layout_width="match_parent"
             android:layout_height="0dp"
