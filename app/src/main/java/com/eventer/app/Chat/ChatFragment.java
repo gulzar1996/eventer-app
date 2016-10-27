@@ -41,8 +41,6 @@ public class ChatFragment extends Fragment implements ChildEventListener, ChatCo
     EditText messageInput;
     @BindView(R.id.list_chat)
     RecyclerView chatList;
-    @BindView(R.id.fragment_chat_layout)
-    View mfragment_chat_layout;
     @BindView(R.id.query_name) TextView mquery_name;
     private DatabaseReference firebase;
     private List<Chat> chats;
@@ -97,16 +95,10 @@ public class ChatFragment extends Fragment implements ChildEventListener, ChatCo
         setupAdapter();
         setupList();
 
-        setupMargin();
         return view;
     }
 
 
-    private void setupMargin() {
-        int statusBarHeight = ViewUtils.getStatusBarHeight();
-        mfragment_chat_layout.setPadding(0,0,
-                0, 0 );
-    }
 
     @OnClick(R.id.button_sent) public void submit() {
         presenter.send();

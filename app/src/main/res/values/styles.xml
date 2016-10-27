@@ -36,7 +36,7 @@
         <item name="android:layout_marginRight">4dp</item>
     </style>
     <style name="AppTheme.TranslucentBars">
-        <item name="android:statusBarColor">@color/translucent_bars</item>
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
         <item name="colorControlHighlight">@color/mediumGray</item>
     </style>
 
