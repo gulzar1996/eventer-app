@@ -84,7 +84,7 @@ public class WriteActivity extends AppCompatActivity {
     }
     void createEvent()
     {
-        userKey.add("4liHTV3xMIVuZzHJFhesEFZW4K52");
+        userKey.add("4liHTV3xMIVuZzHJFhesEFZW4K5");
         organizer.add("Gaurav Sehgal");
 
         key = mDatabase.child("events").push().getKey();

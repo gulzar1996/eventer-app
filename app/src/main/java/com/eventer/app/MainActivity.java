@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.eventer.app.Chat.ChatFragment;
 import com.eventer.app.RecyclerEvent.AllEvents;
+import com.eventer.app.RecyclerEvent.MyEvents;
 import com.eventer.app.SignIn.SignInSignUp;
 import com.eventer.app.Write.WriteActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -93,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             private final Fragment[] mFragments = new Fragment[] {
                     new AllEvents(),
-                    new AllEvents()
+                    new MyEvents()
             };
             private final String[] mFragmentNames = new String[] {
                     "All Events",
