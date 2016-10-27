@@ -53,7 +53,7 @@
             android:background="?attr/selectableItemBackground"
             android:id="@+id/ic_organizer"
             tool:text="Organizer"
-            android:text="Organiizer"
+            android:text="Organizer"
             android:layout_below="@+id/textview_event_name"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

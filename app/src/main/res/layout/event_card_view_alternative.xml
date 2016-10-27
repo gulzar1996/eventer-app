@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView android:layout_width="match_parent"
+<LinearLayout
+    android:id="@+id/rootViewCard"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+<android.support.v7.widget.CardView android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:layout_marginLeft="8dp"
     android:layout_marginRight="8dp"
     android:layout_marginTop="4dp"
     card_view:cardCornerRadius="2dp"
     android:layout_marginBottom="4dp"
+
     card_view:cardElevation="1dp"
     android:id="@+id/cardView"
 
 
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+>
     <LinearLayout
         android:background="#FFF8F7F7"
         android:layout_width="match_parent"
@@ -119,3 +125,4 @@
     </LinearLayout>
 
     </android.support.v7.widget.CardView>
+    </LinearLayout>

@@ -1,5 +1,6 @@
 package com.eventer.app.RecyclerEvent;
 
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -31,6 +32,8 @@ public class EventListViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.event_card_click) View mevent_card_click;
     @BindView(R.id.cardView) FrameLayout mcardView;
     @BindView(R.id.cardViewEvent) LinearLayout mcardViewEvent;
+    @BindView(R.id.rootViewCard)
+    LinearLayout mrootViewCard;
    // @BindView(R.id.sub_text)TextView msub_text;
     public EventListViewHolder(View itemView) {
         super(itemView);
@@ -61,6 +64,7 @@ public class EventListViewHolder extends RecyclerView.ViewHolder {
     }
     public void removefragment()
     {
+        mrootViewCard.setVisibility(View.GONE);
             mcardViewEvent.setVisibility(View.GONE);
         mcardView.setVisibility(View.GONE);
       // LayoutParams params =  mcardViewEvent.getLayoutParams();

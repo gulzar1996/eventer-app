@@ -35,10 +35,4 @@ public class ChatActivity extends AppCompatActivity {
                 .commit();
     }
 
-    @Override
-    public void onBackPressed() {
-        finish();
-        overridePendingTransition(R.anim.push_out_to_bottom, R.anim.push_out_to_bottom);
-
-    }
 }

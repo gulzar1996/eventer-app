@@ -6,14 +6,15 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorControlHighlight">@color/colorAccent</item>
-        <item name="android:colorEdgeEffect">@color/colorAccent</item>
+        <item name="colorControlHighlight">@color/mediumGray</item>
+        <item name="android:colorEdgeEffect">@color/mediumGray</item>
+
     </style>
 
     <style name="AppTheme.SignIn" parent="AppTheme">
         <!-- Customize your theme here. -->
-        <item name="colorPrimaryDark">#69F0AE</item>
-        <item name="android:colorEdgeEffect">@color/colorAccent</item>
+        <item name="android:colorEdgeEffect">@color/mediumGray</item>
+        <item name="colorControlHighlight">@color/mediumGray</item>
 
     </style>
     <style name="AppTheme.GreyRipple" parent="AppTheme">

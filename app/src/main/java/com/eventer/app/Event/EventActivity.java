@@ -67,8 +67,8 @@ public class EventActivity extends EventRegistrationSystem {
         overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
-        //get user details
-        getUserDetails();
+//        //get user details
+//        getUserDetails();
 
         showSnackBar();
 
@@ -80,7 +80,7 @@ public class EventActivity extends EventRegistrationSystem {
         //Get Event Object From Previous Class
         mEvent = Parcels.unwrap(getIntent().getParcelableExtra("EXTRA_EVENT"));
         loadDetails(mEvent);
-        getRegisterUser(eRef,true);
+      //  getRegisterUser(eRef,true);
         //Setting up ActionBar
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -146,7 +146,6 @@ public class EventActivity extends EventRegistrationSystem {
     }
     @Override public void onBackPressed() {
         super.onBackPressed();
-        overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
     }
 
     private void showSnackBar()
@@ -172,7 +171,6 @@ public class EventActivity extends EventRegistrationSystem {
         b.putParcelable("EXTRA_EVENT", Parcels.wrap(mEvent));
         i.putExtras(b);
         startActivity(i);
-        overridePendingTransition(R.anim.pull_up_from_bottom, R.anim.pull_up_from_bottom);
     }
     @OnClick(R.id.ic_organizer)void Organizer()
     {
