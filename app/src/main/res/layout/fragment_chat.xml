@@ -41,7 +41,7 @@
         android:padding="8dp">
 
         <EditText
-            android:layout_weight="9"
+            android:layout_weight="8"
             android:id="@+id/input_message"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -50,15 +50,15 @@
             android:padding="8dp"/>
 
 
-        <android.support.design.widget.FloatingActionButton
-            android:layout_gravity="right"
+        <ImageButton
+            android:padding="8dp"
+            android:clickable="true"
             android:id="@+id/button_sent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:src="@android:drawable/ic_menu_send"
-            app:backgroundTint="@color/colorAccent"
-            app:fabSize="mini"
-           />
+            android:layout_weight="2"
+            android:theme="@style/ThemeOverlay.MyDarkButton" />
 
     </LinearLayout>
 
