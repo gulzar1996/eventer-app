@@ -81,6 +81,7 @@
             android:paddingRight="16dp">
 
             <Button
+                android:clickable="true"
                 android:id="@+id/button_sign_up"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -89,6 +90,7 @@
                 android:theme="@style/ThemeOverlay.MyDarkButton" />
 
             <Button
+                android:clickable="true"
                 android:id="@+id/button_sign_in"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
