@@ -37,27 +37,28 @@
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:orientation="horizontal"
+        android:weightSum="10"
         android:padding="8dp">
 
         <EditText
             android:layout_weight="9"
             android:id="@+id/input_message"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:background="@android:color/white"
             android:hint="@string/sent_message"
             android:padding="8dp"/>
 
 
         <android.support.design.widget.FloatingActionButton
+            android:layout_gravity="right"
             android:id="@+id/button_sent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
             android:src="@android:drawable/ic_menu_send"
             app:backgroundTint="@color/colorAccent"
             app:fabSize="mini"
-            app:pressedTranslationZ="8dp"/>
+           />
 
     </LinearLayout>
 

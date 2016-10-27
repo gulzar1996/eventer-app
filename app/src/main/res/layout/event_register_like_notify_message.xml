@@ -14,13 +14,15 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <TextView
+            android:clickable="true"
+            android:background="?attr/selectableItemBackground"
             android:id="@+id/icgroup_orsolo"
             android:text="Solo"
             android:layout_below="@+id/textview_event_name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center"
-            style="@style/Widget.Plaid.InlineActionButton"/>/>
+            />/>
     </LinearLayout>
     <LinearLayout
         android:layout_weight="1"
@@ -29,14 +31,16 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <TextView
-            android:id="@+id/ic_likes"
-            android:text="Likes"
+            android:clickable="true"
+            android:background="?attr/selectableItemBackground"
+            android:id="@+id/ic_winners"
+            android:text="Winners"
             tool:text="Likes"
             android:layout_below="@+id/textview_event_name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center"
-            style="@style/Widget.Plaid.InlineActionButton"/>/>
+            />/>
     </LinearLayout>
     <LinearLayout
         android:layout_weight="1"
@@ -45,14 +49,16 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <TextView
+            android:clickable="true"
+            android:background="?attr/selectableItemBackground"
             android:id="@+id/ic_organizer"
             tool:text="Organizer"
             android:text="Organiizer"
             android:layout_below="@+id/textview_event_name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center"
-            style="@style/Widget.Plaid.InlineActionButton"/>/>
+            />/>
     </LinearLayout>
     <LinearLayout
         android:layout_weight="1"
@@ -61,13 +67,15 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <TextView
+            android:clickable="true"
+            android:background="?attr/selectableItemBackground"
             android:id="@+id/ic_queries"
             android:text="Queries"
             android:layout_below="@+id/textview_event_name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:gravity="center"
-            style="@style/Widget.Plaid.InlineActionButton"/>/>
+            />/>
     </LinearLayout>
 
 </LinearLayout>

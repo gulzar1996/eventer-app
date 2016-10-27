@@ -5,9 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +22,7 @@ import com.eventer.app.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
+import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 
@@ -48,7 +47,7 @@ public class EventActivity extends EventRegistrationSystem {
     TextView mEventName;
     @BindView(R.id.htab_maincontent)
     CoordinatorLayout coordinatorLayout;
-    @BindView(R.id.ic_likes) TextView mic_likes;
+    @BindView(R.id.ic_winners) TextView mic_winners;
     @BindView(R.id.ic_queries)TextView mic_queries;
     @BindView(R.id.ic_organizer)TextView mic_organizer;
     @BindView(R.id.icgroup_orsolo)TextView micgroup_orsolo;
@@ -120,18 +119,20 @@ public class EventActivity extends EventRegistrationSystem {
     private String groupOrSolo() {
         int maxReg=mEvent.maxReg;
         int minReg=mEvent.minReg;
-        if(minReg==1 && maxReg==1)
-            return "Solo";
+        if(minReg==1 && maxReg==1){
+            micgroup_orsolo.setCompoundDrawables(null,new IconicsDrawable(this, FontAwesome.Icon.faw_user).actionBar().color(Color.GRAY),null,null);
+            return "Solo";}
         else
-            if(minReg==maxReg)
-             return "Group of "+maxReg;
-        else
-             return "Group "+minReg+"-"+maxReg;
+            if(minReg==maxReg){
+                micgroup_orsolo.setCompoundDrawables(null,new IconicsDrawable(this, FontAwesome.Icon.faw_users).actionBar().color(Color.GRAY),null,null);
+             return "Group of "+maxReg;}
+        else{ micgroup_orsolo.setCompoundDrawables(null,new IconicsDrawable(this, FontAwesome.Icon.faw_users).actionBar().color(Color.GRAY),null,null);
+             return "Group "+minReg+"-"+maxReg;}
     }
 
     private void loadIcons() {
-        micgroup_orsolo.setCompoundDrawables(null,new IconicsDrawable(this, GoogleMaterial.Icon.gmd_face).actionBar().color(Color.GRAY),null,null);
-        mic_likes.setCompoundDrawables(null,new IconicsDrawable(this, GoogleMaterial.Icon.gmd_favorite_border).actionBar().color(Color.GRAY),null,null);
+        micgroup_orsolo.setCompoundDrawables(null,new IconicsDrawable(this, FontAwesome.Icon.faw_user).actionBar().color(Color.GRAY),null,null);
+        mic_winners.setCompoundDrawables(null,new IconicsDrawable(this, FontAwesome.Icon.faw_trophy).actionBar().color(Color.GRAY),null,null);
         mic_organizer.setCompoundDrawables(null,new IconicsDrawable(this, GoogleMaterial.Icon.gmd_verified_user).actionBar().color(Color.GRAY),null,null);
         mic_queries.setCompoundDrawables(null,new IconicsDrawable(this, GoogleMaterial.Icon.gmd_forum).actionBar().color(Color.GRAY),null,null);
     }

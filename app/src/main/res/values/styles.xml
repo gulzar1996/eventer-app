@@ -36,7 +36,7 @@
         <item name="android:layout_marginRight">4dp</item>
     </style>
     <style name="AppTheme.TranslucentBars">
-        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+        <item name="android:statusBarColor">@color/translucent_bars</item>
         <item name="colorControlHighlight">@color/mediumGray</item>
     </style>
 
@@ -57,8 +57,7 @@
     <style name="Widget.Plaid.InlineActionButton" parent="@android:style/Widget.Material.Button">
         <item name="android:gravity">center_horizontal</item>
         <item name="android:textAppearance">@style/TextAppearance.CommentAuthor</item>
-        <item name="android:background">?android:selectableItemBackgroundBorderless</item>
-        <item name="android:drawablePadding">@dimen/spacing_micro</item>
+
 
     </style>
 
