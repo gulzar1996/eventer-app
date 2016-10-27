@@ -21,7 +21,7 @@ public class ChatActivity extends AppCompatActivity {
     @BindView(R.id.chat_frame)
     View mchat_frame;
     public Event mEvent=new Event();
-    ChatActivity(){}
+    public ChatActivity(){}
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
