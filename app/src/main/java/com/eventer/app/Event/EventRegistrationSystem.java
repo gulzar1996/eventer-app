@@ -1,12 +1,17 @@
 package com.eventer.app.Event;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.eventer.app.R;
 import com.eventer.app.model.Event;
 import com.eventer.app.model.User;
 
@@ -17,11 +22,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
+import com.mikepenz.google_material_typeface_library.GoogleMaterial;
+import com.mikepenz.iconics.IconicsDrawable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import butterknife.BindView;
 
 
 /**
@@ -29,8 +38,9 @@ import java.util.Map;
  */
 public class EventRegistrationSystem extends AppCompatActivity {
     private Boolean someError=false;
-    public Boolean userIsRegister=false;
+    public Boolean userIsRegister=false,userIsAdmin=false;
     public  DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    @BindView(R.id.floating_action_button) FloatingActionButton fab;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,13 +51,11 @@ public class EventRegistrationSystem extends AppCompatActivity {
 
         if (someError == false) {
             onRegisterClicked(mReference, uid, userAdmin);
-            changeDesignForUser();
-
         }
     }
 
 
-    public void onRegisterClicked(DatabaseReference mReference,final String uid ,final User userAdmin) {
+    public void onRegisterClicked(final DatabaseReference mReference, final String uid , final User userAdmin) {
         mReference.runTransaction(new Transaction.Handler() {
             @Override
             public Transaction.Result doTransaction(MutableData mutableData) {
@@ -81,9 +89,29 @@ public class EventRegistrationSystem extends AppCompatActivity {
             }
         });
     }
-    void changeDesignForUser()
+    void changeDesignfab(DatabaseReference mReference,final String uid)
     {
-        //flip the design of floating button
+        mReference.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Event event = dataSnapshot.getValue(Event.class);
+                        if (event.registers.containsKey(uid)) {
+                            fab.setImageDrawable(new IconicsDrawable(getBaseContext(), GoogleMaterial.Icon.gmd_clear).actionBar().color(Color.BLACK));
+                            // add snack bar here
+                        } else {
+                            fab.setImageDrawable(new IconicsDrawable(getBaseContext(), GoogleMaterial.Icon.gmd_done).actionBar().color(Color.BLACK));
+                            // add snack bar here
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.w("XXXX", "DesignChangeError:onCancelled", databaseError.toException());
+                    }
+                });
+
     }
     public void getRegisterUser(final DatabaseReference aref,final Boolean design ) {
         aref.addListenerForSingleValueEvent(

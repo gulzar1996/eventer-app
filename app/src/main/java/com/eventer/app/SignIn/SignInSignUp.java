@@ -23,6 +23,7 @@ import com.eventer.app.JsonApi.ServerCallback;
 import com.eventer.app.JsonApi.ValidateReg;
 import com.eventer.app.MainActivity;
 import com.eventer.app.R;
+import com.eventer.app.model.Event;
 import com.eventer.app.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -30,12 +31,19 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.pixelcan.inkpageindicator.InkPageIndicator;
 
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -62,6 +70,8 @@ public class SignInSignUp extends AppCompatActivity {
 
 
 
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +82,7 @@ public class SignInSignUp extends AppCompatActivity {
         /*
             firebase auth start
          */
+
         // [initialize firebase instance]
         mAuth = FirebaseAuth.getInstance();
         // [initalize firebase listener]
@@ -93,7 +104,6 @@ public class SignInSignUp extends AppCompatActivity {
         /*
             end firebase auth
          */
-
         //Setting Up page adapter
         MyPagerAdapter adapter = new MyPagerAdapter();
         mViewPager.setAdapter(adapter);
@@ -241,6 +251,7 @@ public class SignInSignUp extends AppCompatActivity {
     }
     private void createUser(String email,String password,final String f)
     {
+        toggleProgressVisibility();
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -257,8 +268,10 @@ public class SignInSignUp extends AppCompatActivity {
                         else
                         {
                             setUserName(f);
+                            FirebaseAuth.getInstance().signOut();
 
                         }
+                        toggleProgressVisibility();
                     }
                 });
     }
@@ -277,8 +290,9 @@ public class SignInSignUp extends AppCompatActivity {
                     JSONObject n = new JSONObject(r);
                     String f = n.getString("result");
                     if (f.equalsIgnoreCase("login failed"))
-                        Toast.makeText(SignInSignUp.this, "INVALID CREDENTIALS!!!", Toast.LENGTH_SHORT).show();
-                    else {createUser(email,pswd,f);
+                        Toast.makeText(SignInSignUp.this, "INVALID CREDENTIALS!!", Toast.LENGTH_SHORT).show();
+                    else {Toast.makeText(SignInSignUp.this, "ACCOUNT CREATED", Toast.LENGTH_SHORT).show();
+                        createUser(email,pswd,f);
                             }
                 } catch (Exception e) {}
                 toggleProgressVisibility();
@@ -301,7 +315,7 @@ public class SignInSignUp extends AppCompatActivity {
                         // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
                             Log.w(TAG, "signInWithEmail:failed", task.getException());
-                            Toast.makeText(SignInSignUp.this, "Wrong Credentials", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignInSignUp.this, "INVALID CREDENTIALS!!\nOR\nACCOUNT NOT PRESENT TRY SIGN UP", Toast.LENGTH_SHORT).show();
                         }
                         else
                         {
@@ -324,6 +338,7 @@ public class SignInSignUp extends AppCompatActivity {
 
     @OnClick(R.id.button_sign_up)void signupButton()
     {
+
         if(!validateForm())
             return;
         hideSoftKeyboard(this);

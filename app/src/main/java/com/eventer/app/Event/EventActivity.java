@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -67,10 +68,10 @@ public class EventActivity extends EventRegistrationSystem {
         overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
-//        //get user details
-//        getUserDetails();
+        //get user details
+        getUserDetails();
 
-        showSnackBar();
+
 
         //get event id
         eid=getIntent().getStringExtra("eid");
@@ -114,6 +115,23 @@ public class EventActivity extends EventRegistrationSystem {
                 .placeholder(R.drawable.grid_item_placeholder)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(mShotImageView);
+        // fab actions
+        if(e.userkey.contains(uid))
+        {
+           userIsAdmin=true;
+            fab.setImageDrawable(new IconicsDrawable(getBaseContext(), GoogleMaterial.Icon.gmd_format_list_numbered).actionBar().color(Color.BLACK));
+        }
+        else {
+            userIsAdmin=false;
+            if (e.registers.containsKey(uid)) {
+                userIsRegister = true;
+                fab.setImageDrawable(new IconicsDrawable(getBaseContext(), GoogleMaterial.Icon.gmd_clear).actionBar().color(Color.BLACK));
+                //add snack bar here
+            } else {
+                fab.setImageDrawable(new IconicsDrawable(getBaseContext(), GoogleMaterial.Icon.gmd_done).actionBar().color(Color.BLACK));
+                // add snack bar here
+            }
+        }
     }
 
     private String groupOrSolo() {
@@ -148,20 +166,16 @@ public class EventActivity extends EventRegistrationSystem {
         super.onBackPressed();
     }
 
-    private void showSnackBar()
+    @OnClick(R.id.floating_action_button)void registerEvent()
     {
-    Snackbar snackbar = Snackbar
-                .make(coordinatorLayout,"", Snackbar.LENGTH_INDEFINITE)
-                .setAction("Register", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-//                        Snackbar snackbar1 = Snackbar.make(coordinatorLayout, "Message is restored!", Snackbar.LENGTH_SHORT);
-//                        snackbar1.show();
-                        setUpRegistration(eRef,uid,userAdmin);
-
-                    }
-                });
-        snackbar.show();
+        if(!userIsAdmin) {
+            setUpRegistration(eRef, uid, userAdmin);
+            changeDesignfab(eRef, uid);
+        }
+        else
+        {
+            getRegisterUser(eRef,true);
+        }
 
     }
     @OnClick(R.id.ic_queries) void Query()
