@@ -3,6 +3,8 @@ package com.eventer.app.RecyclerEvent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -26,6 +28,7 @@ public class EventListViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.textview_event_name) TextView mtextview_event_name;
     @BindView(R.id.organizationName)TextView morganizationName;
     @BindView(R.id.event_card_click) View mevent_card_click;
+    @BindView(R.id.cardViewEvent) LinearLayout mcardViewEvent;
    // @BindView(R.id.sub_text)TextView msub_text;
     public EventListViewHolder(View itemView) {
         super(itemView);
@@ -53,5 +56,12 @@ public class EventListViewHolder extends RecyclerView.ViewHolder {
             mevent_card_click.setOnClickListener(clickxxx);
              mic_event_logo.setOnClickListener(clickxxx);
             morganizationName.setOnClickListener(clickxxx);
+    }
+    public void removefragment()
+    {
+            mcardViewEvent.setVisibility(View.GONE);
+//        TableRow.LayoutParams params = new TableRow.LayoutParams(0, 0);
+//        mcardViewEvent.setLayoutParams(params);
+
     }
 }

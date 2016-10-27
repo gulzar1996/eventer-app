@@ -37,7 +37,7 @@ public class EventRegistrationSystem extends AppCompatActivity {
         super.onCreate(savedInstanceState);
     }
 
-    void setUpRegistration(DatabaseReference mReference, String uid, final User userAdmin) {
+    public void setUpRegistration(DatabaseReference mReference, String uid, final User userAdmin) {
 
         if (someError == false) {
             onRegisterClicked(mReference, uid, userAdmin);
@@ -109,8 +109,9 @@ public class EventRegistrationSystem extends AppCompatActivity {
                     }
                 });
     }
-    void registerUserInDialog(List<User> users)
+    private void registerUserInDialog(List<User> users)
     {
+
 //        // put material dialog and all the user is in users array list with datastructure User
         String[] username=new String[users.size()];
         for(int i=0;i<users.size();i++)
