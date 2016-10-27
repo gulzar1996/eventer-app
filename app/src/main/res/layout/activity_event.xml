@@ -46,6 +46,8 @@
 
 
     <android.support.design.widget.FloatingActionButton
+        app:layout_anchor="@id/app_bar"
+        app:layout_anchorGravity="bottom|end"
         android:id="@+id/fab_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

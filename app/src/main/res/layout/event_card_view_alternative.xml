@@ -2,8 +2,8 @@
 <android.support.v7.widget.CardView android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_marginLeft="4dp"
-    android:layout_marginRight="4dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
     android:layout_marginTop="4dp"
     card_view:cardCornerRadius="2dp"
     android:layout_marginBottom="4dp"
@@ -15,7 +15,7 @@
     <LinearLayout
         android:background="#FFF8F7F7"
         android:layout_width="match_parent"
-        android:layout_height="190dp"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:weightSum="4">
         <RelativeLayout
@@ -24,13 +24,14 @@
             android:layout_height="0dp"
             android:layout_weight="1">
             <ImageView
+                android:scaleType="centerCrop"
                 android:src="@drawable/gradient_vertical"
                 android:id="@+id/ic_event_logo"
                 android:layout_alignParentLeft="true"
                 android:layout_width="50dp"
                 android:layout_height="50dp" />
             <TextView
-                android:text="Foobar"
+                android:id="@+id/organizationName"
                 android:layout_marginLeft="8dp"
                 android:layout_toRightOf="@+id/ic_event_logo"
                 android:layout_width="wrap_content"
@@ -38,14 +39,16 @@
                 android:layout_height="50dp"
                 android:textSize="16sp"
                 android:typeface="serif"
-                android:textColor="@color/colorPrimary"
+
                 tools:text="FooBar"/>
+
             <com.eventer.app.common.FontTextView
+                android:drawableLeft="@android:color/holo_red_dark"
                 android:id="@+id/textview_date"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:gravity="center"
-                app:weight="bold"
+                app:weight="semibold"
                 android:textSize="16sp"
                 android:text="Live Now"
                 android:layout_alignParentRight="true"/>
@@ -57,6 +60,9 @@
             android:layout_height="1dp"
             android:background="@color/divider"/>
         <LinearLayout
+            android:clickable="true"
+            android:background="?attr/selectableItemBackground"
+            android:id="@+id/event_card_click"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
@@ -80,7 +86,7 @@
                     app:weight="semibold"
                     tools:text="I'm Poor man with a lot of money"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="19sp"/>
+                    android:textSize="21sp"/>
                 <TextView
                     android:id="@+id/textview_first_prize"
                     android:padding="4dp"

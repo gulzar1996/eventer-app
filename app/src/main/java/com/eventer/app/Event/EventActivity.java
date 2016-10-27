@@ -171,6 +171,7 @@ public class EventActivity extends EventRegistrationSystem {
         b.putParcelable("EXTRA_EVENT", Parcels.wrap(mEvent));
         i.putExtras(b);
         startActivity(i);
+        overridePendingTransition(R.anim.pull_up_from_bottom, R.anim.pull_up_from_bottom);
     }
     @OnClick(R.id.ic_organizer)void Organizer()
     {

@@ -23,7 +23,7 @@ public class AllEvents extends EventListFragment implements ObservableScrollView
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mRecycler.setScrollViewCallbacks(this);
-        mbbar = getActivity().findViewById(R.id.abottom_bar);
+//        mbbar = getActivity().findViewById(R.id.abottom_bar);
     }
 
     @Override
@@ -43,60 +43,60 @@ public class AllEvents extends EventListFragment implements ObservableScrollView
 
     @Override
     public void onUpOrCancelMotionEvent(ScrollState scrollState) {
-        if (scrollState == ScrollState.UP)
-            if (scrollState == ScrollState.UP) {
-                    mbbar.setVisibility(View.VISIBLE);
-                    mbbar.setAlpha(0.0f);
-                    mbbar.animate().translationY(mbbar.getHeight()).alpha(1.0f)
-                            .setListener(new Animator.AnimatorListener() {
-                                @Override
-                                public void onAnimationStart(Animator animator) {
-
-                                }
-
-                                @Override
-                                public void onAnimationEnd(Animator animator) {
-                                    mbbar.setVisibility(View.GONE);
-                                }
-
-                                @Override
-                                public void onAnimationCancel(Animator animator) {
-
-                                }
-
-                                @Override
-                                public void onAnimationRepeat(Animator animator) {
-
-                                }
-                            });
-
-            } else if (scrollState == ScrollState.DOWN) {
-                mbbar.setVisibility(View.INVISIBLE);
-                mbbar.setAlpha(1.0f);
-                mbbar.animate().translationY(0).alpha(0.0f)
-                        .setListener(new Animator.AnimatorListener() {
-                            @Override
-                            public void onAnimationStart(Animator animator) {
-
-                            }
-
-                            @Override
-                            public void onAnimationEnd(Animator animator) {
-                                mbbar.setVisibility(View.VISIBLE);
-                            }
-
-                            @Override
-                            public void onAnimationCancel(Animator animator) {
-
-                            }
-
-                            @Override
-                            public void onAnimationRepeat(Animator animator) {
-
-                            }
-                        });
-
-            }
+//        if (scrollState == ScrollState.UP)
+//            if (scrollState == ScrollState.UP) {
+//                    mbbar.setVisibility(View.VISIBLE);
+//                    mbbar.setAlpha(0.0f);
+//                    mbbar.animate().translationY(mbbar.getHeight()).alpha(1.0f)
+//                            .setListener(new Animator.AnimatorListener() {
+//                                @Override
+//                                public void onAnimationStart(Animator animator) {
+//
+//                                }
+//
+//                                @Override
+//                                public void onAnimationEnd(Animator animator) {
+//                                    mbbar.setVisibility(View.GONE);
+//                                }
+//
+//                                @Override
+//                                public void onAnimationCancel(Animator animator) {
+//
+//                                }
+//
+//                                @Override
+//                                public void onAnimationRepeat(Animator animator) {
+//
+//                                }
+//                            });
+//
+//            } else if (scrollState == ScrollState.DOWN) {
+//                mbbar.setVisibility(View.INVISIBLE);
+//                mbbar.setAlpha(0.0f);
+//                mbbar.animate().translationY(0).alpha(1.0f)
+//                        .setListener(new Animator.AnimatorListener() {
+//                            @Override
+//                            public void onAnimationStart(Animator animator) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onAnimationEnd(Animator animator) {
+//                                mbbar.setVisibility(View.VISIBLE);
+//                            }
+//
+//                            @Override
+//                            public void onAnimationCancel(Animator animator) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onAnimationRepeat(Animator animator) {
+//
+//                            }
+//                        });
+//
+//            }
     }
 }
 
