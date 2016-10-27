@@ -7,19 +7,21 @@
     android:background="@color/translucent_black"
    >
 
-    <include layout="@layout/bottom_bar"
+    <include
+        android:background="@android:color/transparent"
+        layout="@layout/bottom_bar"
         android:id="@+id/abottom_bar"
         android:layout_width="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_height="wrap_content"
-        android:elevation="2dp"
+
         />
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/abottom_bar"
-        android:elevation="3dp"/>
+       />
 
 
 </RelativeLayout>

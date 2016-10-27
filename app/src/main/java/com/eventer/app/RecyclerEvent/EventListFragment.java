@@ -86,12 +86,7 @@ public abstract class EventListFragment extends Fragment  {
                 viewHolder.bindToPost(model, new View.OnClickListener() {
                     @Override
                     public void onClick(View starView) {
-                        Toast.makeText(getActivity(), "AGGA", Toast.LENGTH_SHORT).show();
-                        Intent i=new Intent(getContext(),EventActivity.class);
-                        Bundle b=new Bundle();
-                        b.putParcelable("EXTRA_EVENT", Parcels.wrap(model));
-                        i.putExtras(b);
-                        startActivity(i);
+
 //                        // Need to write to both places the post is stored
 //                        DatabaseReference globalPostRef = mDatabase.child("posts").child(postRef.getKey());
 //                        DatabaseReference userPostRef = mDatabase.child("user-posts").child(model.uid).child(postRef.getKey());

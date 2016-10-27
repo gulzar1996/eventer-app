@@ -24,6 +24,7 @@ public class Event {
     public String downloadURL;
     public String logoURL;
     public String prize;
+    public String eventID;
     public ArrayList<String> winners;
     public ArrayList<String> userkey;
     public int registerCount = 0;
@@ -36,8 +37,9 @@ public class Event {
         // Default constructor required for calls to DataSnapshot.getValue(Post.class)
     }
 
-    public Event(ArrayList<String> userKey, String title, String body, String date_time,String venue,String rules,  ArrayList<String> organizers,String downloadURL,String logoURL,String prize,long timestamp,int maxReg,int minReg) {
+    public Event(String eventID,ArrayList<String> userKey, String title, String body, String date_time,String venue,String rules,  ArrayList<String> organizers,String downloadURL,String logoURL,String prize,long timestamp,int maxReg,int minReg) {
 
+        this.eventID=eventID;
         this.userkey=userKey;
 
         this.organizers=organizers;
@@ -62,6 +64,7 @@ public class Event {
     public Map<String, Object> toMap()
     {
         HashMap<String, Object> result = new HashMap<>();
+        result.put("eventID",eventID);
         result.put("userkey", userkey);
         result.put("downloadURL",downloadURL);
         result.put("logoURL",logoURL);

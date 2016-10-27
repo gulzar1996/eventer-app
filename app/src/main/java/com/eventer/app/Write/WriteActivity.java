@@ -86,10 +86,11 @@ public class WriteActivity extends AppCompatActivity {
     {
         userKey.add("4liHTV3xMIVuZzHJFhesEFZW4K52");
         organizer.add("Gaurav Sehgal");
-        Event event = new Event(userKey, eventTitle, eventBody, date, eventVenue, eventRules,organizer, downloadurl,logourl,"100 Rs",1415565454,1,1);
+
+        key = mDatabase.child("events").push().getKey();
+        Event event = new Event(key,userKey, eventTitle, eventBody, date, eventVenue, eventRules,organizer, downloadurl,logourl,"100 Rs",1415565454,1,1);
         Map<String, Object> eventValues = event.toMap();
         Map<String, Object> childUpdates = new HashMap<>();
-        key = mDatabase.child("events").push().getKey();
         childUpdates.put("/events/" + key, eventValues);
         mDatabase.updateChildren(childUpdates);
     }
