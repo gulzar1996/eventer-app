@@ -2,14 +2,12 @@ package com.eventer.app;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -21,26 +19,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.eventer.app.AboutPage.AboutActivity_PostLollipop;
-import com.eventer.app.Chat.ChatFragment;
 import com.eventer.app.RecyclerEvent.AllEvents;
 import com.eventer.app.RecyclerEvent.MyEvents;
 import com.eventer.app.SignIn.SignInSignUp;
-import com.eventer.app.Write.WriteActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.mikepenz.google_material_typeface_library.GoogleMaterial;
-import com.mikepenz.iconics.IconicsDrawable;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG ="authxxx" ;
@@ -171,6 +162,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(this, AboutActivity_PostLollipop.class),
                         ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
             }
+                else
+            {
+
+            }
+
                 return true;
             default:
             return super.onOptionsItemSelected(item);

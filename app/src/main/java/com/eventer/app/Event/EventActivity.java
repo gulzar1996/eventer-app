@@ -203,7 +203,7 @@ public class EventActivity extends EventRegistrationSystem {
                 .itemsCallback(new MaterialDialog.ListCallback() {
                     @Override
                     public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                       
+
                         makeCall(text+"");
                     }})
                 .show();
