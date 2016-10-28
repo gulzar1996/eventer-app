@@ -22,4 +22,5 @@
     <color name="placeholder_color_2">#1F1F1F</color>
     <color name="placeholder_color_3">#1C1C1C</color>
     <color name="content_event_place1">#ffe6e6e7</color>
+    <color name="darker_gray">#464646</color>
 </resources>
