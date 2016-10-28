@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<LinearLayout
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -15,7 +15,7 @@
 
         <com.eventer.app.AboutPage.CutoutTextView
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="450dp"
             android:text="Eventer"
             app:foregroundColor="#69F0AE"
             app:font="roboto-mono-regular" />
@@ -35,4 +35,4 @@
 
     </LinearLayout>
 
-</ScrollView>
+</LinearLayout>
