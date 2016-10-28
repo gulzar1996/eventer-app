@@ -1,9 +1,11 @@
 package com.eventer.app.Messaging;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 
 import com.eventer.app.MainActivity;
 import com.eventer.app.R;
@@ -18,7 +20,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         String message = remoteMessage.getData().get("message");
-        if(message.contains("admin"))
+
         showNotification(message);
     }
     private void showNotification(String message){
@@ -32,24 +34,25 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
         //Create Notification using NotificationCompat.Builder
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
-                // Set Icon
-                .setSmallIcon(R.drawable.common_google_signin_btn_icon_dark)
-                // Set Title
+        NotificationCompat.Builder builder =
+                new NotificationCompat.Builder(getBaseContext());
+        NotificationCompat.BigTextStyle style =
+                new NotificationCompat.BigTextStyle(builder);
+        style.bigText(message /* long text goes here */ )
+                .setBigContentTitle("Eventer")
+                .setSummaryText("Crazy Labs");
+        Notification notification = builder
                 .setContentTitle("Eventer")
-                // Set Text
                 .setContentText(message)
-                // Add an Action Button below Notification
-                .addAction(R.drawable.ic_launcher, "Action Button", pIntent)
-                // Set PendingIntent into Notification
+                .setSmallIcon(R.drawable.gradient_vertical)
                 .setContentIntent(pIntent)
-                // Dismiss Notification
-                .setAutoCancel(true);
+                .build();
 
         // Create Notification Manager
-        NotificationManager notificationmanager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        // Build Notification with Notification Manager
-        notificationmanager.notify(0, builder.build());
+        NotificationManagerCompat notificationManager =
+                NotificationManagerCompat.from(getBaseContext());
+
+        notificationManager.notify(0x1234, notification);
 
     }
 }

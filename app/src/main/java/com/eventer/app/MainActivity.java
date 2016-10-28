@@ -1,7 +1,12 @@
 package com.eventer.app;
 
 import android.app.ActivityOptions;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -11,6 +16,8 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -167,6 +174,7 @@ public class MainActivity extends AppCompatActivity {
                 finish();
                 return true;
             case R.id.aboutPagemenu:
+               // showNotification("hhhhhhhhhhhhhhhhhhhhh");
             if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
                 startActivity(new Intent(this, AboutActivity_PostLollipop.class),
                         ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
@@ -175,6 +183,37 @@ public class MainActivity extends AppCompatActivity {
             default:
             return super.onOptionsItemSelected(item);
         }
+
+    }
+    private void showNotification(String message){
+
+        // Open NotificationView Class on Notification Click
+        Intent intent = new Intent(this, MainActivity.class);
+        // Send data to NotificationView Class
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        // Open NotificationView.java Activity
+        PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+
+        //Create Notification using NotificationCompat.Builder
+        NotificationCompat.Builder builder =
+                new NotificationCompat.Builder(getBaseContext());
+        NotificationCompat.BigTextStyle style =
+                new NotificationCompat.BigTextStyle(builder);
+        style.bigText("The path of..." /* long text goes here */ )
+                .setBigContentTitle("Expanded title")
+                .setSummaryText("Summary text");
+        Notification notification = builder
+                .setContentTitle("Title")
+                .setContentText("This is a notification!")
+                .setSmallIcon(R.drawable.gradient_vertical)
+                .build();
+
+        // Create Notification Manager
+        NotificationManagerCompat notificationManager =
+                NotificationManagerCompat.from(getBaseContext());
+
+        notificationManager.notify(0x1234, notification);
 
     }
 }
