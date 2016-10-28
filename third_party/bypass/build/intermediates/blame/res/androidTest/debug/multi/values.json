@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "F:\\AndroidProject\\magnovite-app\\third_party\\bypass\\build\\intermediates\\res\\merged\\androidTest\\debug\\values\\values.xml",
+        "outputFile": "/home/gaurav/Documents/main-eventer/eventer-app/F:\\AndroidProject\\magnovite-app\\third_party\\bypass\\build\\intermediates\\res\\merged\\androidTest\\debug\\values\\values.xml",
         "map": [
             {
                 "to": {
@@ -11,7 +11,7 @@
                     "endOffset": 94
                 },
                 "from": {
-                    "file": "F:\\AndroidProject\\magnovite-app\\third_party\\bypass\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "file": "/home/gaurav/Documents/main-eventer/eventer-app/F:\\AndroidProject\\magnovite-app\\third_party\\bypass\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,
@@ -24,7 +24,7 @@
         ]
     },
     {
-        "outputFile": "F:\\AndroidProject\\eventer-app\\third_party\\bypass\\build\\intermediates\\res\\merged\\androidTest\\debug\\values\\values.xml",
+        "outputFile": "/home/gaurav/Documents/main-eventer/eventer-app/third_party/bypass/build/intermediates/res/merged/androidTest/debug/values/values.xml",
         "map": [
             {
                 "to": {
@@ -35,7 +35,31 @@
                     "endOffset": 94
                 },
                 "from": {
-                    "file": "F:\\AndroidProject\\eventer-app\\third_party\\bypass\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
+                    "file": "/home/gaurav/Documents/main-eventer/eventer-app/third_party/bypass/build/intermediates/bundles/debug/res/values/values.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endColumn": 43,
+                        "endOffset": 94
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "outputFile": "/home/gaurav/Documents/main-eventer/eventer-app/F:\\AndroidProject\\eventer-app\\third_party\\bypass\\build\\intermediates\\res\\merged\\androidTest\\debug\\values\\values.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 43,
+                    "endOffset": 94
+                },
+                "from": {
+                    "file": "/home/gaurav/Documents/main-eventer/eventer-app/F:\\AndroidProject\\eventer-app\\third_party\\bypass\\build\\intermediates\\bundles\\debug\\res\\values\\values.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,

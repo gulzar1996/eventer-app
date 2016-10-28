@@ -1,15 +1,22 @@
 package com.eventer.app.Event;
 
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.webkit.MimeTypeMap;
+import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.eventer.app.R;
 import com.eventer.app.model.Event;
@@ -25,7 +32,14 @@ import com.google.firebase.database.ValueEventListener;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +55,7 @@ public class EventRegistrationSystem extends AppCompatActivity {
     public Boolean userIsRegister=false,userIsAdmin=false;
     public  DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     @BindView(R.id.floating_action_button) FloatingActionButton fab;
+    @BindView(R.id.htab_maincontent) CoordinatorLayout coordinatorLayout;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +63,7 @@ public class EventRegistrationSystem extends AppCompatActivity {
     }
 
     public void setUpRegistration(DatabaseReference mReference, String uid, final User userAdmin) {
+
 
         if (someError == false) {
             onRegisterClicked(mReference, uid, userAdmin);
@@ -98,9 +114,16 @@ public class EventRegistrationSystem extends AppCompatActivity {
                         Event event = dataSnapshot.getValue(Event.class);
                         if (event.registers.containsKey(uid)) {
                             fab.setImageDrawable(new IconicsDrawable(getBaseContext(), GoogleMaterial.Icon.gmd_clear).actionBar().color(Color.BLACK));
+                            Snackbar snackbar = Snackbar
+                                    .make(coordinatorLayout, "Registered Successfully", Snackbar.LENGTH_LONG);
+                            snackbar.show();
                             // add snack bar here
                         } else {
                             fab.setImageDrawable(new IconicsDrawable(getBaseContext(), GoogleMaterial.Icon.gmd_done).actionBar().color(Color.BLACK));
+                            Snackbar snackbar = Snackbar
+                                    .make(coordinatorLayout, "Unregistered", Snackbar.LENGTH_LONG);
+                            snackbar.setActionTextColor(Color.RED);
+                            snackbar.show();
                             // add snack bar here
                         }
 
@@ -124,10 +147,10 @@ public class EventRegistrationSystem extends AppCompatActivity {
                             list.add(event.registers.get(uid));
                         }
                         if(design==true){
-                            registerUserInDialog(list);
+                            registerUserInDialog(list,aref);
                         }
-//                        else
-                            //registerUserInExel(list);
+                        else
+                            registerUserInExel(list,event.title);
                          // [Change Design Accordingly]
                     }
 
@@ -137,7 +160,7 @@ public class EventRegistrationSystem extends AppCompatActivity {
                     }
                 });
     }
-    private void registerUserInDialog(List<User> users)
+    private void registerUserInDialog(List<User> users, final DatabaseReference aref)
     {
 
 //        // put material dialog and all the user is in users array list with datastructure User
@@ -152,8 +175,100 @@ public class EventRegistrationSystem extends AppCompatActivity {
                     @Override
                     public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                     }})
+                .positiveText("Download")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        getRegisterUser(aref,false);
+                    }
+                })
                 .show();
     }
+    // exel export
+    void registerUserInExel(List<User> users,String EventTitle)
+    {
+        // check if available and not read only;
+        String fileName = EventTitle.toString() + ".csv";//like 2016_01_12.txt
+        try {
+            File root = new File(Environment.getExternalStorageDirectory(), "EVENTER");
+            //File root = new File(Environment.getExternalStorageDirectory(), "Notes");
+            if (!root.exists()) {
+                root.mkdirs();
+            }
+            final File gpxfile = new File(root, fileName);
+            if (gpxfile.exists())
+                gpxfile.delete();
+            FileWriter writer = new FileWriter(gpxfile, true);
+            writer.append( EventTitle.toString() + ":," + "\n\n");
+
+            writer.append("SL No."+","+"REG NO" + "," + "NAME" + "\n");
+            int userCount=1;
+            for (User u : users) {
+                writer.append(String.valueOf(userCount)+","+u.regno + "," + u.name + "\n");
+                userCount++;
+            }
+            writer.flush();
+            writer.close();
+            Snackbar snackbar = Snackbar
+                    .make(coordinatorLayout, "Download Successfully\nCheck Eventer Folder In My Files", Snackbar.LENGTH_LONG)
+                    .setAction("VISIT", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent();
+                        intent.setAction(android.content.Intent.ACTION_VIEW);
+                        intent.setDataAndType(Uri.fromFile(gpxfile),getMimeType(gpxfile.getAbsolutePath()));
+                        startActivity(intent);
+                    }
+                    });
+            snackbar.show();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            Snackbar snackbar = Snackbar
+                    .make(coordinatorLayout, "Download Unsuccessfully\nSome Error Or Insufficient Space", Snackbar.LENGTH_LONG);
+            snackbar.show();
+
+        }
+
+
+    }
+    //[Get Which File Type To Open With]
+    private String getMimeType(String url)
+    {
+        String parts[]=url.split("\\.");
+        String extension=parts[parts.length-1];
+        String type = null;
+        if (extension != null) {
+            MimeTypeMap mime = MimeTypeMap.getSingleton();
+            type = mime.getMimeTypeFromExtension(extension);
+        }
+        return type;
+    }
+    //[End Exel]
+    //[GET DATE]
+    public Date getDateFromString(String dateString)
+    {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = null;
+        try {
+            date = sdf.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
+    }
+    //[get current date]
+    public Date getCurrentDate()
+    {
+
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, -1);
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM d, yyyy");
+        return cal.getTime();
+
+    }
+    //[End Of Date Section]
+
 
 
 }
