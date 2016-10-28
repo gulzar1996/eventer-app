@@ -210,7 +210,7 @@ public class EventRegistrationSystem extends AppCompatActivity {
             writer.flush();
             writer.close();
             Snackbar snackbar = Snackbar
-                    .make(coordinatorLayout, "Download Successfull\nCheck Eventer Folder In My Files", Snackbar.LENGTH_LONG)
+                    .make(coordinatorLayout, "Download Successful\nCheck Eventer Folder", Snackbar.LENGTH_LONG)
                     .setAction("VISIT", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
