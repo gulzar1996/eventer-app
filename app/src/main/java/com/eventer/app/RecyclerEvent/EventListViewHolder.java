@@ -50,7 +50,16 @@ public class EventListViewHolder extends RecyclerView.ViewHolder {
         mDateTextView.setText(event.date_time);
 
         mFirstPrizeTextView.setCompoundDrawables(new IconicsDrawable(mFirstPrizeTextView.getContext(), FontAwesome.Icon.faw_trophy).sizeDp(16).color(Color.GRAY),null,null,null);
-        mAttendingTextView.setCompoundDrawables(new IconicsDrawable(mAttendingTextView.getContext(), FontAwesome.Icon.faw_user).sizeDp(16).color(Color.GRAY),null,null,null);
+        //Group Or SOLO Icon
+        int maxReg=event.maxReg;
+        int minReg=event.minReg;
+        if(minReg==1 && maxReg==1)
+            mAttendingTextView.setCompoundDrawables(new IconicsDrawable(mAttendingTextView.getContext(), FontAwesome.Icon.faw_user).sizeDp(16).color(Color.GRAY),null,null,null);
+        else
+        if(minReg==maxReg)
+            mAttendingTextView.setCompoundDrawables(new IconicsDrawable(mAttendingTextView.getContext(), FontAwesome.Icon.faw_users).sizeDp(16).color(Color.GRAY),null,null,null);
+        else
+            mAttendingTextView.setCompoundDrawables(new IconicsDrawable(mAttendingTextView.getContext(), FontAwesome.Icon.faw_users).sizeDp(16).color(Color.GRAY),null,null,null);
         if(event.downloadURL!=null)
             Glide.with(mShotImageView.getContext())
                     .load(event.downloadURL)
