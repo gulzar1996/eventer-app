@@ -5,12 +5,6 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
-<<<<<<< HEAD
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-=======
->>>>>>> 0f323a65394ba2ba4216b6d5b8cfcc24f5cba361
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
