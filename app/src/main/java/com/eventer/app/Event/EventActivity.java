@@ -2,6 +2,7 @@ package com.eventer.app.Event;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -12,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
@@ -53,6 +55,9 @@ public class EventActivity extends EventRegistrationSystem {
     @BindView(R.id.ic_organizer)TextView mic_organizer;
     @BindView(R.id.icgroup_orsolo)TextView micgroup_orsolo;
     @BindView(R.id.eventDescription) TextView meventDescription;
+    @BindView(R.id.prizeTextView)TextView mprizeTextView;
+    @BindView(R.id.rulesTextView)TextView mrulesTextView;
+    @BindView(R.id.eventDate) TextView meventDate;
     @BindView(R.id.app_bar)AppBarLayout mapp_bar;
     private String uid,eid;
     private User userAdmin;
@@ -113,7 +118,9 @@ public class EventActivity extends EventRegistrationSystem {
     private  void  loadDetails(Event e) {
         mEventName.setText(e.title);
         meventDescription.setText(e.body);
-
+        meventDate.setText(e.date_time);
+        mprizeTextView.setText(e.prize);
+        mrulesTextView.setText(e.rules);
         micgroup_orsolo.setText(groupOrSolo());
 
         //Temp
@@ -144,7 +151,7 @@ public class EventActivity extends EventRegistrationSystem {
             {
                 fab.setImageDrawable(new IconicsDrawable(getBaseContext(), GoogleMaterial.Icon.gmd_priority_high).actionBar().color(Color.BLACK));
                 Snackbar snackbar = Snackbar
-                        .make(coordinatorLayout, "Registrations are closed!!!!", Snackbar.LENGTH_LONG);
+                        .make(coordinatorLayout, "Registrations closed", Snackbar.LENGTH_LONG);
                 snackbar.show();
 
             }
@@ -193,7 +200,7 @@ public class EventActivity extends EventRegistrationSystem {
             else
             {
                 Snackbar snackbar = Snackbar
-                        .make(coordinatorLayout, "Registrations are closed!!!!", Snackbar.LENGTH_LONG);
+                        .make(coordinatorLayout, "Registrations closed", Snackbar.LENGTH_LONG);
                 snackbar.show();
             }
 
@@ -222,6 +229,8 @@ public class EventActivity extends EventRegistrationSystem {
                 .itemsCallback(new MaterialDialog.ListCallback() {
                     @Override
                     public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+
+                        makeCall(text+"");
                     }})
                 .show();
     }
@@ -230,6 +239,28 @@ public class EventActivity extends EventRegistrationSystem {
 //        getRegisterUser(eRef,true);
     }
 
+    public void makeCall(String text)
+    {
+        int s,e;
+        s=e=0;
+        String phoneNo;
+        for(int i=0;i<text.length();i++)
+            if(Character.isDigit(text.charAt(i))){
+                s=i;break;}
+        for (int i=text.length()-1;i>=0;i--)
+            if(Character.isDigit(text.charAt(i))){
+                e=i;break;}
+        phoneNo=text.substring(s,e+1);
+        phoneNo=phoneNo.replaceAll("\\s+","");
+        Toast.makeText(EventActivity.this, ""+phoneNo, Toast.LENGTH_SHORT).show();
+        if(phoneNo.length()>=10)
+        {
+            Intent intent=new Intent(Intent.ACTION_CALL);
+            intent.setData(Uri.parse("tel:"+phoneNo));
+            startActivity(intent);
+        }
+
+    }
 
 
 

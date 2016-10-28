@@ -34,6 +34,7 @@ public class EventListViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.textview_event_name) TextView mtextview_event_name;
     @BindView(R.id.organizationName)TextView morganizationName;
     @BindView(R.id.event_card_click) View mevent_card_click;
+    @BindView(R.id.topCard) View topCard;
     @BindView(R.id.cardView) FrameLayout mcardView;
     @BindView(R.id.cardViewEvent) LinearLayout mcardViewEvent;
     @BindView(R.id.rootViewCard)
@@ -68,6 +69,7 @@ public class EventListViewHolder extends RecyclerView.ViewHolder {
             mevent_card_click.setOnClickListener(clickxxx);
              mic_event_logo.setOnClickListener(clickxxx);
             morganizationName.setOnClickListener(clickxxx);
+        topCard.setOnClickListener(clickxxx);
     }
     public void removefragment()
     {

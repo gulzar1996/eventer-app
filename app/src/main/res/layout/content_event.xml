@@ -55,6 +55,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
+                android:id="@+id/eventDate"
                 android:textColor="@android:color/black"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
@@ -81,6 +82,7 @@
                 app:weight="semibold"
                 android:text="Prize"/>
             <com.eventer.app.common.FontTextView
+                android:id="@+id/prizeTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
@@ -119,6 +121,7 @@
                 app:weight="semibold"
                 android:text="Rules"/>
             <com.eventer.app.common.FontTextView
+                android:id="@+id/rulesTextView"
                 android:textColor="@android:color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
