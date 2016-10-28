@@ -63,7 +63,7 @@
                 android:textSize="20sp"
                 android:gravity="center"
                 android:layout_margin="2dp"
-                android:text="23 October, 2016"
+                tools:text="23 October, 2016"
                 android:clickable="true"/>
             <View
                 android:layout_width="match_parent"
