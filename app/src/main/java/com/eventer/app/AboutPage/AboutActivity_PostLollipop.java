@@ -9,7 +9,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Layout;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.AlignmentSpan;
 import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,7 +69,7 @@ public class AboutActivity_PostLollipop extends AppCompatActivity{
         private View aboutMagnovitegulzar;
         @Nullable
         @BindView(R.id.about_description)
-        TextView plaidDescription;
+        TextView about_description;
         private View aboutIcon;
         @Nullable
         //@BindView(R.id.icon_description) TextView iconDescription;
@@ -108,26 +112,6 @@ public class AboutActivity_PostLollipop extends AppCompatActivity{
                     if (aboutMagnovitegulzar == null) {
                         aboutMagnovitegulzar = layoutInflater.inflate(R.layout.about_eventer, parent, false);
                         ButterKnife.bind(this, aboutMagnovitegulzar);
-//                        // fun with spans & markdown
-//                        CharSequence about0 = markdown.markdownToSpannable(resources
-//                                .getString(R.string.about_plaid_0), plaidDescription, null);
-//                        SpannableString about1 = new SpannableString(
-//                                resources.getString(R.string.about_plaid_1));
-//                        about1.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
-//                                0, about1.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-//                        SpannableString about2 = new SpannableString(markdown.markdownToSpannable
-//                                (resources.getString(R.string.about_plaid_2),
-//                                        plaidDescription, null));
-//                        about2.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
-//                                0, about2.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-//                        SpannableString about3 = new SpannableString(markdown.markdownToSpannable
-//                                (resources.getString(R.string.about_plaid_3),
-//                                        plaidDescription, null));
-//                        about3.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER),
-//                                0, about3.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-//                        CharSequence desc = TextUtils.concat(about0, "\n\n", about1, "\n", about2,
-//                                "\n\n", about3);
-//                        HtmlUtils.setTextWithNiceLinks(plaidDescription, desc);
                     }
                     return aboutMagnovitegulzar;
 //                case 1:

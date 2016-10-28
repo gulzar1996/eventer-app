@@ -53,6 +53,9 @@ public class EventActivity extends EventRegistrationSystem {
     @BindView(R.id.ic_organizer)TextView mic_organizer;
     @BindView(R.id.icgroup_orsolo)TextView micgroup_orsolo;
     @BindView(R.id.eventDescription) TextView meventDescription;
+    @BindView(R.id.prizeTextView)TextView mprizeTextView;
+    @BindView(R.id.rulesTextView)TextView mrulesTextView;
+    @BindView(R.id.eventDate) TextView meventDate;
     @BindView(R.id.app_bar)AppBarLayout mapp_bar;
     private String uid,eid;
     private User userAdmin;
@@ -106,7 +109,9 @@ public class EventActivity extends EventRegistrationSystem {
     private  void  loadDetails(Event e) {
         mEventName.setText(e.title);
         meventDescription.setText(e.body);
-
+        meventDate.setText(e.date_time);
+        mprizeTextView.setText(e.prize);
+        mrulesTextView.setText(e.rules);
         micgroup_orsolo.setText(groupOrSolo());
 
         //Temp

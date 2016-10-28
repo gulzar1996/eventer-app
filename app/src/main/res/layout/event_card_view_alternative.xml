@@ -21,7 +21,7 @@
 
 >
     <LinearLayout
-        android:background="#FFF8F7F7"
+        android:background="@color/eventcard"
         android:layout_width="match_parent"
         android:layout_height="180dp"
         android:orientation="vertical"
