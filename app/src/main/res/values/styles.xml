@@ -8,6 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorControlHighlight">@color/mediumGray</item>
         <item name="android:colorEdgeEffect">@color/mediumGray</item>
+        <item name="android:popupBackground">@color/colorPrimary</item>
 
     </style>
 

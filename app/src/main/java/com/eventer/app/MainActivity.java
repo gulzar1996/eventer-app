@@ -2,6 +2,7 @@ package com.eventer.app;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -14,6 +15,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -143,6 +146,30 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
         snackbar.show();
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_mainmenu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId())
+        {
+            case R.id.logooutMenu:
+                mAuth.signOut();
+                startActivity(new Intent(this,SignInSignUp.class));
+                finish();
+                return true;
+            case R.id.aboutPagemenu:
+            if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){}
+                return true;
+            default:
+            return super.onOptionsItemSelected(item);
+        }
 
     }
 }
