@@ -3,13 +3,17 @@ package com.eventer.app.Event;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.eventer.app.R;
 import com.eventer.app.model.Event;
@@ -25,6 +29,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -137,10 +144,10 @@ public class EventRegistrationSystem extends AppCompatActivity {
                             list.add(event.registers.get(uid));
                         }
                         if(design==true){
-                            registerUserInDialog(list);
+                            registerUserInDialog(list,aref);
                         }
-//                        else
-                            //registerUserInExel(list);
+                        else
+                            registerUserInExel(list,event.title);
                          // [Change Design Accordingly]
                     }
 
@@ -150,7 +157,7 @@ public class EventRegistrationSystem extends AppCompatActivity {
                     }
                 });
     }
-    private void registerUserInDialog(List<User> users)
+    private void registerUserInDialog(List<User> users, final DatabaseReference aref)
     {
 
 //        // put material dialog and all the user is in users array list with datastructure User
@@ -165,7 +172,51 @@ public class EventRegistrationSystem extends AppCompatActivity {
                     @Override
                     public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                     }})
+                .positiveText("Download")
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        getRegisterUser(aref,false);
+                    }
+                })
                 .show();
+    }
+    // exel export
+    void registerUserInExel(List<User> users,String EventTitle)
+    {
+        // check if available and not read only;
+        String fileName = EventTitle.toString() + ".csv";//like 2016_01_12.txt
+        try {
+            File root = new File(Environment.getExternalStorageDirectory(), "EVENTER");
+            //File root = new File(Environment.getExternalStorageDirectory(), "Notes");
+            if (!root.exists()) {
+                root.mkdirs();
+            }
+            File gpxfile = new File(root, fileName);
+            if (gpxfile.exists())
+                gpxfile.delete();
+            FileWriter writer = new FileWriter(gpxfile, true);
+            writer.append(",,," + EventTitle.toString() + "," + "\n");
+
+            writer.append("SL"+","+"REG NO" + "," + "NAME" + "," + "Attendence" + "\n");
+            int userCount=1;
+            for (User u : users) {
+                writer.append(String.valueOf(userCount)+","+u.regno + "," + u.name + "\n");
+                userCount++;
+            }
+            Snackbar snackbar = Snackbar
+                    .make(coordinatorLayout, "Download Successfully\nCheck Eventer Folder In My Files", Snackbar.LENGTH_LONG);
+            snackbar.show();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            Snackbar snackbar = Snackbar
+                    .make(coordinatorLayout, "Download Unsuccessfully\nSome Error Or Insufficient Space", Snackbar.LENGTH_LONG);
+            snackbar.show();
+
+        }
+
+
     }
     //[GET DATE]
     public Date getDateFromString(String dateString)
@@ -190,6 +241,7 @@ public class EventRegistrationSystem extends AppCompatActivity {
 
     }
     //[End Of Date Section]
+
 
 
 }

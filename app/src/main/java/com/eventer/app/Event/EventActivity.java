@@ -89,7 +89,6 @@ public class EventActivity extends EventRegistrationSystem {
             eventIsToday=true;
         //load all the details
         loadDetails(mEvent);
-      //  getRegisterUser(eRef,true);
         //Setting up ActionBar
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
