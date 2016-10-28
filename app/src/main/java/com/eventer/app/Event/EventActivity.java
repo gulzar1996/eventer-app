@@ -57,6 +57,8 @@ public class EventActivity extends EventRegistrationSystem {
     private String uid,eid;
     private User userAdmin;
     private DatabaseReference eRef;
+    long currentDate, eventDate;
+    Boolean eventIsToday=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +82,12 @@ public class EventActivity extends EventRegistrationSystem {
 
         //Get Event Object From Previous Class
         mEvent = Parcels.unwrap(getIntent().getParcelableExtra("EXTRA_EVENT"));
+        // get Date
+        eventDate = (long) getDateFromString(mEvent.date_time).getTime();
+        currentDate = getCurrentDate().getTime();
+        if(eventDate<currentDate)
+            eventIsToday=true;
+        //load all the details
         loadDetails(mEvent);
       //  getRegisterUser(eRef,true);
         //Setting up ActionBar
@@ -123,13 +131,23 @@ public class EventActivity extends EventRegistrationSystem {
         }
         else {
             userIsAdmin=false;
-            if (e.registers.containsKey(uid)) {
-                userIsRegister = true;
-                fab.setImageDrawable(new IconicsDrawable(getBaseContext(), GoogleMaterial.Icon.gmd_clear).actionBar().color(Color.BLACK));
-                //add snack bar here
-            } else {
-                fab.setImageDrawable(new IconicsDrawable(getBaseContext(), GoogleMaterial.Icon.gmd_done).actionBar().color(Color.BLACK));
-                // add snack bar here
+            if(!eventIsToday) {
+                if (e.registers.containsKey(uid)) {
+                    userIsRegister = true;
+                    fab.setImageDrawable(new IconicsDrawable(getBaseContext(), GoogleMaterial.Icon.gmd_clear).actionBar().color(Color.BLACK));
+                    //add snack bar here
+                } else {
+                    fab.setImageDrawable(new IconicsDrawable(getBaseContext(), GoogleMaterial.Icon.gmd_done).actionBar().color(Color.BLACK));
+                    // add snack bar here
+                }
+            }
+            else
+            {
+                fab.setImageDrawable(new IconicsDrawable(getBaseContext(), GoogleMaterial.Icon.gmd_priority_high).actionBar().color(Color.BLACK));
+                Snackbar snackbar = Snackbar
+                        .make(coordinatorLayout, "Registrations are closed!!!!", Snackbar.LENGTH_LONG);
+                snackbar.show();
+
             }
         }
     }
@@ -169,8 +187,17 @@ public class EventActivity extends EventRegistrationSystem {
     @OnClick(R.id.floating_action_button)void registerEvent()
     {
         if(!userIsAdmin) {
-            setUpRegistration(eRef, uid, userAdmin);
-            changeDesignfab(eRef, uid);
+            if(!eventIsToday) {
+                setUpRegistration(eRef, uid, userAdmin);
+                changeDesignfab(eRef, uid);
+            }
+            else
+            {
+                Snackbar snackbar = Snackbar
+                        .make(coordinatorLayout, "Registrations are closed!!!!", Snackbar.LENGTH_LONG);
+                snackbar.show();
+            }
+
         }
         else
         {
@@ -201,7 +228,7 @@ public class EventActivity extends EventRegistrationSystem {
     }
     @OnClick(R.id.icgroup_orsolo) void groupOrSoloNamesDisplay()
     {
-        getRegisterUser(eRef,true);
+//        getRegisterUser(eRef,true);
     }
 
 

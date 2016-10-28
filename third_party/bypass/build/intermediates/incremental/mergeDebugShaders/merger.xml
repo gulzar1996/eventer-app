@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="F:\AndroidProject\eventer-app\third_party\bypass\src\main\shaders"/></dataSet><dataSet config="debug"><source path="F:\AndroidProject\eventer-app\third_party\bypass\src\debug\shaders"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="/home/gaurav/Documents/main-eventer/eventer-app/third_party/bypass/src/main/shaders"/></dataSet><dataSet config="debug"><source path="/home/gaurav/Documents/main-eventer/eventer-app/third_party/bypass/src/debug/shaders"/></dataSet></merger>

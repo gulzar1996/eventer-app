@@ -25,7 +25,11 @@ import com.google.firebase.database.ValueEventListener;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +45,7 @@ public class EventRegistrationSystem extends AppCompatActivity {
     public Boolean userIsRegister=false,userIsAdmin=false;
     public  DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     @BindView(R.id.floating_action_button) FloatingActionButton fab;
+    @BindView(R.id.htab_maincontent) CoordinatorLayout coordinatorLayout;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +53,7 @@ public class EventRegistrationSystem extends AppCompatActivity {
     }
 
     public void setUpRegistration(DatabaseReference mReference, String uid, final User userAdmin) {
+
 
         if (someError == false) {
             onRegisterClicked(mReference, uid, userAdmin);
@@ -98,9 +104,16 @@ public class EventRegistrationSystem extends AppCompatActivity {
                         Event event = dataSnapshot.getValue(Event.class);
                         if (event.registers.containsKey(uid)) {
                             fab.setImageDrawable(new IconicsDrawable(getBaseContext(), GoogleMaterial.Icon.gmd_clear).actionBar().color(Color.BLACK));
+                            Snackbar snackbar = Snackbar
+                                    .make(coordinatorLayout, "Registered Successfully", Snackbar.LENGTH_LONG);
+                            snackbar.show();
                             // add snack bar here
                         } else {
                             fab.setImageDrawable(new IconicsDrawable(getBaseContext(), GoogleMaterial.Icon.gmd_done).actionBar().color(Color.BLACK));
+                            Snackbar snackbar = Snackbar
+                                    .make(coordinatorLayout, "Unregistered", Snackbar.LENGTH_LONG);
+                            snackbar.setActionTextColor(Color.RED);
+                            snackbar.show();
                             // add snack bar here
                         }
 
@@ -154,6 +167,29 @@ public class EventRegistrationSystem extends AppCompatActivity {
                     }})
                 .show();
     }
+    //[GET DATE]
+    public Date getDateFromString(String dateString)
+    {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date date = null;
+        try {
+            date = sdf.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
+    }
+    //[get current date]
+    public Date getCurrentDate()
+    {
+
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, -1);
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE, MMM d, yyyy");
+        return cal.getTime();
+
+    }
+    //[End Of Date Section]
 
 
 }
