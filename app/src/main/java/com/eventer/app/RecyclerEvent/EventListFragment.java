@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.eventer.app.Event.EventActivity;
 
 import com.eventer.app.R;
@@ -95,11 +96,17 @@ public abstract class EventListFragment extends Fragment  {
                         }
                         if(view.getId()==R.id.organizationName || view.getId()==R.id.ic_event_logo)
                         {
-                            new MaterialDialog.Builder(getActivity())
-                                    .limitIconToDefaultSize() // limits the displayed icon size to 48dp
-                                    .title(model.organizationName)
+                        MaterialDialog md= new MaterialDialog.Builder(getActivity())
+                                    .limitIconToDefaultSize()// limits the displayed icon size to 48dp
+                                    .icon(getResources().getDrawable(R.drawable.ic_likes))
+                                .title(model.organizationName)
                                     .content(model.organizationDescription)
                                     .show();
+                            Glide.with(md.getIconView().getContext())
+                                    .load(model.logoURL)
+                                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                                    .into((md.getIconView()));
+
                         }
                     }
                 });
