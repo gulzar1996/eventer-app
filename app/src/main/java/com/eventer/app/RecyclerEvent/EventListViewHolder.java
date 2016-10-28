@@ -1,5 +1,6 @@
 package com.eventer.app.RecyclerEvent;
 
+import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -13,6 +14,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.eventer.app.R;
 import com.eventer.app.model.Event;
+import com.eventer.app.util.ViewUtils;
+import com.mikepenz.fontawesome_typeface_library.FontAwesome;
+import com.mikepenz.iconics.IconicsDrawable;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -43,6 +47,9 @@ public class EventListViewHolder extends RecyclerView.ViewHolder {
     public void bindToPost(Event event, View.OnClickListener clickxxx) {
         mtextview_event_name.setText(event.title+"");
         mDateTextView.setText(event.date_time);
+
+        mFirstPrizeTextView.setCompoundDrawables(new IconicsDrawable(mFirstPrizeTextView.getContext(), FontAwesome.Icon.faw_trophy).sizeDp(16).color(Color.GRAY),null,null,null);
+        mAttendingTextView.setCompoundDrawables(new IconicsDrawable(mAttendingTextView.getContext(), FontAwesome.Icon.faw_user).sizeDp(16).color(Color.GRAY),null,null,null);
         if(event.downloadURL!=null)
             Glide.with(mShotImageView.getContext())
                     .load(event.downloadURL)
