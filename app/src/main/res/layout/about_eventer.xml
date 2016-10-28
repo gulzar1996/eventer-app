@@ -19,11 +19,12 @@
             android:text="Eventer"
             app:foregroundColor="#69F0AE"
             app:font="roboto-mono-regular" />
-        <TextView
+        <com.eventer.app.common.FontTextView
             android:id="@+id/about_description"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            app:weight="semibold"
             android:text="Eventer App designed and developed by Gulzar Ahmed and Gaurav Sehgal"
             android:paddingStart="@dimen/padding_normal"
             android:paddingTop="@dimen/padding_normal"
