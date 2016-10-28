@@ -1,5 +1,6 @@
 package com.eventer.app;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -23,6 +24,7 @@ import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.eventer.app.AboutPage.AboutActivity_PostLollipop;
 import com.eventer.app.Chat.ChatFragment;
 import com.eventer.app.RecyclerEvent.AllEvents;
 import com.eventer.app.RecyclerEvent.MyEvents;
@@ -165,7 +167,10 @@ public class MainActivity extends AppCompatActivity {
                 finish();
                 return true;
             case R.id.aboutPagemenu:
-            if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){}
+            if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
+                startActivity(new Intent(this, AboutActivity_PostLollipop.class),
+                        ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+            }
                 return true;
             default:
             return super.onOptionsItemSelected(item);

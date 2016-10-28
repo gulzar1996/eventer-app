@@ -31,6 +31,8 @@
             android:theme="@style/AppTheme.TranslucentBars"
             android:screenOrientation="portrait"
             android:parentActivityName="com.eventer.app.MainActivity"/>
+        <activity android:name=".AboutPage.AboutActivity_PostLollipop"
+            android:theme="@style/Plaid.Translucent.About"/>
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />

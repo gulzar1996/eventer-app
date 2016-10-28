@@ -3,4 +3,24 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="bottom_bar_height">54dp</dimen>
+    <!-- standard metrics -->
+    <dimen name="spacing_normal">8dp</dimen>
+    <dimen name="padding_normal">16dp</dimen>
+    <dimen name="spacing_large">32dp</dimen>
+    <dimen name="spacing_xlarge">48dp</dimen>
+    <dimen name="spacing_huge">64dp</dimen>
+    <dimen name="fab_size">56dp</dimen>
+    <dimen name="fab_radius">28dp</dimen>
+    <dimen name="keyline_1">72dp</dimen>
+    <dimen name="display_4_text_size">112sp</dimen>
+    <dimen name="divider_height">1px</dimen>
+    <dimen name="dialog_corners">2dp</dimen>
+    <dimen name="padding_room_for_fab">88dp</dimen> <!-- padding_normal + fab_size + padding_normal -->
+    <dimen name="fab_plus_single_padding">72dp</dimen> <!-- fab_size + padding_normal -->
+    <dimen name="half_fab_plus_single_padding">44dp</dimen> <!-- (fab_size / 2) + padding_normal -->
+    <dimen name="drag_dismiss_distance">112dp</dimen> <!-- 2 * ?android:actionBarSize -->
+    <!-- text input layout seems to add 4dp of extra padding. The following account for this -->
+    <dimen name="padding_normal_til">12dp</dimen>
+    <dimen name="til_margin_fix">-4dp</dimen>
+
 </resources>
