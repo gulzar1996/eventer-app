@@ -1,7 +1,9 @@
 package com.eventer.app.Event;
 
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
@@ -11,6 +13,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -192,20 +195,31 @@ public class EventRegistrationSystem extends AppCompatActivity {
             if (!root.exists()) {
                 root.mkdirs();
             }
-            File gpxfile = new File(root, fileName);
+            final File gpxfile = new File(root, fileName);
             if (gpxfile.exists())
                 gpxfile.delete();
             FileWriter writer = new FileWriter(gpxfile, true);
-            writer.append(",,," + EventTitle.toString() + "," + "\n");
+            writer.append( EventTitle.toString() + ":," + "\n\n");
 
-            writer.append("SL"+","+"REG NO" + "," + "NAME" + "," + "Attendence" + "\n");
+            writer.append("SL No."+","+"REG NO" + "," + "NAME" + "\n");
             int userCount=1;
             for (User u : users) {
                 writer.append(String.valueOf(userCount)+","+u.regno + "," + u.name + "\n");
                 userCount++;
             }
+            writer.flush();
+            writer.close();
             Snackbar snackbar = Snackbar
-                    .make(coordinatorLayout, "Download Successfully\nCheck Eventer Folder In My Files", Snackbar.LENGTH_LONG);
+                    .make(coordinatorLayout, "Download Successfully\nCheck Eventer Folder In My Files", Snackbar.LENGTH_LONG)
+                    .setAction("VISIT", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent();
+                        intent.setAction(android.content.Intent.ACTION_VIEW);
+                        intent.setDataAndType(Uri.fromFile(gpxfile),getMimeType(gpxfile.getAbsolutePath()));
+                        startActivity(intent);
+                    }
+                    });
             snackbar.show();
         }
         catch (IOException e) {
@@ -218,6 +232,19 @@ public class EventRegistrationSystem extends AppCompatActivity {
 
 
     }
+    //[Get Which File Type To Open With]
+    private String getMimeType(String url)
+    {
+        String parts[]=url.split("\\.");
+        String extension=parts[parts.length-1];
+        String type = null;
+        if (extension != null) {
+            MimeTypeMap mime = MimeTypeMap.getSingleton();
+            type = mime.getMimeTypeFromExtension(extension);
+        }
+        return type;
+    }
+    //[End Exel]
     //[GET DATE]
     public Date getDateFromString(String dateString)
     {
