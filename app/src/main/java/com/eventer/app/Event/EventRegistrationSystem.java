@@ -225,7 +225,7 @@ public class EventRegistrationSystem extends AppCompatActivity {
         catch (IOException e) {
             e.printStackTrace();
             Snackbar snackbar = Snackbar
-                    .make(coordinatorLayout, "Download Unsuccessfully\nSome Error Or Insufficient Space", Snackbar.LENGTH_LONG);
+                    .make(coordinatorLayout, "Download Unsuccessful\nCheck Permission", Snackbar.LENGTH_LONG);
             snackbar.show();
 
         }

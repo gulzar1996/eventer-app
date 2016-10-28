@@ -151,7 +151,7 @@ public class EventActivity extends EventRegistrationSystem {
             {
                 fab.setImageDrawable(new IconicsDrawable(getBaseContext(), GoogleMaterial.Icon.gmd_priority_high).actionBar().color(Color.BLACK));
                 Snackbar snackbar = Snackbar
-                        .make(coordinatorLayout, "Registrations are closed!!!!", Snackbar.LENGTH_LONG);
+                        .make(coordinatorLayout, "Registrations closed", Snackbar.LENGTH_LONG);
                 snackbar.show();
 
             }
@@ -200,7 +200,7 @@ public class EventActivity extends EventRegistrationSystem {
             else
             {
                 Snackbar snackbar = Snackbar
-                        .make(coordinatorLayout, "Registrations are closed!!!!", Snackbar.LENGTH_LONG);
+                        .make(coordinatorLayout, "Registrations closed", Snackbar.LENGTH_LONG);
                 snackbar.show();
             }
 

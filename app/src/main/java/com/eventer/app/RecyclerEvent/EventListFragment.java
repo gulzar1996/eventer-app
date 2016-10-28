@@ -94,7 +94,7 @@ public abstract class EventListFragment extends Fragment  {
                             intent.putExtras(bundle);
                             startActivity(intent);
                         }
-                        if(view.getId()==R.id.organizationName || view.getId()==R.id.ic_event_logo)
+                        if(view.getId()==R.id.organizationName || view.getId()==R.id.ic_event_logo || view.getId()==R.id.topCard)
                         {
                         MaterialDialog md= new MaterialDialog.Builder(getActivity())
                                     .limitIconToDefaultSize()// limits the displayed icon size to 48dp
