@@ -2,6 +2,7 @@ package com.eventer.app.Event;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -12,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
@@ -201,6 +203,8 @@ public class EventActivity extends EventRegistrationSystem {
                 .itemsCallback(new MaterialDialog.ListCallback() {
                     @Override
                     public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                       
+                        makeCall(text+"");
                     }})
                 .show();
     }
@@ -209,6 +213,28 @@ public class EventActivity extends EventRegistrationSystem {
         getRegisterUser(eRef,true);
     }
 
+    public void makeCall(String text)
+    {
+        int s,e;
+        s=e=0;
+        String phoneNo;
+        for(int i=0;i<text.length();i++)
+            if(Character.isDigit(text.charAt(i))){
+                s=i;break;}
+        for (int i=text.length()-1;i>=0;i--)
+            if(Character.isDigit(text.charAt(i))){
+                e=i;break;}
+        phoneNo=text.substring(s,e+1);
+        phoneNo=phoneNo.replaceAll("\\s+","");
+        Toast.makeText(EventActivity.this, ""+phoneNo, Toast.LENGTH_SHORT).show();
+        if(phoneNo.length()>=10)
+        {
+            Intent intent=new Intent(Intent.ACTION_CALL);
+            intent.setData(Uri.parse("tel:"+phoneNo));
+            startActivity(intent);
+        }
+
+    }
 
 
 
