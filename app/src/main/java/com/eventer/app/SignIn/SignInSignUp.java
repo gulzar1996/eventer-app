@@ -8,6 +8,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +23,8 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.eventer.app.IntroSlider.Image1;
+import com.eventer.app.IntroSlider.Image2;
 import com.eventer.app.JsonApi.ServerCallback;
 import com.eventer.app.JsonApi.ValidateReg;
 import com.eventer.app.MainActivity;
@@ -65,6 +69,7 @@ public class SignInSignUp extends AppCompatActivity {
     @BindView(R.id.email_password_buttons) View memail_password_buttons;
     @BindView(R.id.progressbar) ProgressBar mProgressBar;
     @BindView(R.id.tab_maincontent) CoordinatorLayout coordinatorLayout;
+    private FragmentPagerAdapter mPagerAdapter;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     private FirebaseAuth.AuthStateListener mAuthListener;
@@ -113,9 +118,34 @@ public class SignInSignUp extends AppCompatActivity {
         /*
             end firebase auth
          */
-        //Setting Up page adapter
-        MyPagerAdapter adapter = new MyPagerAdapter();
-        mViewPager.setAdapter(adapter);
+        //Setting Up Slider
+        setupSlider();
+
+    }
+
+    private void setupSlider() {
+        mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
+            private final Fragment[] mFragments = new Fragment[] {
+                    new Image2(),new Image1()
+            };
+            private final String[] mFragmentNames = new String[] {
+                    "Image 2","Image 1"
+            };
+            @Override
+            public Fragment getItem(int position) {
+                return mFragments[position];
+            }
+            @Override
+            public int getCount() {
+                return mFragments.length;
+            }
+            @Override
+            public CharSequence getPageTitle(int position) {
+                return mFragmentNames[position];
+            }
+        };
+
+        mViewPager.setAdapter(mPagerAdapter);
         mindicator.setViewPager(mViewPager);
     }
 
@@ -155,51 +185,6 @@ public class SignInSignUp extends AppCompatActivity {
     }
 
 
-    //Page Adapter
-    private class MyPagerAdapter extends PagerAdapter {
-
-        public int getCount() {
-            return 3;
-        }
-        public Object instantiateItem(View collection, int position) {
-
-            LayoutInflater inflater = (LayoutInflater) collection.getContext()
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-            int resId = 0;
-            switch (position) {
-                case 0:
-                    resId = R.layout.eventer_logo;
-                    break;
-                case 1:
-                    resId = R.layout.eventer_logo;
-                    break;
-                case 2:
-                    resId = R.layout.eventer_logo;
-                    break;
-            }
-
-            View view = inflater.inflate(resId, null);
-
-            ((ViewPager) collection).addView(view, 0);
-
-            return view;
-        }
-        @Override
-        public boolean isViewFromObject(View arg0, Object arg1) {
-            return arg0 == ((View) arg1);
-
-        }
-        @Override
-        public Parcelable saveState() {
-            return null;
-        }
-        @Override
-        public void destroyItem(View arg0, int arg1, Object arg2) {
-            ((ViewPager) arg0).removeView((View) arg2);
-
-        }
-    }
     //Validate TextFields
     boolean validateForm() {
         boolean result = true;
