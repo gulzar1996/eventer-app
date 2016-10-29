@@ -257,6 +257,21 @@ public class EventActivity extends EventRegistrationSystem {
         i.putExtras(b);
         startActivity(i);
     }
+    @OnClick(R.id.ic_winners) void winnersAnnouncement()
+    {
+        if(mEvent.winners==null || mEvent.winners.equalsIgnoreCase(" "))
+        new MaterialDialog.Builder(this)
+                .title("Winners ")
+                .content("Event not finished")
+                .positiveText("Ok")
+                .show();
+        else
+            new MaterialDialog.Builder(this)
+                    .title("Winners ")
+                    .content(mEvent.winners)
+                    .positiveText("Hmm")
+                    .show();
+    }
 
     @OnClick(R.id.ic_organizer)
     void Organizer() {
@@ -275,10 +290,7 @@ public class EventActivity extends EventRegistrationSystem {
                 .show();
     }
 
-    @OnClick(R.id.icgroup_orsolo)
-    void groupOrSoloNamesDisplay() {
-//        getRegisterUser(eRef,true);
-    }
+
 
     public void makeCall(String text) {
         int s, e;
