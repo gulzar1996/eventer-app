@@ -159,6 +159,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.logooutMenu).setTitle("Logout ("+FirebaseAuth.getInstance().getCurrentUser().getDisplayName().toString()+")");
+        return super.onPrepareOptionsMenu(menu);
+
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId())
         {
@@ -170,9 +177,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.aboutPagemenu:
                // showNotification("hhhhhhhhhhhhhhhhhhhhh");
             if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
-                startActivity(new Intent(this, WriteActivity.class));
-//                startActivity(new Intent(this, AboutActivity_PostLollipop.class),
-//                        ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+
+                startActivity(new Intent(this, AboutActivity_PostLollipop.class),
+                        ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
             }
                 else
             {
