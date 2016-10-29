@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        Log.d("ActTransact","Oncreate");
         setSupportActionBar(mtoolbar);
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {@Override
@@ -126,10 +127,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
+        Log.d("ActTransact","Onstart");
         mAuth.addAuthStateListener(mAuthListener);}
     @Override
     public void onStop() {
         super.onStop();
+        Log.d("ActTransact","Onstop");
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
