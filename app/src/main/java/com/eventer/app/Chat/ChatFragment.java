@@ -151,7 +151,7 @@ public class ChatFragment extends Fragment implements ChildEventListener, ChatCo
 
     @Override public void sendMessage() {
         String message = messageInput.getText().toString();
-        if (!message.isEmpty()) firebase.push().setValue(new Chat(message, idUser,senderName));
+        if (!message.trim().isEmpty()) firebase.push().setValue(new Chat(message, idUser,senderName));
 
         messageInput.setText("");
     }

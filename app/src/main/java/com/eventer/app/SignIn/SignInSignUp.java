@@ -252,6 +252,8 @@ public class SignInSignUp extends AppCompatActivity {
                     }
                 });
     }
+
+
     private void createUser(String email,String password,final String f)
     {
         toggleProgressVisibility();
@@ -328,10 +330,6 @@ public class SignInSignUp extends AppCompatActivity {
                     }
                 });
     }
-    //[end sign in user with email and password]
-    /*
-        end user autentication system
-     */
 
 
     @OnClick(R.id.button_sign_up)void signupButton()
