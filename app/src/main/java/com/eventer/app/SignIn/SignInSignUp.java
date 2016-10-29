@@ -144,7 +144,7 @@ public class SignInSignUp extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
                                 Snackbar snackbar = Snackbar
-                                        .make(coordinatorLayout, "Some Inernal Error!!\nTry SignUp Again", Snackbar.LENGTH_LONG);
+                                        .make(coordinatorLayout, "Internal Error!!\nTry SignUp Again", Snackbar.LENGTH_LONG);
                                 snackbar.show();
                             }
                         }
