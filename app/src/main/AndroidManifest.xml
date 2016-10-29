@@ -12,6 +12,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:name="com.eventer.app.EventerApp"
+
         >
         <activity android:name="com.eventer.app.SignIn.SignInSignUp"
             android:screenOrientation="portrait"

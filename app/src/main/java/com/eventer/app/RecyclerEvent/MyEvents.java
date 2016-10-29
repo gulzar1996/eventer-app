@@ -25,7 +25,7 @@ public class MyEvents extends MyEventListFragment implements ObservableScrollVie
 
     @Override
     public Query getQuery(DatabaseReference databaseReference) {
-        return databaseReference.child("events");
+        return databaseReference.child("events").orderByChild("timestamp");
     }
 
     @Override
