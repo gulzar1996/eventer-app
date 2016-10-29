@@ -97,7 +97,7 @@ public class AboutActivity_PostLollipop extends AppCompatActivity{
 
         @Override
         public int getCount() {
-            return 1;
+            return 2;
         }
 
         @Override
@@ -114,17 +114,12 @@ public class AboutActivity_PostLollipop extends AppCompatActivity{
                         ButterKnife.bind(this, aboutMagnovitegulzar);
                     }
                     return aboutMagnovitegulzar;
-//                case 1:
-//                    if (aboutIcon == null) {
-//                        aboutIcon = layoutInflater.inflate(R.layout.about_icon, parent, false);
-//                        ButterKnife.bind(this, aboutIcon);
-//                        CharSequence icon0 = resources.getString(R.string.about_icon_0);
-//                        CharSequence icon1 = markdown.markdownToSpannable(resources
-//                                .getString(R.string.about_icon_1), iconDescription, null);
-//                        CharSequence iconDesc = TextUtils.concat(icon0, "\n", icon1);
-//                        HtmlUtils.setTextWithNiceLinks(iconDescription, iconDesc);
-//                    }
-//                    return aboutIcon;
+                case 1:
+                    if (aboutIcon == null) {
+                        aboutIcon = layoutInflater.inflate(R.layout.about_icon, parent, false);
+                        ButterKnife.bind(this, aboutIcon);
+                    }
+                    return aboutIcon;
 //                case 2:
 //                    if (aboutLibs == null) {
 ////                        aboutLibs = layoutInflater.inflate(R.layout.about_magnovite, parent, false);
