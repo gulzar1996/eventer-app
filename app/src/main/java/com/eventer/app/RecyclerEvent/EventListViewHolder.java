@@ -46,6 +46,9 @@ public class EventListViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bindToPost(Event event, View.OnClickListener clickxxx) {
+        mrootViewCard.setVisibility(View.VISIBLE);
+        mcardViewEvent.setVisibility(View.VISIBLE);
+        mcardView.setVisibility(View.VISIBLE);
         mtextview_event_name.setText(event.title+"");
         mDateTextView.setText(event.date_time);
 
@@ -70,6 +73,7 @@ public class EventListViewHolder extends RecyclerView.ViewHolder {
              mic_event_logo.setOnClickListener(clickxxx);
             morganizationName.setOnClickListener(clickxxx);
         topCard.setOnClickListener(clickxxx);
+
     }
     public void removefragment()
     {

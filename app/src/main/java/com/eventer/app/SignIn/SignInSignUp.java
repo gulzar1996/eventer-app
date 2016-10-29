@@ -262,13 +262,13 @@ public class SignInSignUp extends AppCompatActivity {
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
-                            Toast.makeText(SignInSignUp.this, "Wrong Credentials",
+                            Toast.makeText(SignInSignUp.this, "Account Already Present \n Please Sign In",
                                     Toast.LENGTH_SHORT).show();
                         }
                         else
                         {
                             setUserName(f);
-                            FirebaseAuth.getInstance().signOut();
+                            Toast.makeText(SignInSignUp.this, "ACCOUNT CREATED", Toast.LENGTH_SHORT).show();
 
                         }
                         toggleProgressVisibility();
@@ -289,9 +289,10 @@ public class SignInSignUp extends AppCompatActivity {
                     String r = result.getJSONArray("items").getString(0);
                     JSONObject n = new JSONObject(r);
                     String f = n.getString("result");
-                    if (f.equalsIgnoreCase("login failed"))
+                    if (f.equalsIgnoreCase("login failed")) {
                         Toast.makeText(SignInSignUp.this, "INVALID CREDENTIALS!!", Toast.LENGTH_SHORT).show();
-                    else {Toast.makeText(SignInSignUp.this, "ACCOUNT CREATED", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
                         createUser(email,pswd,f);
                             }
                 } catch (Exception e) {}
@@ -316,12 +317,6 @@ public class SignInSignUp extends AppCompatActivity {
                         if (!task.isSuccessful()) {
                             Log.w(TAG, "signInWithEmail:failed", task.getException());
                             Toast.makeText(SignInSignUp.this, "INVALID CREDENTIALS!!\nOR\nACCOUNT NOT PRESENT TRY SIGN UP", Toast.LENGTH_SHORT).show();
-                        }
-                        else
-                        {
-                            // open new activity
-                            startActivity(new Intent(SignInSignUp.this, MainActivity.class));
-                            finish();
                         }
                         toggleProgressVisibility();
 
