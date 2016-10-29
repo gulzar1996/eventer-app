@@ -223,6 +223,32 @@ public class EventActivity extends EventRegistrationSystem {
 
     }
 
+    @OnClick(R.id.icgroup_orsolo) void groupOrSolomessage()
+    {
+        if(mEvent.maxReg==1 && mEvent.minReg==1)
+            new MaterialDialog.Builder(this)
+                    .title("Solo Registration")
+                    .content("Individual Participation Only")
+                    .positiveText("Capisce")
+                    .show();
+        else if(mEvent.minReg == mEvent.maxReg)
+        {
+            new MaterialDialog.Builder(this)
+                    .title("Group Registration")
+                    .content("A group of only "+mEvent.minReg+" members. If any member of the group fails to register then you wont be allowed to participate")
+                    .positiveText("Capisce")
+                    .show();
+        }
+        else
+        {
+            new MaterialDialog.Builder(this)
+                    .title("Group Registration")
+                    .content("A group of minimum "+mEvent.minReg+" and maximum "+mEvent.maxReg+" members If any member of the group fails to register then you wont be allowed to participate")
+                    .positiveText("Capisce")
+                    .show();
+        }
+
+    }
     @OnClick(R.id.ic_queries)
     void Query() {
         Intent i = new Intent(this, ChatActivity.class);
