@@ -27,19 +27,19 @@ public class Event {
     public String eventID;
     public String organizationDescription;
     public String organizationName;
-    public ArrayList<String> winners;
     public ArrayList<String> userkey;
     public int registerCount = 0;
     public Map<String,User> registers = new HashMap<>();
     public long timestamp;
     public int maxReg;
     public int minReg;
+    public String winners;
 
     public Event() {
         // Default constructor required for calls to DataSnapshot.getValue(Post.class)
     }
 
-    public Event(String eventID,ArrayList<String> userKey, String title, String body, String date_time,String venue,String rules,  ArrayList<String> organizers,String downloadURL,String logoURL,String prize,String organizationName,String organizationDescription,long timestamp,int maxReg,int minReg) {
+    public Event(String eventID,ArrayList<String> userKey, String title, String body, String date_time,String venue,String rules,  ArrayList<String> organizers,String downloadURL,String logoURL,String prize,String organizationName,String organizationDescription,String winners,long timestamp,int maxReg,int minReg) {
 
         this.eventID=eventID;
         this.userkey=userKey;
@@ -52,6 +52,7 @@ public class Event {
         this.date_time=date_time;
         this.venue=venue;
         this.rules=rules;
+        this.winners=winners;
         this.downloadURL=downloadURL;
         this.logoURL=logoURL;
         this.prize=prize;
@@ -73,7 +74,6 @@ public class Event {
         result.put("logoURL",logoURL);
         result.put("organizers",organizers);
         result.put("prize",prize);
-        result.put("winners",winners);
         result.put("title", title);
         result.put("body", body);
         result.put("venue",venue);
@@ -86,6 +86,7 @@ public class Event {
         result.put("maxReg",maxReg);
         result.put("organizationName",organizationName);
         result.put("organizationDescription",organizationDescription);
+        result.put("winners",winners);
         return result;
     }
 }

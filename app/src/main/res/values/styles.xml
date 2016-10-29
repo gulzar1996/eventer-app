@@ -8,7 +8,6 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorControlHighlight">@color/mediumGray</item>
         <item name="android:colorEdgeEffect">@color/mediumGray</item>
-        <item name="android:popupBackground">@color/colorPrimary</item>
 
     </style>
 
@@ -38,7 +37,7 @@
         <item name="android:layout_marginRight">4dp</item>
     </style>
     <style name="AppTheme.TranslucentBars">
-        <item name="android:statusBarColor">@color/translucent_bars</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="colorControlHighlight">@color/mediumGray</item>
     </style>
 

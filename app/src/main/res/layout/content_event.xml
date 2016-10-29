@@ -63,13 +63,15 @@
                 android:textSize="20sp"
                 android:gravity="center"
                 android:layout_margin="2dp"
-                android:text="23 October, 2016"
+                tools:text="23 October, 2016"
                 android:clickable="true"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_below="@id/event_register_like_notify_message"
                 android:background="@color/divider"/>
+
+
             <com.eventer.app.common.FontTextView
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
@@ -108,7 +110,7 @@
                 android:textSize="14sp"
                 app:weight="regular"
                 android:textColor="@android:color/black"
-                android:text="Game of fist. First one to get knocked out elminated.The process is tedious. Developed by Gulzar"/>
+                tools:text="Game of fist. First one to get knocked out elminated.The process is tedious. Developed by Gulzar"/>
             <com.eventer.app.common.FontTextView
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
@@ -133,6 +135,30 @@
                 android:textSize="14sp"
                 app:weight="regular"
                 android:text="................."/>
+            <com.eventer.app.common.FontTextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="1dp"
+                android:gravity="center|left"
+                android:paddingLeft="16dp"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                app:weight="semibold"
+                android:text="Venue"/>
+            <com.eventer.app.common.FontTextView
+                android:id="@+id/eventVenue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="4dp"
+                android:gravity="center|left"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:textSize="14sp"
+                app:weight="regular"
+                android:textColor="@android:color/black"
+                android:text="CUFE"/>
 
         </LinearLayout>
 

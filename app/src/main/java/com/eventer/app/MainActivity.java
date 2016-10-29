@@ -26,9 +26,11 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 
 import com.eventer.app.AboutPage.AboutActivity_PostLollipop;
+import com.eventer.app.AboutPage.AboutActivity_PreLollipop;
 import com.eventer.app.RecyclerEvent.AllEvents;
 import com.eventer.app.RecyclerEvent.MyEvents;
 import com.eventer.app.SignIn.SignInSignUp;
+import com.eventer.app.Write.WriteActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -165,12 +167,13 @@ public class MainActivity extends AppCompatActivity {
             case R.id.aboutPagemenu:
                // showNotification("hhhhhhhhhhhhhhhhhhhhh");
             if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
-                startActivity(new Intent(this, AboutActivity_PostLollipop.class),
-                        ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+                startActivity(new Intent(this, WriteActivity.class));
+//                startActivity(new Intent(this, AboutActivity_PostLollipop.class),
+//                        ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
             }
                 else
             {
-
+                startActivity(new Intent(this, AboutActivity_PreLollipop.class));
             }
 
                 return true;

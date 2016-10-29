@@ -57,6 +57,7 @@ public class EventActivity extends EventRegistrationSystem {
     @BindView(R.id.eventDescription) TextView meventDescription;
     @BindView(R.id.prizeTextView)TextView mprizeTextView;
     @BindView(R.id.rulesTextView)TextView mrulesTextView;
+    @BindView(R.id.eventVenue)TextView meventVenue;
     @BindView(R.id.eventDate) TextView meventDate;
     @BindView(R.id.app_bar)AppBarLayout mapp_bar;
     private String uid,eid;
@@ -122,6 +123,7 @@ public class EventActivity extends EventRegistrationSystem {
         mprizeTextView.setText(e.prize);
         mrulesTextView.setText(e.rules);
         micgroup_orsolo.setText(groupOrSolo());
+        meventVenue.setText(e.venue);
 
         //Temp
         Glide.with(this)
@@ -188,6 +190,7 @@ public class EventActivity extends EventRegistrationSystem {
     }
     @Override public void onBackPressed() {
         super.onBackPressed();
+        overridePendingTransition(R.anim.slide_in_from_left, R.anim.slide_out_to_right);
     }
 
     @OnClick(R.id.floating_action_button)void registerEvent()
