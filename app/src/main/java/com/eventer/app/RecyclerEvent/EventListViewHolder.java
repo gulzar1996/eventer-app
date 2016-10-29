@@ -66,7 +66,7 @@ public class EventListViewHolder extends RecyclerView.ViewHolder {
                     .placeholder(R.drawable.grid_item_placeholder)
                     .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                     .into(mShotImageView);
-        mAttendingTextView.setText(event.registerCount+"");
+        mAttendingTextView.setText(" "+event.registerCount+"");
         mFirstPrizeTextView.setText(event.prize);
         morganizationName.setText(event.organizationName);
         Glide.with(mic_event_logo.getContext())

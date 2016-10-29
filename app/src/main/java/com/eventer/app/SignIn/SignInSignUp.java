@@ -93,7 +93,10 @@ public class SignInSignUp extends AppCompatActivity {
                 if (user != null) {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                    startActivity(new Intent(SignInSignUp.this,MainActivity.class));
+                    Intent i=new Intent(SignInSignUp.this,MainActivity.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    startActivity(i);
+                    onStop();
                     finish();
                 } else {
                     // User is signed out
@@ -319,9 +322,9 @@ public class SignInSignUp extends AppCompatActivity {
                         }
                         else
                         {
-                            // open new activity
-                            startActivity(new Intent(SignInSignUp.this, MainActivity.class));
-                            finish();
+//                            // open new activity
+//                            startActivity(new Intent(SignInSignUp.this, MainActivity.class));
+//                            finish();
                         }
                         toggleProgressVisibility();
 

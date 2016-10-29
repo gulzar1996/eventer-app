@@ -45,8 +45,8 @@ public class WriteActivity extends AppCompatActivity {
     ArrayList<String> contact=new ArrayList<>();
     ArrayList<String> userKey=new ArrayList<>();
     ArrayList<String> organizer=new ArrayList<>();
-    String logourl="https://firebasestorage.googleapis.com/v0/b/eventer-app-b1654.appspot.com/o/drawing.png?alt=media&token=d363c215-321e-4a8d-b9fd-75f006c236bb";
-    String downloadurl="https://firebasestorage.googleapis.com/v0/b/eventer-app-b1654.appspot.com/o/drawing.png?alt=media&token=d363c215-321e-4a8d-b9fd-75f006c236bb";
+    String logourl="https://firebasestorage.googleapis.com/v0/b/eventer-app-b1654.appspot.com/o/IMG_20161029_162620.jpg?alt=media&token=6ad71112-50d9-40fa-be13-395408786614";
+    String downloadurl="https://firebasestorage.googleapis.com/v0/b/eventer-app-b1654.appspot.com/o/simpledesktops.com.png?alt=media&token=ea4a2fd4-03c6-4712-a9b8-5c25960009b3";
     String key;
     DatabaseReference mDatabase= FirebaseDatabase.getInstance().getReference();
     @Override
@@ -84,11 +84,10 @@ public class WriteActivity extends AppCompatActivity {
     }
     void createEvent()
     {
-        userKey.add("4liHTV3xMIVuZzHJFhesEFZW4K5");
-        organizer.add("Gaurav Sehgal");
-
+        userKey.add("AwR9zJPIsYWocfhptgECUpx8FiV2");
+        String foobrdescp="foobar 1.0 is for us, the Computer Science & Engineering students to showcase our talents in our core fields as well as other parallels. Although open to all departments of CUFE and to the Management students on the Kengeri Campus, it will serve as a platform for the students of Computer Science across deaneries come together and explore horizons.";
         key = mDatabase.child("events").push().getKey();
-        Event event = new Event(key,userKey, eventTitle, eventBody, date, eventVenue, eventRules,organizer, downloadurl,logourl,"100 Rs","FooBar","Foobar is a techfest which is smewhat better than source code",1415565454,1,1);
+        Event event = new Event(key,userKey, eventTitle, eventBody, date, eventVenue, eventRules,contact, downloadurl,logourl," \u20B9 100 ","FooBar",foobrdescp," ",1415565454,1,1);
         Map<String, Object> eventValues = event.toMap();
         Map<String, Object> childUpdates = new HashMap<>();
         childUpdates.put("/events/" + key, eventValues);
