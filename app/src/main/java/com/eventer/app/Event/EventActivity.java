@@ -279,6 +279,7 @@ public class EventActivity extends EventRegistrationSystem {
                 if (ActivityCompat.shouldShowRequestPermissionRationale(EventActivity.this,
                         Manifest.permission.CALL_PHONE)) {
                 }
+                return;
             }
             startActivity(intent);
         }
