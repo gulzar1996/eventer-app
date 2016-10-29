@@ -90,7 +90,7 @@ public class SignInSignUp extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
+                if (user != null && user.getDisplayName()!=null) {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
                     Intent i=new Intent(SignInSignUp.this,MainActivity.class);
