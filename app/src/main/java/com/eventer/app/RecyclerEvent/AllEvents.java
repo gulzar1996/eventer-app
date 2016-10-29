@@ -28,7 +28,7 @@ public class AllEvents extends EventListFragment implements ObservableScrollView
 
     @Override
     public Query getQuery(DatabaseReference databaseReference) {
-        return databaseReference.child("events");
+        return databaseReference.child("events").orderByChild("timestamp");
     }
 
     @Override
