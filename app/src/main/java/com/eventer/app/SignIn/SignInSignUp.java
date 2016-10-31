@@ -126,10 +126,10 @@ public class SignInSignUp extends AppCompatActivity {
     private void setupSlider() {
         mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             private final Fragment[] mFragments = new Fragment[] {
-                    new Image2(),new Image1()
+                    new Image2()
             };
             private final String[] mFragmentNames = new String[] {
-                    "Image 2","Image 1"
+                    "Image 2"
             };
             @Override
             public Fragment getItem(int position) {
