@@ -89,14 +89,6 @@ public class EventListViewHolder extends RecyclerView.ViewHolder {
         mrootViewCard.setVisibility(View.GONE);
             mcardViewEvent.setVisibility(View.GONE);
         mcardView.setVisibility(View.GONE);
-      // LayoutParams params =  mcardViewEvent.getLayoutParams();
-//// Changes the height and width to the specified *pixels*
-//        params.height = 0;
-//        params.width = 0;
-//        mcardViewEvent.setLayoutParams(params);
-
-//        TableRow.LayoutParams params = new TableRow.LayoutParams(0, 0);
-//        mcardViewEvent.setLayoutParams(params);
 
     }
 }

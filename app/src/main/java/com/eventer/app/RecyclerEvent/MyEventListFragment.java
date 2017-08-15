@@ -25,8 +25,6 @@ import com.google.firebase.database.Query;
 
 import org.parceler.Parcels;
 
-import java.security.PublicKey;
-
 /**
  * Created by gaurav on 27/10/16.
  */
@@ -34,7 +32,6 @@ public abstract class MyEventListFragment extends Fragment {
     private DatabaseReference mDatabase;
     private FirebaseRecyclerAdapter<Event, EventListViewHolder> mAdapter;
     public RecyclerView mRecycler;
-    public View mbbar;
     private LinearLayoutManager mManager;
     public String uid;
     @Override

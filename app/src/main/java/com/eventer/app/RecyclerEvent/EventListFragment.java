@@ -31,21 +31,21 @@ import org.parceler.Parcels;
 public abstract class EventListFragment extends Fragment  {
     private DatabaseReference mDatabase;
     private FirebaseRecyclerAdapter<Event, EventListViewHolder> mAdapter;
-    public RecyclerView mRecycler;
-    public View mbbar;
-    private LinearLayoutManager mManager;
+    private FirebaseRecyclerAdapter<Event, StoryListViewHolder> mStoryAdapter;
+    public RecyclerView mRecycler,mStoryRecycler;
+    private LinearLayoutManager mManager,mStoryLayoutManager;
     @Override
     public View onCreateView (LayoutInflater inflater, ViewGroup container,
                               Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View rootView = inflater.inflate(R.layout.fragment_event_recyclerlist, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_event_recyclerlist_story, container, false);
 
         // [START create_database_reference]
         mDatabase = FirebaseDatabase.getInstance().getReference();
         // [END create_database_reference]
 
         mRecycler = (RecyclerView) rootView.findViewById(R.id.messages_list);
-
+        mStoryRecycler= (RecyclerView) rootView.findViewById(R.id.story_list);
 
         return rootView;
     }
@@ -58,11 +58,37 @@ public abstract class EventListFragment extends Fragment  {
         mManager = new LinearLayoutManager(getActivity());
         mManager.setReverseLayout(true);
         mManager.setStackFromEnd(true);
+        mRecycler.setNestedScrollingEnabled(false);
         mRecycler.setLayoutManager(mManager);
+
+        //Setup Story Recycler
+        mStoryLayoutManager=new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
+        mStoryRecycler.setLayoutManager(mStoryLayoutManager);
 
         // Set up FirebaseRecyclerAdapter with the Query
         Query postsQuery = getQuery(mDatabase);
+        Query storyQuery = getQuery(mDatabase);
+        setAllEventAdapter(postsQuery);
+        setStoryAdapter(storyQuery);
+    }
 
+    private void setStoryAdapter(Query storyQuery) {
+        mStoryAdapter = new FirebaseRecyclerAdapter<Event, StoryListViewHolder>(Event.class, R.layout.story_icon,
+                StoryListViewHolder.class, storyQuery) {
+            @Override
+            protected void populateViewHolder(StoryListViewHolder viewHolder, final Event model, int position)
+            {
+                viewHolder.bindToStory(model, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                    }
+                });
+            }
+        };
+        mStoryRecycler.setAdapter(mStoryAdapter);
+    }
+
+    private void setAllEventAdapter(Query postsQuery) {
         mAdapter = new FirebaseRecyclerAdapter<Event, EventListViewHolder>(Event.class, R.layout.event_card_view_alternative,
                 EventListViewHolder.class, postsQuery) {
             @Override
@@ -71,13 +97,7 @@ public abstract class EventListFragment extends Fragment  {
                 final DatabaseReference eventRef = getRef(position);
                 final String eventKey = eventRef.getKey();
 
-//                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        // Launch IndividualEventActivity
-//
-//                    }
-//                });
+
                 viewHolder.bindToPost(model, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -93,10 +113,10 @@ public abstract class EventListFragment extends Fragment  {
                         }
                         if(view.getId()==R.id.organizationName || view.getId()==R.id.ic_event_logo || view.getId()==R.id.topCard)
                         {
-                        MaterialDialog md= new MaterialDialog.Builder(getActivity())
+                            MaterialDialog md= new MaterialDialog.Builder(getActivity())
                                     .limitIconToDefaultSize()// limits the displayed icon size to 48dp
                                     .icon(getResources().getDrawable(R.drawable.ic_likes))
-                                .title(model.organizationName)
+                                    .title(model.organizationName)
                                     .content(model.organizationDescription)
                                     .show();
                             Glide.with(md.getIconView().getContext())
