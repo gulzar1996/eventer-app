@@ -8,7 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -41,6 +43,14 @@ public class StoryActivity extends AppCompatActivity implements OnPreparedListen
     private Story mStory;
     @BindView(R.id.video_preview)
     ImageView mvideo_preview;
+    @BindView(R.id.story_title)
+    TextView mstory_title;
+    @BindView(R.id.story_description)
+    TextView mstory_description;
+    @BindView(R.id.story_layout)
+    View mstory_layout;
+    @BindView(R.id.toolbar)
+    android.support.v7.widget.Toolbar toolbar;
     DatabaseReference mdatabase;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,6 +67,9 @@ public class StoryActivity extends AppCompatActivity implements OnPreparedListen
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .centerCrop()
                 .into(mvideo_preview);
+
+        mstory_title.setText(mStory.storyName);
+        mstory_description.setText(mStory.storyDescription);
         setupVideoView();
 
     }
@@ -72,7 +85,9 @@ public class StoryActivity extends AppCompatActivity implements OnPreparedListen
     }
     @Override
     public void onPrepared() {
+
         mvideoView.setVisibility(View.VISIBLE);
+        mstory_layout.setVisibility(View.VISIBLE);
         mvideo_preview.setVisibility(View.GONE);
         mpg_bar.setVisibility(View.GONE);
         mvideoView.start();

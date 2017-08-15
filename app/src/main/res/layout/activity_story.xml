@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="@android:color/black"
     android:layout_width="match_parent"
@@ -12,6 +13,13 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"/>
     <ImageView
+        android:paddingTop="16dp"
+        android:paddingLeft="16dp"
+        android:clickable="true"
+        android:id="@+id/backbutton"
+        android:layout_width="24dp"
+        android:layout_height="24dp" />
+    <ImageView
         android:adjustViewBounds="true"
         android:transitionName="video_story"
         android:id="@+id/video_preview"
@@ -22,12 +30,52 @@
         android:layout_centerInParent="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-
-    <com.devbrackets.android.exomedia.ui.widget.VideoView
-        android:visibility="gone"
-        android:transitionName="video_story"
-        android:id="@+id/video_view"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+        android:layout_height="match_parent">
+        <com.devbrackets.android.exomedia.ui.widget.VideoView
+            android:visibility="gone"
+            android:transitionName="video_story"
+            android:id="@+id/video_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+    </FrameLayout>
+    <LinearLayout
+        android:visibility="invisible"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/story_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:padding="4dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:background="@drawable/round_edge">
+
+        <TextView
+            android:textAlignment="center"
+            android:id="@+id/story_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            tools:text="Story Title" />
+        <TextView
+            android:id="@+id/story_description"
+            android:autoLink="all"
+            android:textColor="@android:color/white"
+            android:textSize="12sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="BLAHA blaha sahsa asasasasasasasasasas"/>
+
+
+
+    </LinearLayout>
+
 </RelativeLayout>
