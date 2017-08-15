@@ -13,5 +13,19 @@
         android:text="Eventer"
         android:textSize="56dp"
         android:typeface="monospace"/>
+    <LinearLayout
+        android:id="@+id/awesome_guys"
+        android:paddingRight="16dp"
+        android:paddingBottom="8dp"
+        android:layout_alignParentRight="true"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <com.eventer.app.common.FontTextView
+            android:text="developed by these awesome guys"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
 </RelativeLayout>

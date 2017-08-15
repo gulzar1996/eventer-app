@@ -33,6 +33,7 @@
             android:layout_marginTop="8dp"
             app:dotDiameter="8dp"
             app:dotGap="8dp"
+            android:visibility="gone"
             android:layout_gravity="top|center_horizontal"
             app:animationDuration="320"
             app:pageIndicatorColor="@android:color/darker_gray"

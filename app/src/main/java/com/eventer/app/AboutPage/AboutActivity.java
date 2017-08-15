@@ -240,8 +240,8 @@ public class AboutActivity extends AppCompatActivity {
                 intent.setType(ContactsContract.RawContacts.CONTENT_TYPE);
                 intent.putExtra(ContactsContract.Intents.Insert.EMAIL,"gulzar.ahmed@btech.christuniversity.in")
                         .putExtra(ContactsContract.Intents.Insert.EMAIL_TYPE, ContactsContract.CommonDataKinds.Email.TYPE_WORK)
-                        .putExtra(ContactsContract.Intents.Insert.PHONE, "9742634857")
-                        .putExtra(ContactsContract.Intents.Insert.SECONDARY_PHONE, "8910167684")
+                        .putExtra(ContactsContract.Intents.Insert.PHONE, "8910167684")
+                        .putExtra(ContactsContract.Intents.Insert.SECONDARY_PHONE, "9742634857")
                         .putExtra(ContactsContract.Intents.Insert.NAME,"Gulzar")
                         .putExtra(ContactsContract.Intents.Insert.PHONE_TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_WORK);
                 startActivity(intent);
