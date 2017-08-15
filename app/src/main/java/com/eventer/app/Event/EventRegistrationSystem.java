@@ -22,6 +22,7 @@ import com.eventer.app.R;
 import com.eventer.app.model.Event;
 import com.eventer.app.model.User;
 
+import com.eventer.app.util.FirebaseUtils;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -53,7 +54,7 @@ import butterknife.BindView;
 public class EventRegistrationSystem extends AppCompatActivity {
     private Boolean someError=false;
     public Boolean userIsRegister=false,userIsAdmin=false;
-    public  DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    public  DatabaseReference mDatabase = FirebaseUtils.getDatabase().getReference();;
     @BindView(R.id.floating_action_button) FloatingActionButton fab;
     @BindView(R.id.htab_maincontent) CoordinatorLayout coordinatorLayout;
 

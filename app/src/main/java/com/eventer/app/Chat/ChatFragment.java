@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.eventer.app.R;
 import com.eventer.app.SignIn.SignInSignUp;
+import com.eventer.app.util.FirebaseUtils;
 import com.eventer.app.util.ViewUtils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -105,7 +106,8 @@ public class ChatFragment extends Fragment implements ChildEventListener, ChatCo
     }
 
     private void initializeFirebase(String eventId) {
-        firebase = FirebaseDatabase.getInstance().getReference("event-chat").child(eventId);
+        firebase = FirebaseUtils.getDatabase().getReference().child("event-chat").child(eventId);
+        firebase.keepSynced(true);
         firebase.addChildEventListener(this);
     }
 

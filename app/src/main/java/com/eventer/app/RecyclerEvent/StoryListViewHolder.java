@@ -8,6 +8,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.eventer.app.R;
 import com.eventer.app.model.Event;
 import com.eventer.app.model.Story;
+import com.eventer.app.util.FirebaseUtils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,11 +31,12 @@ public class StoryListViewHolder extends RecyclerView.ViewHolder {
     private DatabaseReference mdatabase;
     public StoryListViewHolder(View itemView) {
         super(itemView);
-        mdatabase= FirebaseDatabase.getInstance().getReference();
+        mdatabase= FirebaseUtils.getDatabase().getReference();;
         ButterKnife.bind(this,itemView);
     }
     public void bindToStory(final Story story, View.OnClickListener click) {
 
+        mdatabase.child("watched-stories").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).keepSynced(true);
         mdatabase.child("watched-stories").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(story.storyKey).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

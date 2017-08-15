@@ -20,6 +20,7 @@ import com.devbrackets.android.exomedia.listener.OnPreparedListener;
 import com.devbrackets.android.exomedia.ui.widget.VideoView;
 import com.eventer.app.R;
 import com.eventer.app.model.Story;
+import com.eventer.app.util.FirebaseUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -60,7 +61,8 @@ public class StoryActivity extends AppCompatActivity implements OnPreparedListen
         //Get Event Object From Previous Class
         mStory = Parcels.unwrap(getIntent().getParcelableExtra("EXTRA_STORY"));
 
-        mdatabase= FirebaseDatabase.getInstance().getReference();
+        mdatabase= FirebaseUtils.getDatabase().getReference();
+        mdatabase.keepSynced(true);
 
         Glide.with(this)
                 .load(mStory.storyUrl)

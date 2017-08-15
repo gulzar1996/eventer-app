@@ -25,6 +25,7 @@ import com.eventer.app.LoginAPI.ValidateReg;
 import com.eventer.app.MainActivity;
 import com.eventer.app.R;
 import com.eventer.app.model.User;
+import com.eventer.app.util.FirebaseUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -71,7 +72,7 @@ public class SignInSignUp extends AppCompatActivity {
         setContentView(R.layout.signin_activity);
         ButterKnife.bind(this);
         // initialize firebase database ref
-        mDatabase= FirebaseDatabase.getInstance().getReference();
+        mDatabase= FirebaseUtils.getDatabase().getReference();
         /*
             firebase auth start
          */

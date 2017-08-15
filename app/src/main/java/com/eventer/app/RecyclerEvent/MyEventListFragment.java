@@ -16,6 +16,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.eventer.app.Event.EventActivity;
 import com.eventer.app.R;
 import com.eventer.app.model.Event;
+import com.eventer.app.util.FirebaseUtils;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -41,7 +42,8 @@ public abstract class MyEventListFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_event_recyclerlist, container, false);
 
         // [START create_database_reference]
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase = FirebaseUtils.getDatabase().getReference();
+        mDatabase.keepSynced(true);
         // [END create_database_reference]
 
         // [start get curren user]

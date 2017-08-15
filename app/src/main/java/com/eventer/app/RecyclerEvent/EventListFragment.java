@@ -21,6 +21,7 @@ import com.eventer.app.R;
 import com.eventer.app.Story.StoryActivity;
 import com.eventer.app.model.Event;
 import com.eventer.app.model.Story;
+import com.eventer.app.util.FirebaseUtils;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -44,7 +45,8 @@ public abstract class EventListFragment extends Fragment  {
         View rootView = inflater.inflate(R.layout.fragment_event_recyclerlist_story, container, false);
 
         // [START create_database_reference]
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase = FirebaseUtils.getDatabase().getReference();
+        mDatabase.keepSynced(true);
         // [END create_database_reference]
 
         mRecycler = (RecyclerView) rootView.findViewById(R.id.messages_list);
