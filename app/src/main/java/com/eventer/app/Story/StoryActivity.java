@@ -2,6 +2,7 @@ package com.eventer.app.Story;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -16,6 +17,11 @@ import com.devbrackets.android.exomedia.listener.OnPreparedListener;
 import com.devbrackets.android.exomedia.ui.widget.VideoView;
 import com.eventer.app.R;
 import com.eventer.app.model.Story;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.parceler.Parcels;
 
@@ -34,6 +40,7 @@ public class StoryActivity extends AppCompatActivity implements OnPreparedListen
     private Story mStory;
     @BindView(R.id.video_preview)
     ImageView mvideo_preview;
+    DatabaseReference mdatabase;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,14 +49,13 @@ public class StoryActivity extends AppCompatActivity implements OnPreparedListen
         //Get Event Object From Previous Class
         mStory = Parcels.unwrap(getIntent().getParcelableExtra("EXTRA_STORY"));
 
+        mdatabase= FirebaseDatabase.getInstance().getReference();
 
         Glide.with(this)
                 .load(mStory.storyUrl)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .centerCrop()
                 .into(mvideo_preview);
-
-
         setupVideoView();
 
     }
@@ -95,6 +101,12 @@ public class StoryActivity extends AppCompatActivity implements OnPreparedListen
 
     @Override
     public void onCompletion() {
-        finish();
+        mdatabase.child("watched-stories").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(mStory.storyKey).setValue("true").addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                finish();
+            }
+        });
+
     }
 }

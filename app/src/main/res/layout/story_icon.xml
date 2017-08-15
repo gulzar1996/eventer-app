@@ -2,15 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_width="32dp"
-    android:layout_height="32dp"
+    android:layout_width="48dp"
+    android:layout_height="48dp"
     android:layout_marginRight="16dp"
     android:layout_marginTop="8dp"
     android:layout_marginBottom="8dp">
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/story_bitmap"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:src="#ffe0e0e0"
      />
     <de.hdodenhof.circleimageview.CircleImageView
