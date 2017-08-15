@@ -145,20 +145,20 @@ public class EventActivity extends EventRegistrationSystem {
         // fab actions
         if (e.userkey.contains(uid)) {
             userIsAdmin = true;
-            fab.setImageDrawable(new IconicsDrawable(getBaseContext(), GoogleMaterial.Icon.gmd_format_list_numbered).actionBar().color(Color.BLACK));
+            fab.setImageDrawable(new IconicsDrawable(getBaseContext(), FontAwesome.Icon.faw_file_excel_o).actionBar().color(Color.WHITE));
         } else {
             userIsAdmin = false;
             if (!eventIsToday) {
                 if (e.registers.containsKey(uid)) {
                     userIsRegister = true;
-                    fab.setImageDrawable(new IconicsDrawable(getBaseContext(), GoogleMaterial.Icon.gmd_clear).actionBar().color(Color.BLACK));
+                    fab.setImageDrawable(new IconicsDrawable(getBaseContext(), FontAwesome.Icon.faw_times).actionBar().color(Color.WHITE));
                     //add snack bar here
                 } else {
-                    fab.setImageDrawable(new IconicsDrawable(getBaseContext(), GoogleMaterial.Icon.gmd_done).actionBar().color(Color.BLACK));
+                    fab.setImageDrawable(new IconicsDrawable(getBaseContext(), FontAwesome.Icon.faw_check).actionBar().color(Color.WHITE));
                     // add snack bar here
                 }
             } else {
-                fab.setImageDrawable(new IconicsDrawable(getBaseContext(), GoogleMaterial.Icon.gmd_priority_high).actionBar().color(Color.BLACK));
+                fab.setImageDrawable(new IconicsDrawable(getBaseContext(), FontAwesome.Icon.faw_exclamation).actionBar().color(Color.BLACK));
                 Snackbar snackbar = Snackbar
                         .make(coordinatorLayout, "Registrations closed", Snackbar.LENGTH_LONG);
                 snackbar.show();
