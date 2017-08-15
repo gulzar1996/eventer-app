@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.devbrackets.android.exomedia.listener.OnCompletionListener;
+import com.devbrackets.android.exomedia.listener.OnErrorListener;
 import com.devbrackets.android.exomedia.listener.OnPreparedListener;
 import com.devbrackets.android.exomedia.ui.widget.VideoView;
 import com.eventer.app.R;
@@ -32,7 +33,7 @@ import butterknife.ButterKnife;
  * Created by gulzar on 8/15/2017.
  */
 
-public class StoryActivity extends AppCompatActivity implements OnPreparedListener, OnCompletionListener {
+public class StoryActivity extends AppCompatActivity implements OnPreparedListener, OnCompletionListener, OnErrorListener {
     @BindView(R.id.video_view)
     VideoView mvideoView;
     @BindView(R.id.pg_bar)
@@ -64,6 +65,7 @@ public class StoryActivity extends AppCompatActivity implements OnPreparedListen
         // Make sure to use the correct VideoView import
         mvideoView.setOnPreparedListener(this);
         mvideoView.setOnCompletionListener(this);
+        mvideoView.setOnErrorListener(this);
 
         //For now we just picked an arbitrary item to play
         mvideoView.setVideoURI(Uri.parse(mStory.storyVideoUrl));
@@ -108,5 +110,12 @@ public class StoryActivity extends AppCompatActivity implements OnPreparedListen
             }
         });
 
+    }
+
+    @Override
+    public boolean onError(Exception e) {
+        Toast.makeText(this, "Funny Error", Toast.LENGTH_SHORT).show();
+        finish();
+        return false;
     }
 }

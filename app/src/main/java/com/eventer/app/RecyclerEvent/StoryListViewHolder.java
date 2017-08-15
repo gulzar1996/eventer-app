@@ -48,7 +48,7 @@ public class StoryListViewHolder extends RecyclerView.ViewHolder {
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        })
+        });
         Glide.with(mstory_bitmap.getContext())
                 .load(story.storyUrl)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
