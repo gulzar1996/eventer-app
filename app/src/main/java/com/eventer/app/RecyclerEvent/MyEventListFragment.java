@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +17,6 @@ import com.eventer.app.Event.EventActivity;
 import com.eventer.app.R;
 import com.eventer.app.model.Event;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -33,7 +33,7 @@ import java.security.PublicKey;
 public abstract class MyEventListFragment extends Fragment {
     private DatabaseReference mDatabase;
     private FirebaseRecyclerAdapter<Event, EventListViewHolder> mAdapter;
-    public ObservableRecyclerView mRecycler;
+    public RecyclerView mRecycler;
     public View mbbar;
     private LinearLayoutManager mManager;
     public String uid;
@@ -57,7 +57,7 @@ public abstract class MyEventListFragment extends Fragment {
         //[end get current user]
 
 
-        mRecycler = (ObservableRecyclerView) rootView.findViewById(R.id.messages_list);
+        mRecycler = (RecyclerView) rootView.findViewById(R.id.messages_list);
 
 
         return rootView;

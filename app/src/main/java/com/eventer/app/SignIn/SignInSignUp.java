@@ -1,21 +1,17 @@
 package com.eventer.app.SignIn;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -23,13 +19,11 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.eventer.app.IntroSlider.Image1;
 import com.eventer.app.IntroSlider.Image2;
-import com.eventer.app.JsonApi.ServerCallback;
-import com.eventer.app.JsonApi.ValidateReg;
+import com.eventer.app.LoginAPI.ServerCallback;
+import com.eventer.app.LoginAPI.ValidateReg;
 import com.eventer.app.MainActivity;
 import com.eventer.app.R;
-import com.eventer.app.model.Event;
 import com.eventer.app.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -37,19 +31,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.pixelcan.inkpageindicator.InkPageIndicator;
 
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -72,7 +58,6 @@ public class SignInSignUp extends AppCompatActivity {
     private FragmentPagerAdapter mPagerAdapter;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
-    private FirebaseAuth.AuthStateListener mAuthListener;
     private String TAG = "SignInSignUp";
     public String regNo, pswd ,email;
 
@@ -96,31 +81,25 @@ public class SignInSignUp extends AppCompatActivity {
         // [Check For Username]
         checkForUserName();
         // [initalize firebase listener]
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null && user.getDisplayName()!=null) {
-                    // User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                    Intent i=new Intent(SignInSignUp.this,MainActivity.class);
-                    i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                    startActivity(i);
-                    onStop();
-                    finish();
-                }
-                else {
-                    // User is signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                }
-            }
-        };
         /*
             end firebase auth
          */
         //Setting Up Slider
         setupSlider();
 
+    }
+
+    // [START on_start_check_user]
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser!=null && currentUser.getDisplayName()!=null)
+        {
+            startActivity(new Intent(this,MainActivity.class));
+            finish();
+        }
     }
 
     private void setupSlider() {
@@ -147,20 +126,6 @@ public class SignInSignUp extends AppCompatActivity {
 
         mViewPager.setAdapter(mPagerAdapter);
         mindicator.setViewPager(mViewPager);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
-        }
     }
 
     // User
@@ -298,31 +263,42 @@ public class SignInSignUp extends AppCompatActivity {
                 });
     }
 
-    private void signUp()
+    public void signUp()
     {
+
         toggleProgressVisibility();
-        Log.d(TAG, regNo+pswd);
+        final String oldPwd=pswd;
+//
+        Log.d(TAG, regNo+ "Pass"+pswd);
+
         ValidateReg vr=new ValidateReg();
-        //Controller
-        vr.validateRegJSON(regNo,pswd, new ServerCallback() {
+       // Controller
+        vr.validateRegJSON(regNo,pswd,this, new ServerCallback() {
             @Override
             public void onSuccessResult(JSONObject result) {
                 try {
-                    String r = result.getJSONArray("items").getString(0);
-                    JSONObject n = new JSONObject(r);
-                    String f = n.getString("result");
-                    if (f.equalsIgnoreCase("login failed")) {
+                    String authenticated="false";
+                    if (result.has("Authenticated")) {
+                        authenticated = result.optString("Authenticated");
+                    }
+
+                    String userName = result.optString("Student Name");
+
+                    if (authenticated.equalsIgnoreCase("false"))
+                    {
                         Snackbar snackbar = Snackbar
-                                .make(coordinatorLayout, "INVALID CREDENTIALS!!", Snackbar.LENGTH_LONG);
+                                .make(coordinatorLayout, "INVALID CREDENTIALS", Snackbar.LENGTH_LONG);
                         snackbar.show();
                     }
                     else {
-                        createUser(email,pswd,f);
-                            }
+                        Toast.makeText(SignInSignUp.this, "Auth"+userName, Toast.LENGTH_SHORT).show();
+                        //createUser(email,oldPwd,userName);
+                   }
                 } catch (Exception e) {}
                 toggleProgressVisibility();
             }
-        });}
+        });
+    }
     // [end create user with email and password ]
 
     //[sign in user with email and password]
@@ -345,10 +321,16 @@ public class SignInSignUp extends AppCompatActivity {
                                             "ACCOUNT NOT PRESENT TRY SIGN UP", Snackbar.LENGTH_LONG);
                             snackbar.show();
                         }
-                        toggleProgressVisibility();
+                        else
+                        {
+                            toggleProgressVisibility();
+
+                                startActivity(new Intent(SignInSignUp.this,MainActivity.class));
+                                finish();
+                        }
 
 
-                        // ...
+
                     }
                 });
     }

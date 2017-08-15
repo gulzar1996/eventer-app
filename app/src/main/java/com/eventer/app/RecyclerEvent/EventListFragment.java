@@ -19,9 +19,6 @@ import com.eventer.app.Event.EventActivity;
 import com.eventer.app.R;
 import com.eventer.app.model.Event;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
-import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
-import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
@@ -34,7 +31,7 @@ import org.parceler.Parcels;
 public abstract class EventListFragment extends Fragment  {
     private DatabaseReference mDatabase;
     private FirebaseRecyclerAdapter<Event, EventListViewHolder> mAdapter;
-    public ObservableRecyclerView mRecycler;
+    public RecyclerView mRecycler;
     public View mbbar;
     private LinearLayoutManager mManager;
     @Override
@@ -47,7 +44,7 @@ public abstract class EventListFragment extends Fragment  {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         // [END create_database_reference]
 
-        mRecycler = (ObservableRecyclerView) rootView.findViewById(R.id.messages_list);
+        mRecycler = (RecyclerView) rootView.findViewById(R.id.messages_list);
 
 
         return rootView;

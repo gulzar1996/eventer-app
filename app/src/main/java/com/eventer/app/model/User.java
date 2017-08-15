@@ -14,10 +14,7 @@ import java.util.Map;
 public class User {
     public String regno;
     public String name;
-
-
     public User() {
-        // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
     public User(String regno,String username) {

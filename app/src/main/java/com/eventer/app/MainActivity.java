@@ -41,7 +41,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String TAG ="authxxx" ;
+    private static final String TAG ="MainActivity" ;
 
     @BindView(R.id.containervp)
     ViewPager mViewPager;
@@ -52,14 +52,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.displayAlls)
     CoordinatorLayout coordinatorLayout;
     private FragmentPagerAdapter mPagerAdapter;
-    private final Map<String, Fragment> mFragments = new HashMap<>(2);
-    private static final String TAG_DECK_FRAGMENT = "TAG_DECK_FRAGMENT";
-    private static final String TAG_USER_FRAGMENT = "TAG_USER_FRAGMENT";
-    private final Animation mAnimation = new AlphaAnimation(0, 1);{
-        mAnimation.setDuration(200);
-    }
     private FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,31 +61,8 @@ public class MainActivity extends AppCompatActivity {
         Log.d("ActTransact","Oncreate");
         setSupportActionBar(mtoolbar);
         mAuth = FirebaseAuth.getInstance();
-        mAuthListener = new FirebaseAuth.AuthStateListener() {@Override
-        public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-            FirebaseUser user = firebaseAuth.getCurrentUser();
-            if (user != null) {
-                Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-            } else {
-                Log.d(TAG, "onAuthStateChanged:signed_out");
-            }
-        }
-        };
         createTabs();
-
-
-
-
     }
-
-
-//    @OnClick(R.id.user) public void onUserClicked() {
-//        startActivity(new Intent(this, WriteActivity.class));
-//        //Temp
-//        //(TAG_USER_FRAGMENT);
-////        mAuth.signOut();
-////        startActivity(new Intent(this, SignInSignUp.class));
-//    }
 
     private void createTabs() {
         mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
@@ -106,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
             };
             @Override
             public Fragment getItem(int position) {
-                Log.d("GulXYZ",position+"");
                 return mFragments[position];
             }
             @Override
@@ -121,21 +90,6 @@ public class MainActivity extends AppCompatActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager.setAdapter(mPagerAdapter);
         tabLayout.setupWithViewPager(mViewPager);
-    }
-
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        Log.d("ActTransact","Onstart");
-        mAuth.addAuthStateListener(mAuthListener);}
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.d("ActTransact","Onstop");
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
-        }
     }
 
     @Override
@@ -190,37 +144,6 @@ public class MainActivity extends AppCompatActivity {
             default:
             return super.onOptionsItemSelected(item);
         }
-
-    }
-    private void showNotification(String message){
-
-        // Open NotificationView Class on Notification Click
-        Intent intent = new Intent(this, MainActivity.class);
-        // Send data to NotificationView Class
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        // Open NotificationView.java Activity
-        PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
-
-        //Create Notification using NotificationCompat.Builder
-        NotificationCompat.Builder builder =
-                new NotificationCompat.Builder(getBaseContext());
-        NotificationCompat.BigTextStyle style =
-                new NotificationCompat.BigTextStyle(builder);
-        style.bigText("The path of..." /* long text goes here */ )
-                .setBigContentTitle("Expanded title")
-                .setSummaryText("Summary text");
-        Notification notification = builder
-                .setContentTitle("Title")
-                .setContentText("This is a notification!")
-                .setSmallIcon(R.drawable.gradient_vertical)
-                .build();
-
-        // Create Notification Manager
-        NotificationManagerCompat notificationManager =
-                NotificationManagerCompat.from(getBaseContext());
-
-        notificationManager.notify(0x1234, notification);
 
     }
 }

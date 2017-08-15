@@ -1,4 +1,4 @@
-package com.eventer.app.JsonApi;
+package com.eventer.app.LoginAPI;
 
 import org.json.JSONObject;
 
