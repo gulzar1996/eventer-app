@@ -36,11 +36,8 @@
             android:theme="@style/AppTheme.TranslucentBars"
             android:screenOrientation="portrait"
             android:parentActivityName="com.eventer.app.MainActivity"/>
-        <activity android:name=".AboutPage.AboutActivity_PostLollipop"
-            android:theme="@style/Plaid.Translucent.About"
+        <activity android:name=".AboutPage.AboutActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".AboutPage.AboutActivity_PreLollipop"
-            />
         <activity android:name=".Story.StoryActivity"
             android:screenOrientation="portrait"/>
         <meta-data

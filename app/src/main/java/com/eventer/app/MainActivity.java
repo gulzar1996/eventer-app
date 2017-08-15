@@ -1,19 +1,13 @@
 package com.eventer.app;
 
 import android.app.ActivityOptions;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Build;
-import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,23 +16,12 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
 
-import com.eventer.app.AboutPage.AboutActivity_PostLollipop;
-import com.eventer.app.AboutPage.AboutActivity_PreLollipop;
+import com.eventer.app.AboutPage.AboutActivity;
 import com.eventer.app.RecyclerEvent.AllEvents;
 import com.eventer.app.RecyclerEvent.MyEvents;
 import com.eventer.app.SignIn.SignInSignUp;
-import com.eventer.app.Write.WriteActivity;
-import com.eventer.app.model.Story;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -143,16 +126,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.aboutPagemenu:
                // showNotification("hhhhhhhhhhhhhhhhhhhhh");
-            if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
-
-                startActivity(new Intent(this, AboutActivity_PostLollipop.class),
-                        ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
-            }
-                else
-            {
-                startActivity(new Intent(this, AboutActivity_PreLollipop.class));
-            }
-
+                startActivity(new Intent(this, AboutActivity.class));
                 return true;
             default:
             return super.onOptionsItemSelected(item);

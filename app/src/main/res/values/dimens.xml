@@ -24,5 +24,8 @@
     <dimen name="til_margin_fix">-4dp</dimen>
     <dimen name="about_header_height">224dp</dimen>
     <dimen name="about_icon_padding">24dp</dimen>
+    <dimen name="dimen_16dp">16dp</dimen>
+    <dimen name="dimen_4dp">4dp</dimen>
+    <dimen name="dimen_8dp">8dp</dimen>
 
 </resources>
