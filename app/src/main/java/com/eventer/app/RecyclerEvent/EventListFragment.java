@@ -8,11 +8,9 @@ import android.support.v4.util.Pair;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
@@ -22,6 +20,7 @@ import com.eventer.app.Event.EventActivity;
 import com.eventer.app.R;
 import com.eventer.app.Story.StoryActivity;
 import com.eventer.app.model.Event;
+import com.eventer.app.model.Story;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -35,7 +34,7 @@ import org.parceler.Parcels;
 public abstract class EventListFragment extends Fragment  {
     private DatabaseReference mDatabase;
     private FirebaseRecyclerAdapter<Event, EventListViewHolder> mAdapter;
-    private FirebaseRecyclerAdapter<Event, StoryListViewHolder> mStoryAdapter;
+    private FirebaseRecyclerAdapter<Story, StoryListViewHolder> mStoryAdapter;
     public RecyclerView mRecycler,mStoryRecycler;
     private LinearLayoutManager mManager,mStoryLayoutManager;
     @Override
@@ -72,17 +71,17 @@ public abstract class EventListFragment extends Fragment  {
         startSnapHelper.attachToRecyclerView(mStoryRecycler);
 
         // Set up FirebaseRecyclerAdapter with the Query
-        Query postsQuery = getQuery(mDatabase);
-        Query storyQuery = getQuery(mDatabase);
+        Query postsQuery = getEventQuery(mDatabase);
+        Query storyQuery = getStoryQuery(mDatabase);
         setAllEventAdapter(postsQuery);
         setStoryAdapter(storyQuery);
     }
 
     private void setStoryAdapter(Query storyQuery) {
-        mStoryAdapter = new FirebaseRecyclerAdapter<Event, StoryListViewHolder>(Event.class, R.layout.story_icon,
+        mStoryAdapter = new FirebaseRecyclerAdapter<Story, StoryListViewHolder>(Story.class, R.layout.story_icon,
                 StoryListViewHolder.class, storyQuery) {
             @Override
-            protected void populateViewHolder(StoryListViewHolder viewHolder, final Event model, final int position)
+            protected void populateViewHolder(StoryListViewHolder viewHolder, final Story model, final int position)
             {
                 final DatabaseReference eventRef = getRef(position);
                 final String eventKey = eventRef.getKey();
@@ -95,7 +94,7 @@ public abstract class EventListFragment extends Fragment  {
                             Intent intent = new Intent(getActivity(), StoryActivity.class);
                             intent.putExtra("eid", eventKey);
                             Bundle bundle = new Bundle();
-                            bundle.putParcelable("EXTRA_EVENT", Parcels.wrap(model));
+                            bundle.putParcelable("EXTRA_STORY", Parcels.wrap(model));
                             intent.putExtras(bundle);
                             Pair<View, String> pair1 = Pair.create(view.findViewById(R.id.story_bitmap), "video_story");
                             ActivityOptionsCompat options = ActivityOptionsCompat.
@@ -153,6 +152,7 @@ public abstract class EventListFragment extends Fragment  {
         mRecycler.setAdapter(mAdapter);
     }
 
-    public abstract Query getQuery(DatabaseReference databaseReference);
+    public abstract Query getEventQuery(DatabaseReference databaseReference);
+    public abstract Query getStoryQuery(DatabaseReference databaseReference);
 
 }

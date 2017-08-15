@@ -24,8 +24,14 @@ public class AllEvents extends EventListFragment  {
     }
 
     @Override
-    public Query getQuery(DatabaseReference databaseReference) {
+    public Query getEventQuery(DatabaseReference databaseReference) {
         return databaseReference.child("events").orderByChild("timestamp");
     }
+
+    @Override
+    public Query getStoryQuery(DatabaseReference databaseReference) {
+        return databaseReference.child("stories").orderByChild("timestamp");
+    }
+
 }
 

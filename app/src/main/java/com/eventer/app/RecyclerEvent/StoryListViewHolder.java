@@ -7,6 +7,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.eventer.app.R;
 import com.eventer.app.model.Event;
+import com.eventer.app.model.Story;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,9 +23,9 @@ public class StoryListViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         ButterKnife.bind(this,itemView);
     }
-    public void bindToStory(Event event, View.OnClickListener click) {
+    public void bindToStory(Story story, View.OnClickListener click) {
         Glide.with(mstory_bitmap.getContext())
-                .load(event.downloadURL)
+                .load(story.storyUrl)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(mstory_bitmap);
         mstory_bitmap.setOnClickListener(click);

@@ -31,8 +31,11 @@ import com.eventer.app.RecyclerEvent.AllEvents;
 import com.eventer.app.RecyclerEvent.MyEvents;
 import com.eventer.app.SignIn.SignInSignUp;
 import com.eventer.app.Write.WriteActivity;
+import com.eventer.app.model.Story;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -61,6 +64,16 @@ public class MainActivity extends AppCompatActivity {
         Log.d("ActTransact","Oncreate");
         setSupportActionBar(mtoolbar);
         mAuth = FirebaseAuth.getInstance();
+
+//        DatabaseReference mdatabaseRef= FirebaseDatabase.getInstance().getReference();
+//
+//        for(int i=1;i<=3;i++)
+//        {
+//            String key= mdatabaseRef.child("stories").push().getKey();
+//            Story s=new Story("Story Name"+1,"","",key,"BLAH BLAH"+i,"Gulzar",1459109);
+//            mdatabaseRef.child("stories").child(key).setValue(s);
+//        }
+
         createTabs();
     }
 
