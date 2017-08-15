@@ -27,6 +27,7 @@ public class StoryListViewHolder extends RecyclerView.ViewHolder {
                 .load(event.downloadURL)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(mstory_bitmap);
+        mstory_bitmap.setOnClickListener(click);
     }
 
 }

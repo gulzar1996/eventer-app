@@ -2,7 +2,9 @@ package com.eventer.app.RecyclerEvent;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SnapHelper;
@@ -18,6 +20,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.eventer.app.Event.EventActivity;
 
 import com.eventer.app.R;
+import com.eventer.app.Story.StoryActivity;
 import com.eventer.app.model.Event;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
@@ -79,11 +82,26 @@ public abstract class EventListFragment extends Fragment  {
         mStoryAdapter = new FirebaseRecyclerAdapter<Event, StoryListViewHolder>(Event.class, R.layout.story_icon,
                 StoryListViewHolder.class, storyQuery) {
             @Override
-            protected void populateViewHolder(StoryListViewHolder viewHolder, final Event model, int position)
+            protected void populateViewHolder(StoryListViewHolder viewHolder, final Event model, final int position)
             {
+                final DatabaseReference eventRef = getRef(position);
+                final String eventKey = eventRef.getKey();
                 viewHolder.bindToStory(model, new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+
+
+                        if(view.getId()==R.id.story_bitmap) {
+                            Intent intent = new Intent(getActivity(), StoryActivity.class);
+                            intent.putExtra("eid", eventKey);
+                            Bundle bundle = new Bundle();
+                            bundle.putParcelable("EXTRA_EVENT", Parcels.wrap(model));
+                            intent.putExtras(bundle);
+                            Pair<View, String> pair1 = Pair.create(view.findViewById(R.id.story_bitmap), "video_story");
+                            ActivityOptionsCompat options = ActivityOptionsCompat.
+                                    makeSceneTransitionAnimation(getActivity(),pair1);
+                            startActivity(intent, options.toBundle());
+                        }
                     }
                 });
             }

@@ -11,7 +11,7 @@
         android:id="@+id/story_bitmap"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:src="@drawable/oval"
+        android:src="#ffe0e0e0"
      />
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_alignParentBottom="true"

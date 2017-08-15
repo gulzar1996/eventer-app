@@ -75,6 +75,8 @@ dependencies {
     compile 'com.firebaseui:firebase-ui-database:0.4.0'
     //Circular ImageView
     compile 'de.hdodenhof:circleimageview:2.1.0'
+    //Video Player
+    compile 'com.devbrackets.android:exomedia:4.0.2'
     compile project(':bypass')
 }
 apply plugin: 'com.google.gms.google-services'
