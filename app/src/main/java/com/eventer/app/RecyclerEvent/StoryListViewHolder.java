@@ -5,6 +5,9 @@ import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.eventer.app.R;
 import com.eventer.app.model.Event;
 import com.eventer.app.model.Story;
@@ -34,7 +37,7 @@ public class StoryListViewHolder extends RecyclerView.ViewHolder {
         mdatabase= FirebaseUtils.getDatabase().getReference();;
         ButterKnife.bind(this,itemView);
     }
-    public void bindToStory(final Story story, View.OnClickListener click) {
+    public void bindToStory(final Story story, final View.OnClickListener click) {
 
         mdatabase.child("watched-stories").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).keepSynced(true);
         mdatabase.child("watched-stories").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(story.storyKey).addValueEventListener(new ValueEventListener() {
@@ -53,9 +56,21 @@ public class StoryListViewHolder extends RecyclerView.ViewHolder {
         });
         Glide.with(mstory_bitmap.getContext())
                 .load(story.storyUrl)
+                .listener(new RequestListener<String, GlideDrawable>() {
+                    @Override
+                    public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        mstory_bitmap.setOnClickListener(click);
+                        return false;
+                    }
+                })
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(mstory_bitmap);
-        mstory_bitmap.setOnClickListener(click);
+
 
     }
 
