@@ -1,7 +1,9 @@
 package com.eventer.app.Event;
 
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,6 +12,8 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -53,6 +57,12 @@ import butterknife.BindView;
  * Created by gaurav on 25/10/16.
  */
 public class EventRegistrationSystem extends AppCompatActivity {
+
+    private static final int PERMISSION_REQUEST_CODE = 1;
+    private Boolean mInitFragment=false;
+    private DatabaseReference arefx=null;
+
+
     private Boolean someError=false;
     public Boolean userIsRegister=false,userIsAdmin=false;
     public  DatabaseReference mDatabase = FirebaseUtils.getDatabase().getReference();;
@@ -181,10 +191,43 @@ public class EventRegistrationSystem extends AppCompatActivity {
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        getRegisterUser(aref,false);
+                        //todo add permission
+
+                        if (ContextCompat.checkSelfPermission(getBaseContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                            //if permission is not granted, show permission rationale and grant permission
+                            ActivityCompat.requestPermissions(EventRegistrationSystem.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+                        }
+                        else {
+                            arefx=aref;
+                            getRegisterUser(aref,false);
+                        }
+
                     }
                 })
                 .show();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mInitFragment && arefx!=null) {
+            getRegisterUser(arefx,false);
+            mInitFragment = false;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_REQUEST_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(this,"Permission Granted",Toast.LENGTH_LONG).show();
+                    mInitFragment=true;
+                } else {
+                    Toast.makeText(this,"Permission Denied",Toast.LENGTH_LONG).show();
+                }
+                break;
+        }
     }
     // exel export
     void registerUserInExel(List<User> users,String EventTitle)
@@ -212,7 +255,7 @@ public class EventRegistrationSystem extends AppCompatActivity {
             writer.flush();
             writer.close();
             Snackbar snackbar = Snackbar
-                    .make(coordinatorLayout, "Download Successful\nCheck Eventer Folder", Snackbar.LENGTH_LONG)
+                    .make(coordinatorLayout, "Download Excel File Successful", Snackbar.LENGTH_LONG)
                     .setAction("VISIT", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

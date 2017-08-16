@@ -12,6 +12,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.Toolbar;
+import android.text.util.Linkify;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -275,19 +276,18 @@ public class EventActivity extends EventRegistrationSystem {
 
     @OnClick(R.id.ic_organizer)
     void Organizer() {
-        //Converting ArrayList to array
-        String[] org = mEvent.organizers.toArray(new String[mEvent.organizers.size()]);
-        new MaterialDialog.Builder(this)
-                .title("Organizers")
-                .items(org)
-                .itemsCallback(new MaterialDialog.ListCallback() {
-                    @Override
-                    public void onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
 
-                        makeCall(text + "");
-                    }
-                })
-                .show();
+        if(mEvent.organizers!=null){
+            String namePhone="";
+            String[] org = mEvent.organizers.toArray(new String[mEvent.organizers.size()]);
+            for(String s:org)
+                namePhone+=s+"\n";
+            MaterialDialog md= new MaterialDialog.Builder(this)
+                    .title("Organizers")
+                    .content(namePhone)
+                    .show();
+            Linkify.addLinks(md.getContentView(), Linkify.PHONE_NUMBERS);
+            md.getContentView().setLinksClickable(true);}
     }
 
 
