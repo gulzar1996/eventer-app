@@ -24,4 +24,5 @@
     <color name="content_event_place1">#ffe6e6e7</color>
     <color name="darker_gray">#464646</color>
     <color name="eventcard">#ffffffff</color>
+    <color name="circle_bac">#ffe0e0e0</color>
 </resources>
