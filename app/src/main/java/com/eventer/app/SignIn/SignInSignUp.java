@@ -27,6 +27,7 @@ import com.eventer.app.R;
 import com.eventer.app.model.User;
 import com.eventer.app.util.FirebaseUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -140,7 +141,7 @@ public class SignInSignUp extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
                                 Snackbar snackbar = Snackbar
-                                        .make(coordinatorLayout, "Internal Error!!\nTry SignUp Again", Snackbar.LENGTH_LONG);
+                                        .make(coordinatorLayout, "Internal Error\nTry SignUp Again", Snackbar.LENGTH_LONG);
                                 snackbar.show();
                             }
                         }
@@ -208,12 +209,12 @@ public class SignInSignUp extends AppCompatActivity {
         String name="";
         for(int i=0;i<f.length();i++)
         {
-            if(Character.isDigit(f.charAt(i)))
+            if(Character.isLetter(f.charAt(i)))
             {
-                name=f.substring(0,i-1);
-                break;
+                name=name+f.charAt(i);
             }
         }
+        Toast.makeText(this, "Name"+name, Toast.LENGTH_SHORT).show();
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         final User userDetails = new User(regNo, name);
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
@@ -225,7 +226,28 @@ public class SignInSignUp extends AppCompatActivity {
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             Log.d(TAG, "User profile updated.");
-                            mDatabase.child("user").child(user.getUid()).setValue(userDetails);
+                            mDatabase.child("user").child(user.getUid()).setValue(userDetails).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful())
+                                    {
+                                        Toast.makeText(SignInSignUp.this, "Created", Toast.LENGTH_SHORT).show();
+                                        Snackbar snackbar = Snackbar
+                                                .make(coordinatorLayout, "ACCOUNT CREATED", Snackbar.LENGTH_LONG);
+                                        snackbar.show();
+                                        if(user!=null && user.getDisplayName()!=null)
+                                        {
+                                            startActivity(new Intent(SignInSignUp.this,MainActivity.class));
+                                            finish();
+                                        }
+                                    }
+                                    else
+                                    {
+                                        toggleProgressVisibility();
+                                        Toast.makeText(SignInSignUp.this, "Failed to writed", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
 
                         }
                     }
@@ -248,18 +270,17 @@ public class SignInSignUp extends AppCompatActivity {
                         if (!task.isSuccessful()) {
                             Snackbar snackbar = Snackbar
                                     .make(coordinatorLayout, "Account Already Present \n" +
-                                            " Please Sign In", Snackbar.LENGTH_LONG);
+                                            "Please Sign In", Snackbar.LENGTH_LONG);
                             snackbar.show();
+                            toggleProgressVisibility();
                         }
                         else
                         {
+                            Toast.makeText(SignInSignUp.this, "Creating Account", Toast.LENGTH_SHORT).show();
                             setUserName(f,regNo);
-                            Snackbar snackbar = Snackbar
-                                    .make(coordinatorLayout, "ACCOUNT CREATED", Snackbar.LENGTH_LONG);
-                            snackbar.show();
 
                         }
-                        toggleProgressVisibility();
+
                     }
                 });
     }
@@ -268,8 +289,6 @@ public class SignInSignUp extends AppCompatActivity {
     {
 
         toggleProgressVisibility();
-        final String oldPwd=pswd;
-//
         Log.d(TAG, regNo+ "Pass"+pswd);
 
         ValidateReg vr=new ValidateReg();
@@ -293,9 +312,15 @@ public class SignInSignUp extends AppCompatActivity {
                     }
                     else {
                         Toast.makeText(SignInSignUp.this, "Auth"+userName, Toast.LENGTH_SHORT).show();
-                        //createUser(email,oldPwd,userName);
+                        createUser(email,pswd,userName);
                    }
-                } catch (Exception e) {}
+                }
+                catch (Exception e) {}
+                toggleProgressVisibility();
+            }
+
+            @Override
+            public void onFailure() {
                 toggleProgressVisibility();
             }
         });
@@ -321,13 +346,20 @@ public class SignInSignUp extends AppCompatActivity {
                                     .make(coordinatorLayout, "INVALID CREDENTIALS!! OR\n" +
                                             "ACCOUNT NOT PRESENT TRY SIGN UP", Snackbar.LENGTH_LONG);
                             snackbar.show();
+                            toggleProgressVisibility();
                         }
                         else
                         {
                             toggleProgressVisibility();
-
+                            FirebaseUser currentUser = mAuth.getCurrentUser();
+                            if(currentUser!=null && currentUser.getDisplayName()!=null)
+                            {
                                 startActivity(new Intent(SignInSignUp.this,MainActivity.class));
                                 finish();
+                            }
+                            else
+                                checkForUserName();
+
                         }
 
 

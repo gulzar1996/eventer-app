@@ -158,7 +158,7 @@ public class EventActivity extends EventRegistrationSystem {
                     // add snack bar here
                 }
             } else {
-                fab.setImageDrawable(new IconicsDrawable(getBaseContext(), FontAwesome.Icon.faw_exclamation).actionBar().color(Color.BLACK));
+                fab.setImageDrawable(new IconicsDrawable(getBaseContext(), FontAwesome.Icon.faw_exclamation).actionBar().color(Color.WHITE));
                 Snackbar snackbar = Snackbar
                         .make(coordinatorLayout, "Registrations closed", Snackbar.LENGTH_LONG);
                 snackbar.show();
