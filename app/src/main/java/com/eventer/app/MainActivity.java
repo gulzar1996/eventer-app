@@ -21,7 +21,10 @@ import com.eventer.app.AboutPage.AboutActivity;
 import com.eventer.app.RecyclerEvent.AllEvents;
 import com.eventer.app.RecyclerEvent.MyEvents;
 import com.eventer.app.SignIn.SignInSignUp;
+import com.eventer.app.model.Story;
+import com.eventer.app.util.FirebaseUtils;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,12 +51,12 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(mtoolbar);
         mAuth = FirebaseAuth.getInstance();
 
-//        DatabaseReference mdatabaseRef= FirebaseDatabase.getInstance().getReference();
+//        DatabaseReference mdatabaseRef= FirebaseUtils.getDatabase().getReference();
 //
 //        for(int i=1;i<=3;i++)
 //        {
 //            String key= mdatabaseRef.child("stories").push().getKey();
-//            Story s=new Story("Story Name"+1,"","",key,"BLAH BLAH"+i,"Gulzar",1459109);
+//            Story s=new Story("Story Name"+1,"https://firebasestorage.googleapis.com/v0/b/eventer-app-b1654.appspot.com/o/SourceCode%202017%2FRm-gn68K_400x400.jpg?alt=media&token=fbdc0a32-c130-4ae7-ac4a-f833fb1d9ba8","https://firebasestorage.googleapis.com/v0/b/eventer-app-b1654.appspot.com/o/SourceCode%202017%2FHAPPY%20CHRISTITES-PHARELL%20WILLIAMS%20(CHRIST%20UNIVERSITY%2CBANGALORE).3gp?alt=media&token=61f00eb7-2b03-4953-9c5f-46bacc99d74a",key,"BLAH BLAH"+i,"Gulzar",1459109);
 //            mdatabaseRef.child("stories").child(key).setValue(s);
 //        }
 

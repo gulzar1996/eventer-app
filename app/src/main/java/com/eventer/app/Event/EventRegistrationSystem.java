@@ -30,6 +30,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
+import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
 
@@ -114,13 +115,13 @@ public class EventRegistrationSystem extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Event event = dataSnapshot.getValue(Event.class);
                         if (event.registers.containsKey(uid)) {
-                            fab.setImageDrawable(new IconicsDrawable(getBaseContext(), GoogleMaterial.Icon.gmd_clear).actionBar().color(Color.BLACK));
+                            fab.setImageDrawable(new IconicsDrawable(getBaseContext(), FontAwesome.Icon.faw_times).actionBar().color(Color.WHITE));
                             Snackbar snackbar = Snackbar
                                     .make(coordinatorLayout, "Registered Successfully", Snackbar.LENGTH_LONG);
                             snackbar.show();
                             // add snack bar here
                         } else {
-                            fab.setImageDrawable(new IconicsDrawable(getBaseContext(), GoogleMaterial.Icon.gmd_done).actionBar().color(Color.BLACK));
+                            fab.setImageDrawable(new IconicsDrawable(getBaseContext(), FontAwesome.Icon.faw_check).actionBar().color(Color.WHITE));
                             Snackbar snackbar = Snackbar
                                     .make(coordinatorLayout, "Unregistered", Snackbar.LENGTH_LONG);
                             snackbar.setActionTextColor(Color.RED);
