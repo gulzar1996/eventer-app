@@ -145,7 +145,7 @@ public class EventActivity extends EventRegistrationSystem {
         // fab actions
         if (e.userkey.contains(uid)) {
             userIsAdmin = true;
-            fab.setImageDrawable(new IconicsDrawable(getBaseContext(), FontAwesome.Icon.faw_file_excel_o).actionBar().color(Color.WHITE));
+            fab.setImageDrawable(new IconicsDrawable(getBaseContext(), FontAwesome.Icon.faw_file_word_o).actionBar().color(Color.WHITE));
         } else {
             userIsAdmin = false;
             if (!eventIsToday) {

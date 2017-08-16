@@ -7,5 +7,6 @@ import org.json.JSONObject;
  */
 public interface ServerCallback {
     void onSuccessResult(JSONObject result);
+    void onFailure();
 }
 
