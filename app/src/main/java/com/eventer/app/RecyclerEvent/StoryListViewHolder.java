@@ -1,5 +1,6 @@
 package com.eventer.app.RecyclerEvent;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -68,6 +69,7 @@ public class StoryListViewHolder extends RecyclerView.ViewHolder {
                         return false;
                     }
                 })
+                .error(R.color.circle_bac)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(mstory_bitmap);
 
