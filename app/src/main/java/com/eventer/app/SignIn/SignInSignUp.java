@@ -214,7 +214,7 @@ public class SignInSignUp extends AppCompatActivity {
                 name=name+f.charAt(i);
             }
         }
-        Toast.makeText(this, "Name"+name, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Name"+name, Toast.LENGTH_SHORT).show();
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         final User userDetails = new User(regNo, name);
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
@@ -231,7 +231,7 @@ public class SignInSignUp extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful())
                                     {
-                                        Toast.makeText(SignInSignUp.this, "Created", Toast.LENGTH_SHORT).show();
+                                      //  Toast.makeText(SignInSignUp.this, "Created", Toast.LENGTH_SHORT).show();
                                         Snackbar snackbar = Snackbar
                                                 .make(coordinatorLayout, "ACCOUNT CREATED", Snackbar.LENGTH_LONG);
                                         snackbar.show();
@@ -244,7 +244,7 @@ public class SignInSignUp extends AppCompatActivity {
                                     else
                                     {
                                         toggleProgressVisibility();
-                                        Toast.makeText(SignInSignUp.this, "Failed to writed", Toast.LENGTH_SHORT).show();
+                                      //Toast.makeText(SignInSignUp.this, "Failed to writed", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
@@ -276,7 +276,7 @@ public class SignInSignUp extends AppCompatActivity {
                         }
                         else
                         {
-                            Toast.makeText(SignInSignUp.this, "Creating Account", Toast.LENGTH_SHORT).show();
+                          //  Toast.makeText(SignInSignUp.this, "Creating Account", Toast.LENGTH_SHORT).show();
                             setUserName(f,regNo);
 
                         }
@@ -311,7 +311,7 @@ public class SignInSignUp extends AppCompatActivity {
                         snackbar.show();
                     }
                     else {
-                        Toast.makeText(SignInSignUp.this, "Auth"+userName, Toast.LENGTH_SHORT).show();
+                    //    Toast.makeText(SignInSignUp.this, "Auth"+userName, Toast.LENGTH_SHORT).show();
                         createUser(email,pswd,userName);
                    }
                 }
