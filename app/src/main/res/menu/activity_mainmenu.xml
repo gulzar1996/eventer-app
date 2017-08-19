@@ -5,6 +5,10 @@
     android:title="@string/About"
     app:showAsAction="never"
     />
+<item android:id="@+id/rateit"
+    android:title="Rate it"
+    app:showAsAction="never"/>
+
 <item android:id="@+id/logooutMenu"
     android:title="@string/logout"
     app:showAsAction="never"

@@ -2,6 +2,7 @@ package com.eventer.app;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -130,6 +131,15 @@ public class MainActivity extends AppCompatActivity {
             case R.id.aboutPagemenu:
                // showNotification("hhhhhhhhhhhhhhhhhhhhh");
                 startActivity(new Intent(this, AboutActivity.class));
+                return true;
+            case R.id.rateit:
+                final String appPackageName = getPackageName();
+                try {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                }
+                catch (android.content.ActivityNotFoundException anfe) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + appPackageName)));
+                }
                 return true;
             default:
             return super.onOptionsItemSelected(item);

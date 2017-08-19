@@ -9,7 +9,7 @@ android {
         applicationId "com.eventer.app"
         minSdkVersion 18
         targetSdkVersion 25
-        versionCode 2
+        versionCode 3
         versionName "2.0"
     }
     buildTypes {
@@ -77,6 +77,5 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     //Video Player
     compile 'com.devbrackets.android:exomedia:4.0.2'
-    compile project(':bypass')
 }
 apply plugin: 'com.google.gms.google-services'
