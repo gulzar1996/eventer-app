@@ -70,7 +70,6 @@ public class StoryActivity extends AppCompatActivity implements OnPreparedListen
                 .centerCrop()
                 .into(mvideo_preview);
 
-        mstory_title.setText(mStory.storyName);
         mstory_description.setText(mStory.storyDescription);
         setupVideoView();
 
