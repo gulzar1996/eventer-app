@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("eid", eventKey);
                     Toast.makeText(this, eventKey, Toast.LENGTH_SHORT).show();
                     startActivity(intent);
+                    finish();
                 }
 
             }
@@ -127,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
+        if (FirebaseAuth.getInstance().getCurrentUser()!=null)
         menu.findItem(R.id.logooutMenu).setTitle("Logout ("+FirebaseAuth.getInstance().getCurrentUser().getDisplayName().toString()+")");
         return super.onPrepareOptionsMenu(menu);
 
