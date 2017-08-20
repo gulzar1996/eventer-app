@@ -43,6 +43,26 @@
 
     </FrameLayout>
     <LinearLayout
+        android:id="@+id/view_layout"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/rectangle"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp">
+        <TextView
+            android:id="@+id/view_count"
+            android:gravity="center"
+            tools:text="0"
+            android:drawablePadding="8dp"
+            android:drawableLeft="@drawable/ic_view"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <LinearLayout
         android:visibility="invisible"
         android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
