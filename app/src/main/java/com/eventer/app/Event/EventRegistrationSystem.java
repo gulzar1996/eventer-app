@@ -34,6 +34,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
@@ -67,7 +68,7 @@ public class EventRegistrationSystem extends AppCompatActivity {
     public Boolean userIsRegister=false,userIsAdmin=false;
     public  DatabaseReference mDatabase = FirebaseUtils.getDatabase().getReference();;
     @BindView(R.id.floating_action_button) FloatingActionButton fab;
-    @BindView(R.id.htab_maincontent) CoordinatorLayout coordinatorLayout;
+    @BindView(R.id.eventLayout) CoordinatorLayout coordinatorLayout;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,6 +130,8 @@ public class EventRegistrationSystem extends AppCompatActivity {
                             Snackbar snackbar = Snackbar
                                     .make(coordinatorLayout, "Registered Successfully", Snackbar.LENGTH_LONG);
                             snackbar.show();
+                            //Add User to Topic
+                            FirebaseMessaging.getInstance().subscribeToTopic(dataSnapshot.getKey());
                             // add snack bar here
                         } else {
                             fab.setImageDrawable(new IconicsDrawable(getBaseContext(), FontAwesome.Icon.faw_check).actionBar().color(Color.WHITE));
@@ -137,6 +140,8 @@ public class EventRegistrationSystem extends AppCompatActivity {
                             snackbar.setActionTextColor(Color.RED);
                             snackbar.show();
                             // add snack bar here
+                            //Remove user from Topic
+                            FirebaseMessaging.getInstance().unsubscribeFromTopic(dataSnapshot.getKey());
                         }
 
                     }

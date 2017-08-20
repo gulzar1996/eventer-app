@@ -28,7 +28,10 @@ import com.eventer.app.model.Event;
 import com.eventer.app.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.mikepenz.fontawesome_typeface_library.FontAwesome;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
 import com.mikepenz.iconics.IconicsDrawable;
@@ -52,7 +55,7 @@ public class EventActivity extends EventRegistrationSystem {
     ImageView mShotImageView;
     @BindView(R.id.textview_event_name)
     TextView mEventName;
-    @BindView(R.id.htab_maincontent)
+    @BindView(R.id.eventLayout)
     CoordinatorLayout coordinatorLayout;
     @BindView(R.id.ic_winners)
     TextView mic_winners;
@@ -79,6 +82,8 @@ public class EventActivity extends EventRegistrationSystem {
     private DatabaseReference eRef;
     long currentDate, eventDate;
     Boolean eventIsToday = false;
+    @BindView(R.id.progressLayout)
+    View mprogressLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,13 +106,53 @@ public class EventActivity extends EventRegistrationSystem {
 
         //Get Event Object From Previous Class
         mEvent = Parcels.unwrap(getIntent().getParcelableExtra("EXTRA_EVENT"));
-        // get Date
-        eventDate = (long) getDateFromString(mEvent.date_time).getTime();
-        currentDate = getCurrentDate().getTime();
-        if (eventDate < currentDate)
-            eventIsToday = true;
-        //load all the details
-        loadDetails(mEvent);
+
+
+        //If its passed via notification
+        if(mEvent==null)
+        {
+            eRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    mEvent=dataSnapshot.getValue(Event.class);
+                    if(mEvent!=null)
+                    {
+                        mprogressLayout.setVisibility(View.INVISIBLE);
+                        coordinatorLayout.setVisibility(View.VISIBLE);
+                        // get Date
+                        eventDate = (long) getDateFromString(mEvent.date_time).getTime();
+                        currentDate = getCurrentDate().getTime();
+                        if (eventDate < currentDate)
+                            eventIsToday = true;
+                        //load all the details
+                        loadDetails(mEvent);
+                    }
+                    else {
+                        Toast.makeText(EventActivity.this, "Strange, It was not expected to happen", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+        else
+        {
+            // get Date
+            eventDate = (long) getDateFromString(mEvent.date_time).getTime();
+            currentDate = getCurrentDate().getTime();
+            if (eventDate < currentDate)
+                eventIsToday = true;
+            //load all the details
+            loadDetails(mEvent);
+            mprogressLayout.setVisibility(View.GONE);
+            coordinatorLayout.setVisibility(View.VISIBLE);
+        }
+
+
         //Setting up ActionBar
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

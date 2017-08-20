@@ -17,8 +17,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.eventer.app.AboutPage.AboutActivity;
+import com.eventer.app.Event.EventActivity;
 import com.eventer.app.RecyclerEvent.AllEvents;
 import com.eventer.app.RecyclerEvent.MyEvents;
 import com.eventer.app.SignIn.SignInSignUp;
@@ -26,6 +28,7 @@ import com.eventer.app.model.Story;
 import com.eventer.app.util.FirebaseUtils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -52,14 +55,24 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(mtoolbar);
         mAuth = FirebaseAuth.getInstance();
 
-//        DatabaseReference mdatabaseRef= FirebaseUtils.getDatabase().getReference();
-//
-//        for(int i=1;i<=3;i++)
-//        {
-//            String key= mdatabaseRef.child("stories").push().getKey();
-//            Story s=new Story("Story Name"+1,"https://firebasestorage.googleapis.com/v0/b/eventer-app-b1654.appspot.com/o/SourceCode%202017%2FRm-gn68K_400x400.jpg?alt=media&token=fbdc0a32-c130-4ae7-ac4a-f833fb1d9ba8","https://firebasestorage.googleapis.com/v0/b/eventer-app-b1654.appspot.com/o/SourceCode%202017%2FHAPPY%20CHRISTITES-PHARELL%20WILLIAMS%20(CHRIST%20UNIVERSITY%2CBANGALORE).3gp?alt=media&token=61f00eb7-2b03-4953-9c5f-46bacc99d74a",key,"BLAH BLAH"+i,"Gulzar",1459109);
-//            mdatabaseRef.child("stories").child(key).setValue(s);
-//        }
+        //Handle any Notification Message Cool !
+        // Handle possible data accompanying notification message.
+        if (getIntent().getExtras() != null) {
+
+            for (String key : getIntent().getExtras().keySet()) {
+                String value = getIntent().getExtras().getString(key);
+
+                if (key.equals("EventActivity") && value.equalsIgnoreCase("True")) {
+                    String eventKey=getIntent().getExtras().getString("EventKey");
+                    Intent intent = new Intent(this, EventActivity.class);
+                    intent.putExtra("eid", eventKey);
+                    Toast.makeText(this, eventKey, Toast.LENGTH_SHORT).show();
+                    startActivity(intent);
+                }
+
+            }
+        }
+
 
         createTabs();
     }
