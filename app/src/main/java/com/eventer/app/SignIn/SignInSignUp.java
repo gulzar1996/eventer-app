@@ -209,7 +209,7 @@ public class SignInSignUp extends AppCompatActivity {
         String name="";
         for(int i=0;i<f.length();i++)
         {
-            if(Character.isLetter(f.charAt(i)))
+            if(Character.isLetter(f.charAt(i))|| f.charAt(i)==' ')
             {
                 name=name+f.charAt(i);
             }

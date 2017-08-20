@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(mtoolbar);
         mAuth = FirebaseAuth.getInstance();
 
+
         //Handle any Notification Message Cool !
         // Handle possible data accompanying notification message.
         if (getIntent().getExtras() != null) {
