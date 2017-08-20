@@ -40,21 +40,23 @@ public class StoryListViewHolder extends RecyclerView.ViewHolder {
     }
     public void bindToStory(final Story story, final View.OnClickListener click) {
 
-        mdatabase.child("watched-stories").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).keepSynced(true);
-        mdatabase.child("watched-stories").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(story.storyKey).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists())
-                    story_indicator.setVisibility(View.GONE);
-                else
-                    story_indicator.setVisibility(View.VISIBLE);
-            }
+        if (FirebaseAuth.getInstance().getCurrentUser()!=null) {
+            mdatabase.child("watched-stories").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).keepSynced(true);
+            mdatabase.child("watched-stories").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(story.storyKey).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.exists())
+                        story_indicator.setVisibility(View.GONE);
+                    else
+                        story_indicator.setVisibility(View.VISIBLE);
+                }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+        }
         Glide.with(mstory_bitmap.getContext())
                 .load(story.storyUrl)
                 .listener(new RequestListener<String, GlideDrawable>() {

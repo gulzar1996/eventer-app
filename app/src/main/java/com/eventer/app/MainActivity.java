@@ -1,6 +1,7 @@
 package com.eventer.app;
 
 import android.app.ActivityOptions;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -19,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.eventer.app.AboutPage.AboutActivity;
 import com.eventer.app.Event.EventActivity;
 import com.eventer.app.RecyclerEvent.AllEvents;
@@ -29,6 +31,7 @@ import com.eventer.app.util.FirebaseUtils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,20 +59,42 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
 
+        //Signed-in Topics
+        if(FirebaseAuth.getInstance().getCurrentUser()!=null)
+        FirebaseMessaging.getInstance().subscribeToTopic("signedin");
+
         //Handle any Notification Message Cool !
         // Handle possible data accompanying notification message.
         if (getIntent().getExtras() != null) {
 
-            for (String key : getIntent().getExtras().keySet()) {
+            for (String key : getIntent().getExtras().keySet())
+            {
+                //Displaying EventActivity to register Image Notification Pending Intent
                 String value = getIntent().getExtras().getString(key);
-
-                if (key.equals("EventActivity") && value.equalsIgnoreCase("True")) {
-                    String eventKey=getIntent().getExtras().getString("EventKey");
+                if (key.equals("eventActivity") && value.equalsIgnoreCase("True"))
+                {
+                    String eventKey=getIntent().getExtras().getString("eventKey");
                     Intent intent = new Intent(this, EventActivity.class);
                     intent.putExtra("eid", eventKey);
-                    Toast.makeText(this, eventKey, Toast.LENGTH_SHORT).show();
                     startActivity(intent);
                     finish();
+                }
+                //Displaying Text Dialog Box Long text notification Pending Intent
+                if(key.equals("textMessage") && value.equalsIgnoreCase("True"))
+                {
+                    String message=getIntent().getExtras().getString("message");
+                    String title=getIntent().getExtras().getString("title");
+                    new MaterialDialog.Builder(this)
+                            .title(title)
+                            .content(message)
+                            .positiveText("Okay")
+                            .dismissListener(new DialogInterface.OnDismissListener() {
+                                @Override
+                                public void onDismiss(DialogInterface dialogInterface) {
+                                    finish();
+                                }
+                            })
+                            .show();
                 }
 
             }
@@ -140,6 +165,9 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId())
         {
             case R.id.logooutMenu:
+                //Signed-off Topics
+                if(FirebaseAuth.getInstance().getCurrentUser()!=null)
+                    FirebaseMessaging.getInstance().unsubscribeFromTopic("signedin");
                 mAuth.signOut();
                 startActivity(new Intent(this,SignInSignUp.class));
                 finish();

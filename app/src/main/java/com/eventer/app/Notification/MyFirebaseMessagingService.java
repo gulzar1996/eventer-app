@@ -28,6 +28,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "FirebaseMessageService";
     Bitmap bitmap;
+    Bitmap notificationBitmap;
 
     /**
      * Called when message is received.
@@ -62,19 +63,52 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         //message will contain the Push Message
         String message = remoteMessage.getData().get("message");
         String title =remoteMessage.getData().get("title");
+        String notificationLargeIcon=remoteMessage.getData().get("notificationIcon");
         //imageUri will contain URL of the image to be displayed with Notification
         String imageUri = remoteMessage.getData().get("image");
         //If the key AnotherActivity has  value as True then when the user taps on notification, in the app AnotherActivity will be opened.
         //If the key AnotherActivity has  value as False then when the user taps on notification, in the app MainActivity will be opened.
-        String TrueOrFlase = remoteMessage.getData().get("EventActivity");
+        String TrueOrFlase = remoteMessage.getData().get("eventActivity");
 
-        String eventKey=remoteMessage.getData().get("EventKey");
+        String eventKey=remoteMessage.getData().get("eventKey");
 
         //To get a Bitmap image from the URL received
         bitmap = getBitmapfromUrl(imageUri);
+        notificationBitmap=getBitmapfromUrl(notificationLargeIcon);
 
-        sendNotification(title,message, bitmap, TrueOrFlase,eventKey);
 
+        if(imageUri!=null)
+        sendImageNotification(title,message, bitmap,notificationBitmap ,TrueOrFlase,eventKey);
+        else
+        sendLargeTextNotification(title,message,notificationBitmap);
+
+
+    }
+
+    private void sendLargeTextNotification(String title, String message, Bitmap notificationBitmap) {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("textMessage","True");
+        intent.putExtra("message", message);
+        intent.putExtra("title",title);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
+                PendingIntent.FLAG_ONE_SHOT);
+
+        Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
+                .setLargeIcon(notificationBitmap)/*Notification icon image*/
+                .setSmallIcon(R.drawable.eventer_not)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(message).setBigContentTitle(title))/*Notification with Image*/
+                .setAutoCancel(true)
+                .setSound(defaultSoundUri)
+                .setContentIntent(pendingIntent);
+
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
     }
 
 
@@ -82,21 +116,18 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
      * Create and show a simple notification containing the received FCM message.
      */
 
-    private void sendNotification(String title, String messageBody, Bitmap image, String TrueOrFalse, String eventKey) {
+    private void sendImageNotification(String title, String messageBody, Bitmap image, Bitmap notificationBitmap, String TrueOrFalse, String eventKey) {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.putExtra("EventActivity", TrueOrFalse);
-        intent.putExtra("EventKey",eventKey);
+        intent.putExtra("eventActivity", TrueOrFalse);
+        intent.putExtra("eventKey",eventKey);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);
 
-        Bitmap bitmap_ic= BitmapFactory.decodeResource(getResources(),
-                R.drawable.icon);
-
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                .setLargeIcon(bitmap_ic)/*Notification icon image*/
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setLargeIcon(notificationBitmap)/*Notification icon image*/
+                .setSmallIcon(R.drawable.eventer_not)
                 .setContentTitle(title)
                 .setContentText(messageBody)
                 .setStyle(new NotificationCompat.BigPictureStyle()
