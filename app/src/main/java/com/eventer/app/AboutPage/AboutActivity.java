@@ -118,8 +118,8 @@ public class AboutActivity extends AppCompatActivity {
         backgroundGradientgithub2.setColor(Color.BLACK);
         github2.setImageDrawable(new IconicsDrawable(github2.getContext(), FontAwesome.Icon.faw_github).actionBar().color(Color.WHITE));
         GradientDrawable backgroundGradientgithub3 = (GradientDrawable)github3.getBackground();
-        backgroundGradientgithub3.setColor(Color.BLACK);
-        github3.setImageDrawable(new IconicsDrawable(github3.getContext(), FontAwesome.Icon.faw_github).actionBar().color(Color.WHITE));
+        backgroundGradientgithub3.setColor(Color.parseColor("#1769ff"));
+        github3.setImageDrawable(new IconicsDrawable(github3.getContext(), FontAwesome.Icon.faw_behance).actionBar().color(Color.WHITE));
 
         GradientDrawable backgroundGradientlinkedin = (GradientDrawable)linkedIn.getBackground();
         backgroundGradientlinkedin.setColor(Color.parseColor("#0077b5"));
@@ -142,11 +142,10 @@ public class AboutActivity extends AppCompatActivity {
         backgroundGradientlwhatsapp3.setColor(Color.parseColor("#25d366"));
         whatsapp3.setImageDrawable(new IconicsDrawable(whatsapp3.getContext(), FontAwesome.Icon.faw_whatsapp).actionBar().color(Color.WHITE));
 
-        github3.setVisibility(View.GONE);
 
         //Set up Profile Image
         Glide.with(this)
-                .load("https://firebasestorage.googleapis.com/v0/b/magnovite-app.appspot.com/o/IMG_20170124_144655.jpg?alt=media&token=10420fb9-4534-48e1-93e3-d73b396e18c8")
+                .load(R.drawable.gulzar_a)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(profile_photo);
         Glide.with(this)
@@ -204,7 +203,7 @@ public class AboutActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(Intent.ACTION_VIEW);
-                i.setData(Uri.parse("https://github.com/rahul0388"));
+                i.setData(Uri.parse("https://www.behance.net/avrahul11dbf4"));
                 startActivity(i);
             }
         });
