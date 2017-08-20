@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,8 +25,11 @@ import com.eventer.app.util.FirebaseUtils;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.parceler.Parcels;
 
@@ -50,6 +54,10 @@ public class StoryActivity extends AppCompatActivity implements OnPreparedListen
     TextView mstory_description;
     @BindView(R.id.story_layout)
     View mstory_layout;
+    @BindView(R.id.view_layout)
+    LinearLayout mview_layout;
+    @BindView(R.id.view_count)
+    TextView view_count;
     @BindView(R.id.toolbar)
     android.support.v7.widget.Toolbar toolbar;
     DatabaseReference mdatabase;
@@ -63,6 +71,22 @@ public class StoryActivity extends AppCompatActivity implements OnPreparedListen
 
         mdatabase= FirebaseUtils.getDatabase().getReference();
         mdatabase.keepSynced(true);
+
+        //Get View Count
+        mdatabase.child("watched-stories").child(mStory.storyKey).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists())
+                    view_count.setText(dataSnapshot.getChildrenCount()+"");
+                else
+                    view_count.setText("0");
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         Glide.with(this)
                 .load(mStory.storyUrl)
@@ -87,8 +111,14 @@ public class StoryActivity extends AppCompatActivity implements OnPreparedListen
     @Override
     public void onPrepared() {
 
+        mdatabase.child("watched-stories").child(mStory.storyKey).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue("true").addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+            }
+        });
         mvideoView.setVisibility(View.VISIBLE);
         mstory_layout.setVisibility(View.VISIBLE);
+        mview_layout.setVisibility(View.VISIBLE);
         mvideo_preview.setVisibility(View.GONE);
         mpg_bar.setVisibility(View.GONE);
         mvideoView.start();
@@ -119,7 +149,7 @@ public class StoryActivity extends AppCompatActivity implements OnPreparedListen
 
     @Override
     public void onCompletion() {
-        mdatabase.child("watched-stories").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(mStory.storyKey).setValue("true").addOnCompleteListener(new OnCompleteListener<Void>() {
+        mdatabase.child("watched-stories").child(mStory.storyKey).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue("true").addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 finish();
