@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Eventer</string>
+    <string name="hint_email">reg no</string>
+    <string name="hint_password">password</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="sign_in">Sign in</string>
+    <string name="colage_name">Christ University Faculty of Engineering</string>
+    <string name="retry">Retry</string>
+    <string name="sent_message">Whats troubling you ?</string>
+    <string name="About">About us</string>
+    <string name="logout">Logout</string>
+    <string name="AboutApp">Eventer App is proudly designed and developed by Gulzar Ahmed and Gaurav Sehgal.\nLike it ? \nPlease rate it on PlayStore \nTo put your events here contact\nPh: +919742634857\nPh: +917042601587</string>
+    <string name="apikey"></string>
+</resources>
