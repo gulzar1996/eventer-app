@@ -1,2 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="F:\AndroidProject\eventer-app\third_party\bypass\src\main\assets"/><source path="F:\AndroidProject\eventer-app\third_party\bypass\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="F:\AndroidProject\eventer-app\third_party\bypass\src\debug\assets"/></dataSet></merger>
