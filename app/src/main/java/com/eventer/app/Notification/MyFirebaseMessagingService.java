@@ -19,6 +19,7 @@ import com.google.firebase.messaging.RemoteMessage;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Date;
 
 /**
  * Created by gulza on 8/19/2017.
@@ -107,8 +108,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build());
+        int m = (int) ((new Date().getTime() / 1000L) % Integer.MAX_VALUE);
+        notificationManager.notify(m /* ID of notification */, notificationBuilder.build());
     }
 
 
