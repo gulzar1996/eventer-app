@@ -120,7 +120,7 @@ public class EventRegistrationSystem extends AppCompatActivity {
     }
     void changeDesignfab(DatabaseReference mReference,final String uid)
     {
-        mReference.addListenerForSingleValueEvent(
+        mReference.addValueEventListener(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
