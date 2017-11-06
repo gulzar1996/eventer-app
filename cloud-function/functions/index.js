@@ -2,9 +2,14 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp(functions.config().firebase);
-//
 
-const secondYearPrefix = 16;
+
+const allowedYearPrefix = 16;
+//Restricting events
+const restrictEventId = ['22323sfdsfvdf', '4434435fddv'];
+/*
+ * Restricts registration 
+*/ 
 exports.moderator = functions.database
     .ref('/events/{eventId}/registers/{userId}').onCreate(event => {
       const user = event.data.val();
@@ -13,12 +18,15 @@ exports.moderator = functions.database
       const eventid = event.params.eventId;
       const userid = event.params.userId;
       const yearprefix = parseInt(regno.substring(0,2));
-      var flag = 1;
-      //Can put more restriction create an array of events
+      let isEventRestricted = false;
+    
+      //Check if the eventid is restricted by Iterating the restrictEventIdArray If 
+      for (i = 0 ; i < restrictEventId.length; i++)
+        if(restrictEventId[i] == eventid)
+        isEventRestricted = true;
 
-      if(yearprefix != secondYearPrefix)
+      if(yearprefix != allowedYearPrefix && isEventRestricted)
       {
-        flag = 0;
         return event.data.adminRef.remove().then(function() {
           console.log("Remove succeeded.");
           console.log("Event id ",eventid);
@@ -67,11 +75,6 @@ exports.moderator = functions.database
           console.log("Remove failed: " + error.message)
         });
       }
-
-
-      // //add event details
-      // if( flag == 1)
-      //   return root.child(`/my-events/${userid}/${eventid}`).set(true);
       
 });
 
