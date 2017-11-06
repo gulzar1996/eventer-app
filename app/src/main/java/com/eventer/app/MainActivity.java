@@ -30,6 +30,7 @@ import com.eventer.app.model.Story;
 import com.eventer.app.util.FirebaseUtils;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     CoordinatorLayout coordinatorLayout;
     private FragmentPagerAdapter mPagerAdapter;
     private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,11 +59,14 @@ public class MainActivity extends AppCompatActivity {
         Log.d("ActTransact","Oncreate");
         setSupportActionBar(mtoolbar);
         mAuth = FirebaseAuth.getInstance();
-
+        mDatabase = FirebaseUtils.getDatabase().getReference();
 
         //Signed-in Topics
-        if(FirebaseAuth.getInstance().getCurrentUser()!=null)
+        if(FirebaseAuth.getInstance().getCurrentUser()!=null){
         FirebaseMessaging.getInstance().subscribeToTopic("signedin");
+        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+        mDatabase.child("fcm-tokens").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("token").setValue(refreshedToken);
+        }
 
         //Handle any Notification Message Cool !
         // Handle possible data accompanying notification message.
@@ -91,7 +96,6 @@ public class MainActivity extends AppCompatActivity {
                             .dismissListener(new DialogInterface.OnDismissListener() {
                                 @Override
                                 public void onDismiss(DialogInterface dialogInterface) {
-                                    finish();
                                 }
                             })
                             .show();
