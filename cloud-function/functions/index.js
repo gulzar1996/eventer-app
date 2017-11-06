@@ -6,7 +6,7 @@ admin.initializeApp(functions.config().firebase);
 
 const allowedYearPrefix = 16;
 //Restricting events
-const restrictEventId = ['22323sfdsfvdf', '4434435fddv'];
+const restrictEventId = ["-KVF7zZfBsmo58drIGWa", "4434435fddv"];
 /*
  * Restricts registration 
 */ 
@@ -21,10 +21,13 @@ exports.moderator = functions.database
       let isEventRestricted = false;
     
       //Check if the eventid is restricted by Iterating the restrictEventIdArray If 
-      for (i = 0 ; i < restrictEventId.length; i++)
-        if(restrictEventId[i] == eventid)
+      for (var i = 0 ; i < restrictEventId.length; i++)
+        if(restrictEventId[i] == eventid){
         isEventRestricted = true;
+        break;
+      }
 
+      console.log("is event restricted ",isEventRestricted)  
       if(yearprefix != allowedYearPrefix && isEventRestricted)
       {
         return event.data.adminRef.remove().then(function() {
