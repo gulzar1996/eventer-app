@@ -6,26 +6,36 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextWatcher;
 import android.text.util.Linkify;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.eventer.app.Chat.ChatActivity;
 import com.eventer.app.R;
+import com.eventer.app.model.Broadcast;
 import com.eventer.app.model.Event;
 import com.eventer.app.model.User;
+import com.eventer.app.util.FirebaseUtils;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -77,13 +87,19 @@ public class EventActivity extends EventRegistrationSystem {
     TextView meventDate;
     @BindView(R.id.app_bar)
     AppBarLayout mapp_bar;
+    View positiveAction;
+    EditText titleInput;
+    EditText messageInput;
     private String uid, eid;
     private User userAdmin;
     private DatabaseReference eRef;
+
+    public final String adminOption[]={"View Registration","Send Notification"};
     long currentDate, eventDate;
     Boolean eventIsToday = false;
     @BindView(R.id.progressLayout)
     View mprogressLayout;
+    private DatabaseReference mNotDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +119,7 @@ public class EventActivity extends EventRegistrationSystem {
         eid = getIntent().getStringExtra("eid");
         //initialize event refrence
         eRef = mDatabase.child("events").child(eid);
-
+        mNotDatabase = FirebaseUtils.getDatabase().getReference();
         //Get Event Object From Previous Class
         mEvent = Parcels.unwrap(getIntent().getParcelableExtra("EXTRA_EVENT"));
 
@@ -191,7 +207,7 @@ public class EventActivity extends EventRegistrationSystem {
         // fab actions
         if (e.userkey.contains(uid)) {
             userIsAdmin = true;
-            fab.setImageDrawable(new IconicsDrawable(getBaseContext(), FontAwesome.Icon.faw_file_word_o).actionBar().color(Color.WHITE));
+            fab.setImageDrawable(new IconicsDrawable(getBaseContext(), FontAwesome.Icon.faw_shield).actionBar().color(Color.WHITE));
         } else {
             userIsAdmin = false;
             if (!eventIsToday) {
@@ -264,7 +280,24 @@ public class EventActivity extends EventRegistrationSystem {
             }
 
         } else {
-            getRegisterUser(eRef, true);
+
+            new MaterialDialog.Builder(this)
+                    .title("Admin Options")
+                    .icon(new IconicsDrawable(this, FontAwesome.Icon.faw_shield).actionBar().color(Color.BLACK))
+                    .items(adminOption)
+                    .itemsCallback(new MaterialDialog.ListCallback() {
+                        @Override
+                        public void onSelection(MaterialDialog dialog, View itemView, int which, CharSequence text) {
+                            if (which==0)
+                                getRegisterUser(eRef, true);
+                            if (which==1)
+                                sendBroadcast();
+                               //Open notification broadcast
+                        }
+                    })
+                    .autoDismiss(true)
+                    .show();
+
         }
 
     }
@@ -336,6 +369,82 @@ public class EventActivity extends EventRegistrationSystem {
     }
 
 
+    public void sendBroadcast()
+    {
+        MaterialDialog dialog =
+                new MaterialDialog.Builder(this)
+                        .title(R.string.sendNotification)
+                        .icon(new IconicsDrawable(this, FontAwesome.Icon.faw_envelope_o).actionBar().color(Color.BLACK))
+                        .customView(R.layout.dialog_notification_view, true)
+                        .positiveText("Send")
+                        .onPositive(new MaterialDialog.SingleButtonCallback() {
+                            @Override
+                            public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                               mNotDatabase= mNotDatabase.child("broadcast");
+                               String key = mNotDatabase.push().getKey();
+                               mNotDatabase.child(key).setValue(new Broadcast(mEvent.eventID,FirebaseAuth.getInstance().getCurrentUser().getUid(),messageInput.getText().toString(),titleInput.getText().toString())).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                   @Override
+                                   public void onComplete(@NonNull Task<Void> task) {
+                                       if(task.isSuccessful())
+                                           Toast.makeText(EventActivity.this, "Notification Sent to Participants", Toast.LENGTH_SHORT).show();
+                                       else
+                                           Toast.makeText(EventActivity.this, "Notification Failed", Toast.LENGTH_SHORT).show();
+                                   }
+                               });
+                                dialog.dismiss();
+                            }
+                        }).build();
+        positiveAction = dialog.getActionButton(DialogAction.POSITIVE);
+        positiveAction.setEnabled(false);
+        titleInput = (EditText) dialog.getCustomView().findViewById(R.id.title);
+        messageInput = (EditText) dialog.getCustomView().findViewById(R.id.message);
+        titleInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                int userName = editable.length();
+                if(userName >=1){
+                    tryEnableNotificationSendButton();
+                }
+            }
+        });
+        messageInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                positiveAction.setEnabled(charSequence.toString().trim().length() > 7);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                int userName = editable.length();
+                if(userName >=1){
+                    tryEnableNotificationSendButton();
+                }
+            }
+        });
+        dialog.show();
+    }
+
+    public void tryEnableNotificationSendButton() {
+        if (messageInput.getText().toString().length() >= 7 && (titleInput.getText().toString().length() >= 4))
+            positiveAction.setEnabled(true);
+        else
+            positiveAction.setEnabled(false);
+    }
 
     public void makeCall(String text) {
         int s, e;
