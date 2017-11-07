@@ -95,7 +95,8 @@ exports.brodcastEventNotifications = functions.database.ref('/broadcast/{broadca
   console.log("Broadcast triggered");
   const broadcast = event.data.val();
   const broadcastEvent = broadcast.event;
-  //const broadcastMessage = broadcast.message;
+  const broadcastTitle = broadcast.title;
+  const broadcastMessage = broadcast.message;
 
   const root = event.data.ref.root;
 
@@ -140,7 +141,7 @@ exports.brodcastEventNotifications = functions.database.ref('/broadcast/{broadca
                     textMessage:"True",
                     notificationIcon: logoURL,
                     message: "Foobar 1.0 is for us, the Computer Science & Engineering students to showcase our talents in our core fields as well as other parallels. Although open to all departments of CUFE and to the Management students on the Kengeri Campus, it will serve as a platform for the students of Computer Science across deaneries come together and explore horizons.",
-                    title: eventName
+                    title: broadcastTitle
                   }
               };
               //Sends Notification Tada
