@@ -6,7 +6,7 @@ admin.initializeApp(functions.config().firebase);
 
 const allowedYearPrefix = 16;
 //Restricting events
-const restrictEventId = ["-workshop4-", "-workshop3-","-workshop2-","-workshop1-"];
+const restrictEventId = ["-workshop4-", "-workshop3-","-workshop2-","-workshop1-","-Python-","-e2-"];
 /*
  * Restricts registration 
 */ 
@@ -81,20 +81,84 @@ exports.moderator = functions.database
       
 });
 
-// exports.unregisterFromEvent = functions.database.ref('/events/{eventId}/registers/{userId}')
-// .onDelete(event => {
-//   const user = event.data.previous.val();
-//   const regno = user.regno;
-//   const root = event.data.ref.root;
-//   const eventid = event.params.eventId;
-//   const userid = event.params.userId;
-//   var adaRef = admin.database().ref(`/my-events/${userid}/${eventid}`);
-//   return adaRef.remove()
-//   .then(function() {
-//     console.log("Remove succeeded.")
-//   })
-//   .catch(function(error) {
-//     console.log("Remove failed: " + error.message)
-//   });
+/*Broadcasts notification to participants
+* The organizers message is sent to all the particapants 
+- STEPS
+* Get Event logo url
+* Get reg user keys
+* Get FCM token for all the keys
+* Send FCM message to all participants 
+*/
+exports.brodcastEventNotifications = functions.database.ref('/broadcast/{broadcastId}')
+.onCreate(event => {
 
-// });
+  console.log("Broadcast triggered");
+  const broadcast = event.data.val();
+  const broadcastEvent = broadcast.event;
+  //const broadcastMessage = broadcast.message;
+
+  const root = event.data.ref.root;
+
+  return root.child(`/events/${broadcastEvent}/logoURL`).once('value').then(snap => {
+    const logoURL = snap.val();
+    return root.child(`/events/${broadcastEvent}/title`).once('value').then(snap =>{
+    const eventName = snap.val(); 
+      return root.child(`/events/${broadcastEvent}/registers`).once('value').then(snap =>{
+        //Array to store all the user keys
+      let userKeys = [];
+      if(snap.exists())//Okay so there are particiants lets get the userKeys
+      {
+          snap.forEach((child) => {
+          console.log("Broadcast user keys :", child.key); 
+          userKeys.push(child.key);
+          }); 
+          
+          //Time to get fcm token Use Promise ALL (its neater)
+          let fcmTokens = [];
+          for(var i = 0; i < userKeys.length; i++)
+            fcmTokens.push(root.child(`/fcm-tokens/${userKeys[i]}/token`).once('value'))
+          
+          return Promise.all(fcmTokens).then(results => {
+            if(results.length == 0)//No tokens found :(
+            return;
+            else
+            {
+              //Final FCM token might be less than the actual no of user key because two user may have the sam etoken
+              let finalfcmTokens = [];
+              for (var j = 0; j < results.length ; j++)
+              {
+                if(results[j].exists())//Check if FCM token exists for corresponding userKey
+                {
+                  finalfcmTokens.push(results[j].val());
+                  console.log("FCm tokens final ",results[j].val());  
+                }
+               
+              }
+              //Time tosend notification but first create a payload
+              const payload = {
+                data: {
+                    textMessage:"True",
+                    notificationIcon: logoURL,
+                    message: "Foobar 1.0 is for us, the Computer Science & Engineering students to showcase our talents in our core fields as well as other parallels. Although open to all departments of CUFE and to the Management students on the Kengeri Campus, it will serve as a platform for the students of Computer Science across deaneries come together and explore horizons.",
+                    title: eventName
+                  }
+              };
+              //Sends Notification Tada
+              return admin.messaging().sendToDevice(finalfcmTokens, payload)
+              .then(function (response) {
+                  console.log("Successfully sent message:", response);
+              })
+              .catch(function (error) {
+                  console.log("Error sending message:", error);
+               });
+            }
+          })  
+          
+      }
+
+
+      })
+    })
+  });
+
+});
