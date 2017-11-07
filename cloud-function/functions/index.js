@@ -6,7 +6,7 @@ admin.initializeApp(functions.config().firebase);
 
 const allowedYearPrefix = 16;
 //Restricting events
-const restrictEventId = ["-KVF7zZfBsmo58drIGWa", "4434435fddv"];
+const restrictEventId = ["-workshop4-", "-workshop3-","-workshop2-","-workshop1-"];
 /*
  * Restricts registration 
 */ 
